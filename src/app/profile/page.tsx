@@ -13,7 +13,10 @@ import {
   CreditCard
 } from "lucide-react";
 
+import { useRouter } from "next/navigation";
+
 export default function ProfilePage() {
+  const router = useRouter();
   const [user, setUser] = useState<{ name: string; phone: string } | null>(null);
 
   useEffect(() => {
@@ -22,6 +25,11 @@ export default function ProfilePage() {
       setUser(JSON.parse(savedUser));
     }
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    router.push("/login");
+  };
 
   return (
     <main className="flex flex-col min-h-screen p-6 pt-10 pb-24">
@@ -32,22 +40,24 @@ export default function ProfilePage() {
           </Link>
           <h1 className="text-2xl font-bold tracking-tight text-foreground">Profile</h1>
         </div>
-        <button className="p-2 bg-muted rounded-xl text-primary hover:bg-primary/10 transition-colors flex items-center gap-2 px-4">
-          <Edit3 size={18} />
-          <span className="text-sm font-bold">Edit</span>
-        </button>
+        {user && (
+          <button className="p-2 bg-muted rounded-xl text-primary hover:bg-primary/10 transition-colors flex items-center gap-2 px-4">
+            <Edit3 size={18} />
+            <span className="text-sm font-bold">Edit</span>
+          </button>
+        )}
       </header>
 
       {/* User Branding */}
       <div className="flex flex-col items-center mb-10">
         <div className="relative">
           <div className="w-24 h-24 bg-primary text-primary-foreground rounded-3xl flex items-center justify-center mb-4 shadow-lg shadow-primary/20">
-            <span className="text-3xl font-bold">{user?.name?.split(" ").map(n => n[0]).join("") || "DS"}</span>
+            <span className="text-3xl font-bold">{user?.name ? user.name.split(" ").map(n => n[0]).join("") : "?"}</span>
           </div>
-          <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-green-500 border-4 border-background rounded-full" />
+          {user && <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-green-500 border-4 border-background rounded-full" />}
         </div>
-        <h2 className="text-2xl font-bold text-foreground">{user?.name || "Devraj Singh"}</h2>
-        <p className="text-muted-foreground text-sm font-medium">Service Manager</p>
+        <h2 className="text-2xl font-bold text-foreground">{user?.name || "Guest User"}</h2>
+        <p className="text-muted-foreground text-sm font-medium">{user ? "Service Manager" : "Not Logged In"}</p>
       </div>
 
       <div className="space-y-6">
@@ -61,7 +71,7 @@ export default function ProfilePage() {
               </div>
               <div className="flex-1">
                 <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Phone Number</p>
-                <p className="font-bold text-base text-foreground">{user?.phone || "+91 9140946121"}</p>
+                <p className="font-bold text-base text-foreground">{user?.phone || "Not available"}</p>
               </div>
             </div>
             
@@ -71,7 +81,7 @@ export default function ProfilePage() {
               </div>
               <div className="flex-1">
                 <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Shop Name</p>
-                <p className="font-bold text-base text-foreground">National Genius Institute</p>
+                <p className="font-bold text-base text-foreground">{user ? "National Genius Institute" : "---"}</p>
               </div>
             </div>
 
@@ -81,7 +91,7 @@ export default function ProfilePage() {
               </div>
               <div className="flex-1">
                 <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Subscription</p>
-                <p className="font-bold text-base text-foreground">Pro Plan (Life-time)</p>
+                <p className="font-bold text-base text-foreground">{user ? "Pro Plan" : "---"}</p>
               </div>
             </div>
           </div>
@@ -101,15 +111,30 @@ export default function ProfilePage() {
               <ChevronRight size={18} className="text-muted-foreground" />
             </Link>
             
-            <Link href="/login" className="w-full p-5 flex items-center gap-4 text-red-600 hover:bg-red-50 transition-colors">
-              <div className="p-2.5 bg-red-100 rounded-xl">
-                <LogOut size={20} />
-              </div>
-              <div className="flex-1 text-left">
-                <p className="font-bold text-sm">Log Out</p>
-              </div>
-              <ChevronRight size={18} className="opacity-50" />
-            </Link>
+            {user ? (
+              <button 
+                onClick={handleLogout}
+                className="w-full p-5 flex items-center gap-4 text-red-600 hover:bg-red-50 transition-colors"
+              >
+                <div className="p-2.5 bg-red-100 rounded-xl">
+                  <LogOut size={20} />
+                </div>
+                <div className="flex-1 text-left">
+                  <p className="font-bold text-sm">Log Out</p>
+                </div>
+                <ChevronRight size={18} className="opacity-50" />
+              </button>
+            ) : (
+              <Link href="/login" className="w-full p-5 flex items-center gap-4 text-primary hover:bg-primary/5 transition-colors">
+                <div className="p-2.5 bg-primary/10 rounded-xl">
+                  <LogOut size={20} />
+                </div>
+                <div className="flex-1 text-left">
+                  <p className="font-bold text-sm">Log In</p>
+                </div>
+                <ChevronRight size={18} className="opacity-50" />
+              </Link>
+            )}
           </div>
         </section>
       </div>

@@ -16,6 +16,7 @@ import {
 import { getRecords, RecordItem } from "@/lib/data";
 
 export default function Home() {
+  const [user, setUser] = useState<{ name: string } | null>(null);
   const [stats, setStats] = useState({
     total: 0,
     paid: 0,
@@ -24,6 +25,13 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Load user
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+
+    // Load stats
     const records = getRecords();
     const paid = records.filter(r => r.isPaid).length;
     setStats({
@@ -39,8 +47,12 @@ export default function Home() {
       {/* Header Section */}
       <header className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">Welcome Back!</h1>
-          <p className="text-muted-foreground text-sm">Service Center Dashboard</p>
+          <h1 className="text-2xl font-bold tracking-tight text-foreground">
+            {user ? `Welcome, ${user.name.split(" ")[0]}!` : "Welcome Back!"}
+          </h1>
+          <p className="text-muted-foreground text-sm">
+            {user ? "Service Center Dashboard" : "Please login to manage records"}
+          </p>
         </div>
         <div className="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center border border-primary/20">
           <LayoutDashboard size={24} />
