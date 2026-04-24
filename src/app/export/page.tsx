@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft, Download, FileSpreadsheet } from "lucide-react";
 import * as XLSX from "xlsx";
-import { getRecords, RecordItem } from "@/lib/data";
+import { getRecordsFromDB } from "@/lib/actions";
+import { RecordItem } from "@/lib/data";
 
 type FilterType = "All" | "Paid" | "Unpaid";
 
@@ -14,7 +15,11 @@ export default function ExportRecords() {
   const [isExporting, setIsExporting] = useState(false);
 
   useEffect(() => {
-    setRecords(getRecords());
+    const userStr = localStorage.getItem("user");
+    if (userStr) {
+      const user = JSON.parse(userStr);
+      getRecordsFromDB(user.id).then(setRecords);
+    }
   }, []);
 
   const filteredRecords = records.filter((record) => {

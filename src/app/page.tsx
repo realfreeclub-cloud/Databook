@@ -13,7 +13,8 @@ import {
   FileText,
   Upload
 } from "lucide-react";
-import { getRecords, RecordItem } from "@/lib/data";
+import { getRecordsFromDB } from "@/lib/actions";
+import { RecordItem } from "@/lib/data";
 
 export default function Home() {
   const [user, setUser] = useState<{ name: string } | null>(null);
@@ -25,21 +26,29 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Load user
-    const savedUser = localStorage.getItem("user");
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
+    // Load user and stats
+    const fetchStats = async () => {
+      const savedUser = localStorage.getItem("user");
+      if (savedUser) {
+        const userObj = JSON.parse(savedUser);
+        setUser(userObj);
+        
+        try {
+          const records = await getRecordsFromDB(userObj.id);
+          const paid = records.filter(r => r.isPaid).length;
+          setStats({
+            total: records.length,
+            paid: paid,
+            unpaid: records.length - paid
+          });
+        } catch (error) {
+          console.error("Failed to fetch records", error);
+        }
+      }
+      setIsLoading(false);
+    };
 
-    // Load stats
-    const records = getRecords();
-    const paid = records.filter(r => r.isPaid).length;
-    setStats({
-      total: records.length,
-      paid: paid,
-      unpaid: records.length - paid
-    });
-    setIsLoading(false);
+    fetchStats();
   }, []);
 
   if (!user && !isLoading) {

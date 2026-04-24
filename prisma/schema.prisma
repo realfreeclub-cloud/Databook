@@ -16,22 +16,32 @@ model User {
   name      String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  records   RepairRecord[]
 }
 
 model RepairRecord {
-  id               String   @id @default(cuid())
-  jobNumber        String   @unique
-  name             String
-  phone            String
-  laptop           String
-  password         String?
-  issue            String
-  extraProblem     String?
-  chargerCollected Boolean  @default(false)
-  work             String?
-  amount           Float
-  isPaid           Boolean  @default(false)
-  date             String
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  id                   String   @id @default(cuid())
+  jobNumber            String   @unique
+  name                 String
+  phone                String
+  laptop               String
+  password             String?
+  issue                String
+  extraProblem         String?
+  chargerCollected     Boolean  @default(false)
+  signature            Boolean  @default(false)
+  workStatus           String   @default("Pending")
+  amount               Float
+  isPaid               Boolean  @default(false)
+  pendingAmount        Float?   @default(0)
+  receivedDate         String
+  expectedDeliveryDate String
+  completedDate        String?
+  actualDeliveryDate   String?
+  finalStatus          String   @default("Complete")
+  notes                String?
+  userId               String
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
 }

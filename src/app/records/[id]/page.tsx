@@ -5,7 +5,8 @@ import { use } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Edit2, Trash2, User, Laptop, Wrench, IndianRupee, Lock, AlertTriangle, CalendarIcon, FileText } from "lucide-react";
-import { getRecords, saveRecords, RecordItem } from "@/lib/data";
+import { getRecordsFromDB, deleteRecordFromDB } from "@/lib/actions";
+import { RecordItem } from "@/lib/data";
 
 export default function RecordDetail({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
@@ -16,17 +17,26 @@ export default function RecordDetail({ params }: { params: Promise<{ id: string 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const records = getRecords();
-    const found = records.find(r => r.id === resolvedParams.id);
-    setRecord(found || null);
-    setIsLoading(false);
+    const userStr = localStorage.getItem("user");
+    if (userStr) {
+      const user = JSON.parse(userStr);
+      getRecordsFromDB(user.id).then(records => {
+        const found = records.find(r => r.id === resolvedParams.id);
+        setRecord(found || null);
+        setIsLoading(false);
+      });
+    } else {
+      setIsLoading(false);
+    }
   }, [resolvedParams.id]);
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (!resolvedParams.id) return;
-    const records = getRecords();
-    const updated = records.filter(r => r.id !== resolvedParams.id);
-    saveRecords(updated);
+    const userStr = localStorage.getItem("user");
+    if (!userStr) return;
+    const user = JSON.parse(userStr);
+    
+    await deleteRecordFromDB(user.id, resolvedParams.id);
     
     setIsDeleted(true);
     setTimeout(() => {

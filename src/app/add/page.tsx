@@ -7,7 +7,7 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
-import { addRecord } from "@/lib/data";
+import { addRecordToDB } from "@/lib/actions";
 
 const formSchema = z.object({
   receivedDate: z.string().min(1, "Received date is required"),
@@ -78,9 +78,12 @@ export default function AddRecord() {
 
   const isOverdue = watchExpectedDeliveryDate && new Date(today) > new Date(watchExpectedDeliveryDate) && !watchActualDeliveryDate;
 
-  const onSubmit = (data: FormValues) => {
-    addRecord({
-      id: Date.now().toString(),
+  const onSubmit = async (data: FormValues) => {
+    const userStr = localStorage.getItem("user");
+    if (!userStr) return;
+    const user = JSON.parse(userStr);
+    
+    await addRecordToDB(user.id, {
       ...data,
       amount: Number(data.amount) || 0,
       pendingAmount: data.isPaid ? 0 : (data.pendingAmount ? Number(data.pendingAmount) : 0)

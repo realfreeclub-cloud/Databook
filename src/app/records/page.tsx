@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft, Search, Laptop, Wrench, Phone } from "lucide-react";
-import { getRecords, RecordItem } from "@/lib/data";
+import { getRecordsFromDB } from "@/lib/actions";
+import { RecordItem } from "@/lib/data";
 
 type FilterType = "All" | "Paid" | "Unpaid";
 
@@ -13,7 +14,11 @@ export default function Records() {
   const [records, setRecords] = useState<RecordItem[]>([]);
 
   useEffect(() => {
-    setRecords(getRecords());
+    const userStr = localStorage.getItem("user");
+    if (userStr) {
+      const user = JSON.parse(userStr);
+      getRecordsFromDB(user.id).then(setRecords);
+    }
   }, []);
 
   // Filter and search logic

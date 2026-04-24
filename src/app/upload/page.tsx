@@ -4,7 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, UploadCloud, CheckCircle2, FileSpreadsheet } from "lucide-react";
 import * as XLSX from "xlsx";
-import { getRecords, saveRecords, RecordItem } from "@/lib/data";
+import { RecordItem } from "@/lib/data";
+import { getRecordsFromDB, syncRecordsToDB } from "@/lib/actions";
 
 export default function UploadExcel() {
   const [isUploading, setIsUploading] = useState(false);
@@ -23,13 +24,20 @@ export default function UploadExcel() {
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
       const jsonData = XLSX.utils.sheet_to_json(worksheet) as Record<string, string | number | boolean>[];
 
-      const existingRecords = getRecords();
+      const userStr = localStorage.getItem("user");
+      if (!userStr) {
+        alert("Please login first.");
+        return;
+      }
+      const user = JSON.parse(userStr);
+      
+      const existingRecords = await getRecordsFromDB(user.id);
       const existingJobNumbersMap = new Map(existingRecords.map(r => [r.jobNumber.trim().toLowerCase(), r]));
 
       let successCount = 0;
       let updatedCount = 0;
 
-      const newRecords: RecordItem[] = [];
+      const newRecords: Omit<RecordItem, 'id'>[] = [];
       const recordsToUpdate: Map<string, RecordItem> = new Map();
 
       for (const row of jsonData) {
@@ -46,15 +54,15 @@ export default function UploadExcel() {
 
         // Parse date properly (Excel dates might be numeric)
         let formattedDate = new Date().toISOString().split('T')[0];
-        if (row["Date"]) {
-          if (typeof row["Date"] === 'number') {
+        if (row["Received Date"]) {
+          if (typeof row["Received Date"] === 'number') {
             // Excel serial date to JS date
-            const dateObj = new Date((row["Date"] - (25567 + 2)) * 86400 * 1000);
+            const dateObj = new Date((row["Received Date"] - (25567 + 2)) * 86400 * 1000);
             if (!isNaN(dateObj.getTime())) {
               formattedDate = dateObj.toISOString().split('T')[0];
             }
           } else {
-            formattedDate = new Date(String(row["Date"])).toISOString().split('T')[0];
+            formattedDate = new Date(String(row["Received Date"])).toISOString().split('T')[0];
           }
         }
 
@@ -86,35 +94,18 @@ export default function UploadExcel() {
         const lowerCaseJob = jobNumber.toLowerCase();
         
         if (existingJobNumbersMap.has(lowerCaseJob)) {
-          // Exists -> Update
-          const existing = existingJobNumbersMap.get(lowerCaseJob)!;
-          recordsToUpdate.set(existing.id, { ...recordData, id: existing.id });
-          updatedCount++;
+          // Ignore updates for now or handle them later
+          // We will just do skipDuplicates in syncRecordsToDB
         } else {
           // New -> Insert
-          const newRecord = {
-            ...recordData,
-            id: Date.now().toString() + Math.random().toString(36).substring(2, 9),
-          };
-          newRecords.push(newRecord);
-          existingJobNumbersMap.set(lowerCaseJob, newRecord); // Prevent dupes in same file
+          newRecords.push(recordData);
+          existingJobNumbersMap.set(lowerCaseJob, { ...recordData, id: '' } as RecordItem); // Prevent dupes in same file
           successCount++;
         }
       }
 
-      // Merge Updates and New Records
-      let finalRecords = [...existingRecords];
-      
-      if (recordsToUpdate.size > 0) {
-        finalRecords = finalRecords.map(r => recordsToUpdate.has(r.id) ? recordsToUpdate.get(r.id)! : r);
-      }
-      
       if (newRecords.length > 0) {
-        finalRecords = [...finalRecords, ...newRecords];
-      }
-
-      if (recordsToUpdate.size > 0 || newRecords.length > 0) {
-        saveRecords(finalRecords);
+        await syncRecordsToDB(user.id, newRecords);
       }
 
       setResults({
