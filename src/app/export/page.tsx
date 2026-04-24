@@ -29,7 +29,7 @@ export default function ExportRecords() {
     try {
       // Prepare data for Excel
       const exportData = filteredRecords.map((record) => ({
-        "Date": record.date,
+        "Received Date": record.receivedDate,
         "Job Number": record.jobNumber,
         "Name": record.name,
         "Phone": record.phone,
@@ -37,10 +37,17 @@ export default function ExportRecords() {
         "Issue": record.issue,
         "Extra": record.extraProblem || "",
         "Charger": record.chargerCollected ? "Yes" : "No",
-        "Work": record.work || "",
+        "Signature": record.signature ? "Yes" : "No",
+        "Work Status": record.workStatus,
         "Amount": record.amount,
         "Paid": record.isPaid ? "Yes" : "No",
+        "Pending Amount": record.pendingAmount || 0,
+        "Expected Date": record.expectedDeliveryDate,
+        "Completed Date": record.completedDate || "",
+        "Actual Date": record.actualDeliveryDate || "",
+        "Final Status": record.finalStatus,
         "Password": record.password || "",
+        "Notes": record.notes || "",
       }));
 
       // Create workbook and worksheet

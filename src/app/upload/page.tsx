@@ -58,8 +58,11 @@ export default function UploadExcel() {
           }
         }
 
+        const signatureStr = String(row["Signature"] || "").toLowerCase();
+        const signature = signatureStr === 'yes' || signatureStr === 'true' || signatureStr === '1' || signatureStr === 'y';
+
         const recordData: Omit<RecordItem, 'id'> = {
-          date: formattedDate,
+          receivedDate: formattedDate,
           jobNumber,
           name: String(row["Name"] || "Unknown"),
           phone: String(row["Phone"] || ""),
@@ -68,9 +71,16 @@ export default function UploadExcel() {
           issue: String(row["Issue"] || ""),
           extraProblem: String(row["Extra"] || ""),
           chargerCollected,
-          work: String(row["Work"] || ""),
+          signature,
+          workStatus: (row["Work Status"] as any) || "Pending",
           amount: parseFloat(String(row["Amount"])) || 0,
           isPaid,
+          pendingAmount: parseFloat(String(row["Pending Amount"])) || 0,
+          expectedDeliveryDate: String(row["Expected Date"] || formattedDate),
+          completedDate: String(row["Completed Date"] || ""),
+          actualDeliveryDate: String(row["Actual Date"] || ""),
+          finalStatus: (row["Final Status"] as any) || "Complete",
+          notes: String(row["Notes"] || ""),
         };
 
         const lowerCaseJob = jobNumber.toLowerCase();
@@ -141,7 +151,7 @@ export default function UploadExcel() {
             Upload an `.xlsx` file with the following column headers exactly:
           </p>
           <div className="flex flex-wrap gap-2 text-xs">
-            {['Date', 'Job Number', 'Name', 'Phone', 'Laptop', 'Issue', 'Extra', 'Charger', 'Work', 'Amount', 'Paid', 'Password'].map(col => (
+            {['Received Date', 'Expected Date', 'Job Number', 'Name', 'Phone', 'Laptop', 'Issue', 'Extra', 'Charger', 'Signature', 'Work Status', 'Final Status', 'Amount', 'Paid', 'Pending Amount', 'Password', 'Notes'].map(col => (
               <span key={col} className="px-2 py-1 bg-muted rounded-md font-mono text-muted-foreground border border-border">
                 {col}
               </span>

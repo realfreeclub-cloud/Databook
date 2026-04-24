@@ -3,18 +3,25 @@ export const INITIAL_RECORDS: RecordItem[] = [];
 
 export interface RecordItem {
   id: string;
+  receivedDate: string;
   jobNumber: string;
   name: string;
   phone: string;
   laptop: string;
-  password?: string;
   issue: string;
   extraProblem?: string;
   chargerCollected: boolean;
-  work?: string;
+  signature: boolean;
+  workStatus: "Done" | "Pending" | "Non Repair";
   amount: number;
   isPaid: boolean;
-  date: string;
+  pendingAmount?: number;
+  expectedDeliveryDate: string;
+  completedDate?: string;
+  actualDeliveryDate?: string;
+  finalStatus: "Complete" | "Non Repairing" | "Return Item";
+  password?: string;
+  notes?: string;
 }
 
 export function getRecords(): RecordItem[] {

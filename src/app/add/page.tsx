@@ -1,292 +1,523 @@
 "use client";
 
-import { useState } from "react";
-import { CheckCircle2, ArrowLeft } from "lucide-react";
+import { useState, useEffect } from "react";
+import { CheckCircle2, ArrowLeft, CalendarIcon, Smartphone, User, Laptop, AlertCircle, Wrench, IndianRupee, FileText } from "lucide-react";
 import Link from "next/link";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 
 import { addRecord } from "@/lib/data";
 
+const formSchema = z.object({
+  receivedDate: z.string().min(1, "Received date is required"),
+  jobNumber: z.string().min(1, "Job number is required"),
+  name: z.string().min(1, "Customer name is required"),
+  phone: z.string().min(10, "Valid phone number is required"),
+  laptop: z.string().min(1, "Laptop is required"),
+  issue: z.string().min(1, "Issue is required"),
+  extraProblem: z.string().optional(),
+  chargerCollected: z.boolean(),
+  signature: z.boolean(),
+  workStatus: z.enum(["Done", "Pending", "Non Repair"]),
+  amount: z.union([z.string(), z.number()]),
+  isPaid: z.boolean(),
+  pendingAmount: z.union([z.string(), z.number()]).optional(),
+  expectedDeliveryDate: z.string().min(1, "Expected delivery date is required"),
+  completedDate: z.string().optional(),
+  actualDeliveryDate: z.string().optional(),
+  finalStatus: z.enum(["Complete", "Non Repairing", "Return Item"]),
+  password: z.string().optional(),
+  notes: z.string().optional()
+});
+
+type FormValues = z.infer<typeof formSchema>;
+
+// Common options
+const LAPTOP_BRANDS = ["Dell", "HP", "Lenovo", "Asus", "Acer", "Apple", "MSI", "Other"];
+const ISSUES = ["Screen Broken", "Battery Issue", "Keyboard Not Working", "Motherboard Issue", "Software Issue", "Data Recovery", "Other"];
+
 export default function AddRecord() {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [chargerCollected, setChargerCollected] = useState(false);
-  const [isPaid, setIsPaid] = useState(false);
+  const [activeSelect, setActiveSelect] = useState<{ field: string, options: string[] } | null>(null);
 
-  // Get today's date in YYYY-MM-DD format for the default value
   const today = new Date().toISOString().split('T')[0];
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    
+  const { register, handleSubmit, control, watch, setValue, formState: { errors } } = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      receivedDate: today,
+      chargerCollected: false,
+      signature: false,
+      workStatus: "Pending",
+      isPaid: false,
+      finalStatus: "Complete",
+      amount: 0,
+    }
+  });
+
+  const watchPaid = watch("isPaid");
+  const watchActualDeliveryDate = watch("actualDeliveryDate");
+  const watchCompletedDate = watch("completedDate");
+  const watchExpectedDeliveryDate = watch("expectedDeliveryDate");
+  const watchWorkStatus = watch("workStatus");
+
+  // Smart logic: Update fields based on dependencies
+  useEffect(() => {
+    if (watchActualDeliveryDate) {
+      setValue("finalStatus", "Complete");
+      setValue("workStatus", "Done");
+    }
+  }, [watchActualDeliveryDate, setValue]);
+
+  useEffect(() => {
+    if (watchCompletedDate && watchWorkStatus !== "Done") {
+      setValue("workStatus", "Done");
+    }
+  }, [watchCompletedDate, watchWorkStatus, setValue]);
+
+  const isOverdue = watchExpectedDeliveryDate && new Date(today) > new Date(watchExpectedDeliveryDate) && !watchActualDeliveryDate;
+
+  const onSubmit = (data: FormValues) => {
     addRecord({
       id: Date.now().toString(),
-      date: formData.get('date') as string,
-      jobNumber: formData.get('jobNumber') as string,
-      name: formData.get('name') as string,
-      phone: formData.get('phone') as string,
-      laptop: formData.get('laptopName') as string,
-      password: formData.get('password') as string || "",
-      issue: formData.get('issue') as string,
-      extraProblem: formData.get('extraProblem') as string || "",
-      chargerCollected,
-      work: formData.get('work') as string || "",
-      amount: parseFloat(formData.get('amount') as string) || 0,
-      isPaid
+      ...data,
+      amount: Number(data.amount) || 0,
+      pendingAmount: data.isPaid ? 0 : (data.pendingAmount ? Number(data.pendingAmount) : 0)
     });
-
     setIsSubmitted(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const getBadgeColor = (status: string, type: 'work' | 'payment' | 'final') => {
+    if (type === 'payment') return status === 'true' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700';
+    if (status === 'Done' || status === 'Complete') return 'bg-green-100 text-green-700';
+    if (status === 'Pending') return 'bg-yellow-100 text-yellow-700';
+    return 'bg-red-100 text-red-700';
+  };
+
   return (
-    <main className="flex flex-col min-h-screen p-6 pt-10 pb-24">
-      <header className="flex items-center mb-8 space-x-3">
-        <Link href="/" className="p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors">
-          <ArrowLeft size={24} />
+    <main className="flex flex-col min-h-screen p-4 pt-8 pb-28 bg-muted/20">
+      <header className="flex items-center mb-6 space-x-3">
+        <Link href="/" className="p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors bg-white rounded-full shadow-sm">
+          <ArrowLeft size={20} />
         </Link>
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">Add Repair</h1>
-          <p className="text-muted-foreground text-sm">Create a new service record</p>
+          <h1 className="text-xl font-extrabold tracking-tight text-foreground">Add Repair</h1>
+          <p className="text-muted-foreground text-xs font-medium uppercase tracking-wider">Create a new service record</p>
         </div>
       </header>
 
+      {isOverdue && (
+        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-2xl flex items-start gap-3 shadow-sm animate-in fade-in">
+          <AlertCircle className="text-red-600 mt-0.5" size={20} />
+          <div>
+            <h4 className="font-bold text-red-800 text-sm">Overdue Delivery</h4>
+            <p className="text-xs text-red-600 mt-0.5">The expected delivery date has passed.</p>
+          </div>
+        </div>
+      )}
+
       {isSubmitted ? (
-        <div className="flex flex-col items-center justify-center flex-1 py-12 text-center animate-in fade-in slide-in-from-bottom-4">
-          <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-6 shadow-sm border border-green-200">
+        <div className="flex flex-col items-center justify-center flex-1 py-12 text-center animate-in fade-in slide-in-from-bottom-4 bg-white rounded-[2rem] shadow-sm border border-border p-8">
+          <div className="w-20 h-20 bg-green-100 text-green-600 rounded-[2rem] flex items-center justify-center mb-6 shadow-inner border border-green-200">
             <CheckCircle2 size={40} />
           </div>
-          <h2 className="text-2xl font-bold mb-2">Record Added!</h2>
-          <p className="text-muted-foreground mb-8">The repair details have been saved successfully.</p>
+          <h2 className="text-2xl font-black mb-2 tracking-tight">Record Added!</h2>
+          <p className="text-muted-foreground mb-8 text-sm font-medium">The repair details have been saved securely.</p>
           <button 
-            onClick={() => setIsSubmitted(false)}
-            className="w-full max-w-xs px-6 py-4 bg-primary text-primary-foreground font-semibold rounded-2xl shadow-sm hover:shadow-md transition-all active:scale-[0.98]"
+            onClick={() => {
+              setIsSubmitted(false);
+              window.location.reload();
+            }}
+            className="w-full max-w-xs px-6 py-4 bg-primary text-primary-foreground font-bold rounded-2xl shadow-lg shadow-primary/20 hover:shadow-xl transition-all active:scale-[0.98]"
           >
             Add Another Record
           </button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6 flex-1">
-          {/* Base Info Section */}
-          <div className="space-y-5 p-5 bg-white border border-border rounded-2xl shadow-sm">
-            <div className="space-y-1.5">
-              <label htmlFor="date" className="text-sm font-semibold text-foreground">
-                Date
-              </label>
-              <input 
-                id="date"
-                name="date"
-                type="date" 
-                defaultValue={today}
-                required
-                className="w-full px-4 py-3.5 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-base"
-              />
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+          
+          {/* 1. BASIC INFO */}
+          <section className="bg-white border border-border rounded-3xl p-5 shadow-sm space-y-5">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="p-2 bg-blue-50 text-blue-600 rounded-xl"><User size={18} /></div>
+              <h3 className="font-bold text-sm tracking-wide">Basic Info</h3>
             </div>
-
-            <div className="space-y-1.5">
-              <label htmlFor="jobNumber" className="text-sm font-semibold text-foreground">
-                Job Number
-              </label>
-              <input 
-                id="jobNumber"
-                name="jobNumber"
-                type="text" 
-                required
-                placeholder="E.g., JOB-1042" 
-                className="w-full px-4 py-3.5 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-base"
-              />
-            </div>
-          </div>
-
-          {/* Customer Info Section */}
-          <div className="space-y-5 p-5 bg-white border border-border rounded-2xl shadow-sm">
-            <div className="space-y-1.5">
-              <label htmlFor="name" className="text-sm font-semibold text-foreground">
-                Customer Name
-              </label>
-              <input 
-                id="name"
-                name="name"
-                type="text" 
-                required
-                placeholder="Full Name" 
-                className="w-full px-4 py-3.5 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-base"
-              />
-            </div>
-
-            <div className="space-y-1.5">
-              <label htmlFor="phone" className="text-sm font-semibold text-foreground">
-                Phone Number
-              </label>
-              <input 
-                id="phone"
-                name="phone"
-                type="tel" 
-                required
-                placeholder="000-000-0000" 
-                className="w-full px-4 py-3.5 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-base"
-              />
-            </div>
-          </div>
-
-          {/* Device & Issue Section */}
-          <div className="space-y-5 p-5 bg-white border border-border rounded-2xl shadow-sm">
-            <div className="space-y-1.5">
-              <label htmlFor="laptopName" className="text-sm font-semibold text-foreground">
-                Laptop Name / Model
-              </label>
-              <input 
-                id="laptopName"
-                name="laptopName"
-                type="text" 
-                required
-                placeholder="E.g., Dell XPS 15" 
-                className="w-full px-4 py-3.5 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-base"
-              />
-            </div>
-
-            <div className="space-y-1.5">
-              <label htmlFor="password" className="text-sm font-semibold text-foreground">
-                Password / PIN (Optional)
-              </label>
-              <input 
-                id="password"
-                name="password"
-                type="text" 
-                placeholder="Device login password" 
-                className="w-full px-4 py-3.5 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-base"
-              />
-            </div>
-
-            <div className="space-y-1.5 pt-2">
-              <label className="text-sm font-semibold text-foreground flex items-center justify-between">
-                <span>Charger Collected?</span>
-              </label>
-              <div className="flex bg-background border border-border p-1 rounded-xl">
-                <button
-                  type="button"
-                  onClick={() => setChargerCollected(true)}
-                  className={`flex-1 py-2.5 text-sm font-medium rounded-lg transition-all ${
-                    chargerCollected 
-                      ? "bg-white text-primary shadow-sm border border-border/50" 
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  Yes
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setChargerCollected(false)}
-                  className={`flex-1 py-2.5 text-sm font-medium rounded-lg transition-all ${
-                    !chargerCollected 
-                      ? "bg-white text-foreground shadow-sm border border-border/50" 
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  No
-                </button>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">Received Date</label>
+                <input 
+                  type="date" 
+                  {...register("receivedDate")}
+                  className="w-full px-4 py-3.5 bg-muted/30 border border-border rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium"
+                />
+                {errors.receivedDate && <p className="text-red-500 text-xs ml-1">{errors.receivedDate.message}</p>}
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">Job Number</label>
+                <input 
+                  type="text" 
+                  placeholder="JOB-1042"
+                  {...register("jobNumber")}
+                  className="w-full px-4 py-3.5 bg-muted/30 border border-border rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium"
+                />
+                {errors.jobNumber && <p className="text-red-500 text-xs ml-1">{errors.jobNumber.message}</p>}
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label htmlFor="issue" className="text-sm font-semibold text-foreground">
-                Main Issue
-              </label>
-              <textarea 
-                id="issue"
-                name="issue"
-                required
-                rows={3}
-                placeholder="Describe the primary problem..." 
-                className="w-full px-4 py-3.5 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-base resize-none"
+              <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">Customer Name</label>
+              <input 
+                type="text" 
+                placeholder="Full Name"
+                {...register("name")}
+                className="w-full px-4 py-3.5 bg-muted/30 border border-border rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium"
               />
+              {errors.name && <p className="text-red-500 text-xs ml-1">{errors.name.message}</p>}
             </div>
 
             <div className="space-y-1.5">
-              <label htmlFor="extraProblem" className="text-sm font-semibold text-foreground">
-                Extra Problem / Notes (Optional)
-              </label>
-              <textarea 
-                id="extraProblem"
-                name="extraProblem"
-                rows={2}
-                placeholder="Any additional issues or scratches..." 
-                className="w-full px-4 py-3.5 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-base resize-none"
+              <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">Contact Number</label>
+              <input 
+                type="tel" 
+                placeholder="000-000-0000"
+                {...register("phone")}
+                className="w-full px-4 py-3.5 bg-muted/30 border border-border rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium"
               />
+              {errors.phone && <p className="text-red-500 text-xs ml-1">{errors.phone.message}</p>}
             </div>
-          </div>
+          </section>
 
-          {/* Pricing & Work Section */}
-          <div className="space-y-5 p-5 bg-white border border-border rounded-2xl shadow-sm">
-            <div className="space-y-1.5">
-              <label htmlFor="work" className="text-sm font-semibold text-foreground">
-                Work Done / Required
-              </label>
-              <textarea 
-                id="work"
-                name="work"
-                rows={3}
-                placeholder="Details of the repair work..." 
-                className="w-full px-4 py-3.5 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-base resize-none"
-              />
+          {/* 2. LAPTOP DETAILS */}
+          <section className="bg-white border border-border rounded-3xl p-5 shadow-sm space-y-5">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="p-2 bg-purple-50 text-purple-600 rounded-xl"><Laptop size={18} /></div>
+              <h3 className="font-bold text-sm tracking-wide">Laptop Details</h3>
             </div>
 
             <div className="space-y-1.5">
-              <label htmlFor="amount" className="text-sm font-semibold text-foreground">
-                Amount
-              </label>
-              <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">₹</span>
-                <input 
-                  id="amount"
-                  name="amount"
-                  type="number" 
-                  required
-                  min="0"
-                  step="0.01"
-                  placeholder="0.00" 
-                  className="w-full pl-9 pr-4 py-3.5 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-base font-semibold"
+              <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">Laptop Name / Model</label>
+              <div 
+                className="w-full px-4 py-3.5 bg-muted/30 border border-border rounded-2xl cursor-pointer text-sm font-medium flex justify-between items-center"
+                onClick={() => setActiveSelect({ field: "laptop", options: LAPTOP_BRANDS })}
+              >
+                <Controller
+                  control={control}
+                  name="laptop"
+                  render={({ field }) => (
+                    <span className={field.value ? "text-foreground" : "text-muted-foreground"}>
+                      {field.value || "Select Laptop Brand"}
+                    </span>
+                  )}
+                />
+              </div>
+              {errors.laptop && <p className="text-red-500 text-xs ml-1">{errors.laptop.message}</p>}
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">Primary Issue</label>
+              <div 
+                className="w-full px-4 py-3.5 bg-muted/30 border border-border rounded-2xl cursor-pointer text-sm font-medium flex justify-between items-center"
+                onClick={() => setActiveSelect({ field: "issue", options: ISSUES })}
+              >
+                <Controller
+                  control={control}
+                  name="issue"
+                  render={({ field }) => (
+                    <span className={field.value ? "text-foreground" : "text-muted-foreground"}>
+                      {field.value || "Select Main Issue"}
+                    </span>
+                  )}
+                />
+              </div>
+              {errors.issue && <p className="text-red-500 text-xs ml-1">{errors.issue.message}</p>}
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">Extra Problem (Optional)</label>
+              <input 
+                type="text" 
+                placeholder="E.g., Missing screws, scratches"
+                {...register("extraProblem")}
+                className="w-full px-4 py-3.5 bg-muted/30 border border-border rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium"
+              />
+            </div>
+            
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">Device Password (Optional)</label>
+              <input 
+                type="text" 
+                placeholder="PIN or Password"
+                {...register("password")}
+                className="w-full px-4 py-3.5 bg-muted/30 border border-border rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium"
+              />
+            </div>
+          </section>
+
+          {/* 3. ACCESSORIES */}
+          <section className="bg-white border border-border rounded-3xl p-5 shadow-sm space-y-5">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="p-2 bg-amber-50 text-amber-600 rounded-xl"><Smartphone size={18} /></div>
+              <h3 className="font-bold text-sm tracking-wide">Accessories & Verification</h3>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">Charger Collected</label>
+                <Controller
+                  control={control}
+                  name="chargerCollected"
+                  render={({ field }) => (
+                    <div className="flex bg-muted/30 border border-border p-1 rounded-2xl">
+                      <button type="button" onClick={() => field.onChange(true)} className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${field.value ? "bg-white text-primary shadow-sm" : "text-muted-foreground"}`}>Yes</button>
+                      <button type="button" onClick={() => field.onChange(false)} className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${!field.value ? "bg-white text-foreground shadow-sm" : "text-muted-foreground"}`}>No</button>
+                    </div>
+                  )}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">Customer Signature</label>
+                <Controller
+                  control={control}
+                  name="signature"
+                  render={({ field }) => (
+                    <div className="flex bg-muted/30 border border-border p-1 rounded-2xl">
+                      <button type="button" onClick={() => field.onChange(true)} className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${field.value ? "bg-white text-primary shadow-sm" : "text-muted-foreground"}`}>Yes</button>
+                      <button type="button" onClick={() => field.onChange(false)} className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${!field.value ? "bg-white text-foreground shadow-sm" : "text-muted-foreground"}`}>No</button>
+                    </div>
+                  )}
                 />
               </div>
             </div>
+          </section>
 
-            <div className="space-y-1.5 pt-2">
-              <label className="text-sm font-semibold text-foreground flex items-center justify-between">
-                <span>Payment Status</span>
-              </label>
-              <div className="flex bg-background border border-border p-1 rounded-xl">
+          {/* 4. WORK STATUS & 7. FINAL STATUS */}
+          <section className="bg-white border border-border rounded-3xl p-5 shadow-sm space-y-5">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="p-2 bg-indigo-50 text-indigo-600 rounded-xl"><Wrench size={18} /></div>
+              <h3 className="font-bold text-sm tracking-wide">Status Tracking</h3>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">Work Status</label>
+              <Controller
+                control={control}
+                name="workStatus"
+                render={({ field }) => (
+                  <div className="grid grid-cols-3 gap-2">
+                    {["Pending", "Done", "Non Repair"].map((status) => (
+                      <div 
+                        key={status}
+                        onClick={() => field.onChange(status)}
+                        className={`text-center py-3 px-1 rounded-2xl text-xs font-bold transition-all cursor-pointer border ${field.value === status ? getBadgeColor(status, 'work') + " border-transparent shadow-sm ring-2 ring-primary/20" : "bg-muted/30 border-border text-muted-foreground hover:bg-muted"}`}
+                      >
+                        {status}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">Final Status</label>
+              <Controller
+                control={control}
+                name="finalStatus"
+                render={({ field }) => (
+                  <div className="grid grid-cols-3 gap-2">
+                    {["Complete", "Return Item", "Non Repairing"].map((status) => (
+                      <div 
+                        key={status}
+                        onClick={() => field.onChange(status)}
+                        className={`text-center py-3 px-1 rounded-2xl text-[11px] leading-tight font-bold transition-all cursor-pointer border flex items-center justify-center ${field.value === status ? getBadgeColor(status, 'final') + " border-transparent shadow-sm ring-2 ring-primary/20" : "bg-muted/30 border-border text-muted-foreground hover:bg-muted"}`}
+                      >
+                        {status}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              />
+            </div>
+          </section>
+
+          {/* 6. IMPORTANT DATES */}
+          <section className="bg-white border border-border rounded-3xl p-5 shadow-sm space-y-5">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="p-2 bg-teal-50 text-teal-600 rounded-xl"><CalendarIcon size={18} /></div>
+              <h3 className="font-bold text-sm tracking-wide">Important Dates</h3>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1 text-red-500 flex items-center gap-1">Expected Date <span className="text-[10px]">*</span></label>
+                <input 
+                  type="date" 
+                  {...register("expectedDeliveryDate")}
+                  className="w-full px-4 py-3.5 bg-red-50 border border-red-100 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all text-sm font-bold text-red-900"
+                />
+                {errors.expectedDeliveryDate && <p className="text-red-500 text-xs ml-1">{errors.expectedDeliveryDate.message}</p>}
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">Completed Date</label>
+                <input 
+                  type="date" 
+                  {...register("completedDate")}
+                  className="w-full px-4 py-3.5 bg-muted/30 border border-border rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium"
+                />
+              </div>
+
+              <div className="col-span-2 space-y-1.5">
+                <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">Actual Delivery Date</label>
+                <input 
+                  type="date" 
+                  {...register("actualDeliveryDate")}
+                  className="w-full px-4 py-3.5 bg-muted/30 border border-border rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium"
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* 5. PAYMENT INFO */}
+          <section className="bg-white border border-border rounded-3xl p-5 shadow-sm space-y-5">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="p-2 bg-green-50 text-green-600 rounded-xl"><IndianRupee size={18} /></div>
+              <h3 className="font-bold text-sm tracking-wide">Payment Info</h3>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">Job Amount</label>
+              <div className="relative">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground font-bold">₹</span>
+                <input 
+                  type="number" 
+                  placeholder="0.00"
+                  {...register("amount")}
+                  className="w-full pl-9 pr-4 py-3.5 bg-muted/30 border border-border rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-base font-black text-foreground"
+                />
+              </div>
+              {errors.amount && <p className="text-red-500 text-xs ml-1">{errors.amount.message}</p>}
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">Payment Status</label>
+              <Controller
+                control={control}
+                name="isPaid"
+                render={({ field }) => (
+                  <div className="flex bg-muted/30 border border-border p-1 rounded-2xl">
+                    <button type="button" onClick={() => field.onChange(true)} className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${field.value ? "bg-green-500 text-white shadow-sm" : "text-muted-foreground"}`}>Paid Full</button>
+                    <button type="button" onClick={() => field.onChange(false)} className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${!field.value ? "bg-amber-500 text-white shadow-sm" : "text-muted-foreground"}`}>Unpaid / Advance</button>
+                  </div>
+                )}
+              />
+            </div>
+
+            {!watchPaid && (
+              <div className="space-y-1.5 animate-in fade-in slide-in-from-top-2">
+                <label className="text-xs font-bold text-red-500 uppercase tracking-wider ml-1">Pending Amount</label>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-red-500 font-bold">₹</span>
+                  <input 
+                    type="number" 
+                    placeholder="0.00"
+                    {...register("pendingAmount")}
+                    className="w-full pl-9 pr-4 py-3.5 bg-red-50 border border-red-200 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all text-base font-black text-red-700"
+                  />
+                </div>
+              </div>
+            )}
+          </section>
+
+          {/* 8. NOTES */}
+          <section className="bg-white border border-border rounded-3xl p-5 shadow-sm space-y-3">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="p-2 bg-slate-100 text-slate-600 rounded-xl"><FileText size={18} /></div>
+              <h3 className="font-bold text-sm tracking-wide">Delivery Notes</h3>
+            </div>
+            
+            <textarea 
+              rows={3}
+              placeholder="Any specific delivery instructions or notes..."
+              {...register("notes")}
+              className="w-full px-4 py-3.5 bg-muted/30 border border-border rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium resize-none"
+            />
+          </section>
+
+          <button 
+            type="submit"
+            className="w-full py-5 bg-primary text-primary-foreground font-black text-lg rounded-[2rem] shadow-xl shadow-primary/30 hover:shadow-2xl hover:-translate-y-1 transition-all active:scale-[0.98] mt-2 mb-10 border border-primary-foreground/10"
+          >
+            Create Record
+          </button>
+        </form>
+      )}
+
+      {/* Bottom Sheet for Selections */}
+      {activeSelect && (
+        <div className="fixed inset-0 z-[100] flex flex-col justify-end">
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-in fade-in" onClick={() => setActiveSelect(null)} />
+          <div className="relative bg-white rounded-t-[2.5rem] p-6 pb-12 animate-in slide-in-from-bottom shadow-2xl border-t border-border">
+            <div className="w-12 h-1.5 bg-muted rounded-full mx-auto mb-6" />
+            <h3 className="text-xl font-bold mb-6 tracking-tight text-center">
+              Select {activeSelect.field === "laptop" ? "Laptop Brand" : "Primary Issue"}
+            </h3>
+            <div className="grid grid-cols-1 gap-2 max-h-[50vh] overflow-y-auto px-2">
+              {activeSelect.options.map((option) => (
                 <button
+                  key={option}
                   type="button"
-                  onClick={() => setIsPaid(true)}
-                  className={`flex-1 py-2.5 text-sm font-medium rounded-lg transition-all ${
-                    isPaid 
-                      ? "bg-green-500 text-white shadow-sm border border-green-600" 
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
+                  onClick={() => {
+                    setValue(activeSelect.field as any, option);
+                    setActiveSelect(null);
+                  }}
+                  className="w-full text-left py-4 px-6 rounded-2xl hover:bg-muted/50 active:bg-muted font-semibold text-foreground transition-colors border border-transparent hover:border-border"
                 >
-                  Paid
+                  {option}
                 </button>
-                <button
+              ))}
+            </div>
+            {/* Allow manual entry */}
+            <div className="mt-4 pt-4 border-t border-border px-2">
+              <p className="text-xs text-muted-foreground font-bold uppercase tracking-wider mb-2">Or enter manually</p>
+              <div className="flex gap-2">
+                <input 
+                  type="text" 
+                  id={`manual-${activeSelect.field}`}
+                  placeholder="Type here..."
+                  className="flex-1 px-4 py-3 bg-muted/30 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm font-medium"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      const val = e.currentTarget.value;
+                      if (val) {
+                        setValue(activeSelect.field as any, val);
+                        setActiveSelect(null);
+                      }
+                    }
+                  }}
+                />
+                <button 
                   type="button"
-                  onClick={() => setIsPaid(false)}
-                  className={`flex-1 py-2.5 text-sm font-medium rounded-lg transition-all ${
-                    !isPaid 
-                      ? "bg-amber-500 text-white shadow-sm border border-amber-600" 
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
+                  onClick={() => {
+                    const el = document.getElementById(`manual-${activeSelect.field}`) as HTMLInputElement;
+                    if (el && el.value) {
+                      setValue(activeSelect.field as any, el.value);
+                      setActiveSelect(null);
+                    }
+                  }}
+                  className="px-4 py-3 bg-primary text-white font-bold rounded-xl"
                 >
-                  Unpaid
+                  Add
                 </button>
               </div>
             </div>
           </div>
-
-          <button 
-            type="submit"
-            className="mt-2 w-full py-4 bg-primary text-primary-foreground font-semibold text-lg rounded-2xl shadow-sm hover:shadow-md transition-all active:scale-[0.98]"
-          >
-            Save Record
-          </button>
-        </form>
+        </div>
       )}
     </main>
   );
