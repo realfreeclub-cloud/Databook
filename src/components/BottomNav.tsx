@@ -2,17 +2,28 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Plus, List, LifeBuoy, User } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Home, Plus, List, LifeBuoy, User, LogIn } from "lucide-react";
 
 export default function BottomNav() {
   const pathname = usePathname();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    setIsLoggedIn(!!user);
+  }, [pathname]); // Refresh on navigation
 
   const navItems = [
     { name: "Home", href: "/", icon: Home },
-    { name: "Records", href: "/records", icon: List },
-    { name: "Add", href: "/add", icon: Plus, isCenter: true },
+    { name: "Records", href: isLoggedIn ? "/records" : "/login", icon: List },
+    { name: "Add", href: isLoggedIn ? "/add" : "/login", icon: Plus, isCenter: true },
     { name: "Support", href: "/support", icon: LifeBuoy },
-    { name: "Profile", href: "/profile", icon: User },
+    { 
+      name: isLoggedIn ? "Profile" : "Login", 
+      href: isLoggedIn ? "/profile" : "/login", 
+      icon: isLoggedIn ? User : LogIn 
+    },
   ];
 
   return (
