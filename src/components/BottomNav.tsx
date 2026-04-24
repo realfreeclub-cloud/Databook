@@ -36,7 +36,7 @@ export default function BottomNav() {
           if (item.isCenter) {
             return (
               <Link 
-                key={item.href} 
+                key={item.name} 
                 href={item.href}
                 className="relative -top-4 flex items-center justify-center"
               >
@@ -51,7 +51,7 @@ export default function BottomNav() {
 
           return (
             <Link 
-              key={item.href} 
+              key={item.name} 
               href={item.href}
               className={`flex flex-col items-center justify-center w-full h-full space-y-1 transition-all active:scale-95 ${
                 isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
