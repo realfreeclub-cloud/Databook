@@ -47,6 +47,21 @@ export async function addRecordToDB(userId: string, record: Omit<RecordItem, 'id
   }
 }
 
+export async function updateRecordInDB(userId: string, id: string, record: Partial<Omit<RecordItem, 'id'>>) {
+  if (!userId) return { success: false, error: "Not logged in" };
+
+  try {
+    const updated = await prisma.repairRecord.updateMany({
+      where: { id, userId },
+      data: record
+    });
+    return { success: true, count: updated.count };
+  } catch (e) {
+    console.error("Failed to update record:", e);
+    return { success: false, error: "Failed to update record" };
+  }
+}
+
 export async function deleteRecordFromDB(userId: string, id: string) {
   if (!userId) return { success: false };
   try {
@@ -80,5 +95,18 @@ export async function syncRecordsToDB(userId: string, records: Omit<RecordItem, 
   } catch (e) {
     console.error("Failed to sync records:", e);
     return { success: false };
+  }
+}
+
+export async function updateUserInDB(id: string, name: string) {
+  try {
+    const user = await prisma.user.update({
+      where: { id },
+      data: { name }
+    });
+    return { success: true, user };
+  } catch (e) {
+    console.error("Failed to update user:", e);
+    return { success: false, error: "Failed to update user" };
   }
 }

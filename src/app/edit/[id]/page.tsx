@@ -1,13 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { CheckCircle2, ArrowLeft, CalendarIcon, Smartphone, User, Laptop, AlertCircle, Wrench, IndianRupee, FileText } from "lucide-react";
 import Link from "next/link";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { useRouter } from "next/navigation";
 
-import { addRecordToDB } from "@/lib/actions";
+import { getRecordsFromDB, updateRecordInDB } from "@/lib/actions";
 
 const formSchema = z.object({
   receivedDate: z.string().min(1, "Received date is required"),
@@ -39,13 +40,16 @@ const ISSUES = ["Screen Broken", "Battery Issue", "Keyboard Not Working", "Mothe
 const WORK_STATUSES = ["Pending", "Done", "Non Repair"];
 const FINAL_STATUSES = ["Complete", "Return Item", "Non Repairing"];
 
-export default function AddRecord() {
+export default function EditRecord({ params }: { params: Promise<{ id: string }> }) {
+  const router = useRouter();
+  const resolvedParams = use(params);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [activeSelect, setActiveSelect] = useState<{ field: string, options: string[], allowManual?: boolean } | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const today = new Date().toISOString().split('T')[0];
 
-  const { register, handleSubmit, control, watch, setValue, formState: { errors } } = useForm<FormValues>({
+  const { register, handleSubmit, control, watch, setValue, reset, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       receivedDate: today,
@@ -57,6 +61,26 @@ export default function AddRecord() {
       amount: 0,
     }
   });
+
+  useEffect(() => {
+    const userStr = localStorage.getItem("user");
+    if (userStr) {
+      const user = JSON.parse(userStr);
+      getRecordsFromDB(user.id).then(records => {
+        const found = records.find(r => r.id === resolvedParams.id);
+        if (found) {
+          reset({
+            ...found,
+            amount: found.amount,
+            pendingAmount: found.pendingAmount,
+          });
+        }
+        setIsLoading(false);
+      });
+    } else {
+      setIsLoading(false);
+    }
+  }, [resolvedParams.id, reset]);
 
   const watchPaid = watch("isPaid");
   const watchActualDeliveryDate = watch("actualDeliveryDate");
@@ -85,13 +109,16 @@ export default function AddRecord() {
     if (!userStr) return;
     const user = JSON.parse(userStr);
     
-    await addRecordToDB(user.id, {
+    await updateRecordInDB(user.id, resolvedParams.id, {
       ...data,
       amount: Number(data.amount) || 0,
       pendingAmount: data.isPaid ? 0 : (data.pendingAmount ? Number(data.pendingAmount) : 0)
     });
     setIsSubmitted(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+      router.push(`/records/${resolvedParams.id}`);
+    }, 1500);
   };
 
   const getBadgeColor = (status: string, type: 'work' | 'payment' | 'final') => {
@@ -101,15 +128,24 @@ export default function AddRecord() {
     return 'bg-red-100 text-red-700';
   };
 
+  if (isLoading) {
+    return (
+      <main className="flex flex-col items-center justify-center min-h-screen p-6 bg-muted/20">
+        <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4"></div>
+        <p className="text-muted-foreground font-medium animate-pulse">Loading record details...</p>
+      </main>
+    );
+  }
+
   return (
     <main className="flex flex-col min-h-screen p-4 pt-8 pb-28 bg-muted/20">
       <header className="flex items-center mb-6 space-x-3">
-        <Link href="/" className="p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors bg-white rounded-full shadow-sm">
+        <Link href={`/records/${resolvedParams.id}`} className="p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors bg-white rounded-full shadow-sm">
           <ArrowLeft size={20} />
         </Link>
         <div>
-          <h1 className="text-xl font-extrabold tracking-tight text-foreground">Add Repair</h1>
-          <p className="text-muted-foreground text-xs font-medium uppercase tracking-wider">Create a new service record</p>
+          <h1 className="text-xl font-extrabold tracking-tight text-foreground">Edit Repair</h1>
+          <p className="text-muted-foreground text-xs font-medium uppercase tracking-wider">Update service record</p>
         </div>
       </header>
 
@@ -128,16 +164,13 @@ export default function AddRecord() {
           <div className="w-20 h-20 bg-green-100 text-green-600 rounded-[2rem] flex items-center justify-center mb-6 shadow-inner border border-green-200">
             <CheckCircle2 size={40} />
           </div>
-          <h2 className="text-2xl font-black mb-2 tracking-tight">Record Added!</h2>
-          <p className="text-muted-foreground mb-8 text-sm font-medium">The repair details have been saved securely.</p>
+          <h2 className="text-2xl font-black mb-2 tracking-tight">Record Updated!</h2>
+          <p className="text-muted-foreground mb-8 text-sm font-medium">The repair details have been updated securely.</p>
           <button 
-            onClick={() => {
-              setIsSubmitted(false);
-              window.location.reload();
-            }}
+            onClick={() => router.push(`/records/${resolvedParams.id}`)}
             className="w-full max-w-xs px-6 py-4 bg-primary text-primary-foreground font-bold rounded-2xl shadow-lg shadow-primary/20 hover:shadow-xl transition-all active:scale-[0.98]"
           >
-            Add Another Record
+            Back to Record
           </button>
         </div>
       ) : (
@@ -451,7 +484,7 @@ export default function AddRecord() {
             type="submit"
             className="w-full py-5 bg-primary text-primary-foreground font-black text-lg rounded-[2rem] shadow-xl shadow-primary/30 hover:shadow-2xl hover:-translate-y-1 transition-all active:scale-[0.98] mt-2 mb-10 border border-primary-foreground/10"
           >
-            Create Record
+            Update Record
           </button>
         </form>
       )}

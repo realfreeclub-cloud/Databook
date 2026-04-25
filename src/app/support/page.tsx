@@ -9,9 +9,9 @@ export default function SupportPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const contactNumber = "+919140946121";
-  const whatsappNumber = "919140946121";
-  const emailAddress = "devraj@lotusloop.in";
+  const contactNumber = "+917786961902";
+  const whatsappNumber = "919178601307";
+  const emailAddress = "support@refurhub.com";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,8 +44,9 @@ export default function SupportPage() {
             <Phone size={24} />
           </div>
           <div className="flex-1">
-            <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Call Us</p>
-            <p className="font-bold text-foreground mb-3">+91 9140946121</p>
+            <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Support Line 01</p>
+            <p className="font-bold text-foreground mb-1">+91 77869 61902</p>
+            <p className="text-xs text-muted-foreground mb-3 font-medium">Mon-Sat, 10am - 8pm</p>
             <a 
               href={`tel:${contactNumber}`}
               className="inline-flex items-center text-sm font-bold text-primary hover:underline"
@@ -60,8 +61,9 @@ export default function SupportPage() {
             <MessageCircle size={24} />
           </div>
           <div className="flex-1">
-            <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">WhatsApp</p>
-            <p className="font-bold text-foreground mb-3">+91 9140946121</p>
+            <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">WhatsApp Support</p>
+            <p className="font-bold text-foreground mb-1">+91 91786 01307</p>
+            <p className="text-xs text-muted-foreground mb-3 font-medium">Priority Technical Support</p>
             <a 
               href={`https://wa.me/${whatsappNumber}`}
               target="_blank"
@@ -78,7 +80,7 @@ export default function SupportPage() {
             <Mail size={24} />
           </div>
           <div className="flex-1">
-            <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Email</p>
+            <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Email Registry</p>
             <p className="font-bold text-foreground mb-3">{emailAddress}</p>
             <a 
               href={`mailto:${emailAddress}`}

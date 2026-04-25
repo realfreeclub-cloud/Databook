@@ -17,14 +17,34 @@ import { useRouter } from "next/navigation";
 
 export default function ProfilePage() {
   const router = useRouter();
-  const [user, setUser] = useState<{ name: string; phone: string } | null>(null);
+  const [user, setUser] = useState<{ id: string; name: string; phone: string } | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editName, setEditName] = useState("");
 
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
     if (savedUser) {
-      setUser(JSON.parse(savedUser));
+      const parsed = JSON.parse(savedUser);
+      setUser(parsed);
+      setEditName(parsed.name || "");
     }
   }, []);
+
+  const handleSaveProfile = async () => {
+    if (!user) return;
+    try {
+      const { updateUserInDB } = await import("@/lib/actions");
+      const result = await updateUserInDB(user.id, editName);
+      if (result.success && result.user) {
+        const updatedUser = { ...user, name: result.user.name || "" };
+        setUser(updatedUser);
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+        setIsEditing(false);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -41,7 +61,10 @@ export default function ProfilePage() {
           <h1 className="text-2xl font-bold tracking-tight text-foreground">Profile</h1>
         </div>
         {user && (
-          <button className="p-2 bg-muted rounded-xl text-primary hover:bg-primary/10 transition-colors flex items-center gap-2 px-4">
+          <button 
+            onClick={() => setIsEditing(true)}
+            className="p-2 bg-muted rounded-xl text-primary hover:bg-primary/10 transition-colors flex items-center gap-2 px-4"
+          >
             <Edit3 size={18} />
             <span className="text-sm font-bold">Edit</span>
           </button>
@@ -146,6 +169,40 @@ export default function ProfilePage() {
           </p>
         </div>
       </footer>
+
+      {/* Edit Profile Modal */}
+      {isEditing && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm animate-in fade-in p-4">
+          <div className="bg-white rounded-3xl p-6 w-full max-w-sm shadow-xl animate-in slide-in-from-bottom-4">
+            <h3 className="text-xl font-bold mb-4 text-foreground">Edit Profile</h3>
+            <div className="space-y-4 mb-6">
+              <div>
+                <label className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1 block">Full Name</label>
+                <input 
+                  type="text" 
+                  value={editName}
+                  onChange={(e) => setEditName(e.target.value)}
+                  className="w-full px-4 py-3 bg-muted/30 border border-border rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium"
+                />
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <button 
+                onClick={() => setIsEditing(false)}
+                className="flex-1 py-3 bg-muted text-foreground font-bold rounded-xl hover:bg-muted/80 transition-colors"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={handleSaveProfile}
+                className="flex-1 py-3 bg-primary text-primary-foreground font-bold rounded-xl hover:bg-primary/90 transition-colors"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

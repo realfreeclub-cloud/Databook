@@ -258,14 +258,14 @@ export default function RecordDetail({ params }: { params: Promise<{ id: string 
           </section>
         )}
 
-        {/* Action Buttons */}
         <div className="flex items-center gap-3 pt-2">
-          <button 
+          <Link 
+            href={`/edit/${record.id}`}
             className="flex-1 flex items-center justify-center gap-2 py-4 bg-white text-foreground font-bold rounded-2xl shadow-sm border border-border hover:bg-muted/30 transition-all active:scale-[0.98]"
           >
             <Edit2 size={18} />
             Edit Record
-          </button>
+          </Link>
           <button 
             onClick={() => setShowDeleteConfirm(true)}
             className="flex-1 flex items-center justify-center gap-2 py-4 bg-red-50 text-red-600 font-bold rounded-2xl shadow-sm border border-red-100 hover:bg-red-100 transition-all active:scale-[0.98]"
