@@ -39,11 +39,40 @@ const ISSUES = ["Screen Broken", "Battery Issue", "Keyboard Not Working", "Mothe
 const WORK_STATUSES = ["Pending", "Done", "Non Repair"];
 const FINAL_STATUSES = ["Complete", "Return Item", "Non Repairing"];
 
+const toYYYYMMDD = (d: string) => {
+  if (!d || !d.includes('/')) return '';
+  const parts = d.split('/');
+  if (parts.length !== 3) return '';
+  const [dd, mm, yy] = parts;
+  return `20${yy}-${mm}-${dd}`;
+};
+
+const toDDMMYY = (d: string) => {
+  if (!d) return '';
+  if (d.includes('-')) {
+    const parts = d.split('-');
+    if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0].slice(-2)}`;
+  }
+  return d;
+};
+
 export default function AddRecord() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [activeSelect, setActiveSelect] = useState<{ field: string, options: string[], allowManual?: boolean } | null>(null);
 
-  const today = new Date().toISOString().split('T')[0];
+  const now = new Date();
+  const dd = String(now.getDate()).padStart(2, '0');
+  const mm = String(now.getMonth() + 1).padStart(2, '0');
+  const yy = String(now.getFullYear()).slice(-2);
+  const today = `${dd}/${mm}/${yy}`;
+
+  const parseDate = (dateStr: string | undefined) => {
+    if (!dateStr) return new Date(0);
+    const parts = dateStr.split('/');
+    if (parts.length !== 3) return new Date(0);
+    const [d, m, y] = parts;
+    return new Date(2000 + parseInt(y), parseInt(m) - 1, parseInt(d));
+  };
 
   const { register, handleSubmit, control, watch, setValue, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -78,7 +107,7 @@ export default function AddRecord() {
     }
   }, [watchCompletedDate, watchWorkStatus, setValue]);
 
-  const isOverdue = watchExpectedDeliveryDate && new Date(today) > new Date(watchExpectedDeliveryDate) && !watchActualDeliveryDate;
+  const isOverdue = watchExpectedDeliveryDate && parseDate(today) > parseDate(watchExpectedDeliveryDate) && !watchActualDeliveryDate;
 
   const onSubmit = async (data: FormValues) => {
     const userStr = localStorage.getItem("user");
@@ -153,10 +182,38 @@ export default function AddRecord() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">Received Date</label>
-                <input 
-                  type="date" 
-                  {...register("receivedDate")}
-                  className="w-full px-4 py-3.5 bg-muted/30 border border-border rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium"
+                <Controller
+                  control={control}
+                  name="receivedDate"
+                  render={({ field }) => (
+                    <div 
+                      className="relative cursor-pointer"
+                      onClick={(e) => {
+                        const input = e.currentTarget.querySelector('input[type="date"]') as HTMLInputElement;
+                        if (input) {
+                          try {
+                            input.showPicker();
+                          } catch (err) {
+                            input.click();
+                          }
+                        }
+                      }}
+                    >
+                      <input 
+                        type="text" 
+                        value={field.value || ''}
+                        readOnly
+                        placeholder="DD/MM/YY"
+                        className="w-full px-4 py-3.5 bg-muted/30 border border-border rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium pointer-events-none"
+                      />
+                      <input 
+                        type="date"
+                        value={toYYYYMMDD(field.value || '')}
+                        onChange={(e) => field.onChange(toDDMMYY(e.target.value))}
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                      />
+                    </div>
+                  )}
                 />
                 {errors.receivedDate && <p className="text-red-500 text-xs ml-1">{errors.receivedDate.message}</p>}
               </div>
@@ -355,29 +412,113 @@ export default function AddRecord() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1 text-red-500 flex items-center gap-1">Expected Date <span className="text-[10px]">*</span></label>
-                <input 
-                  type="date" 
-                  {...register("expectedDeliveryDate")}
-                  className="w-full px-4 py-3.5 bg-red-50 border border-red-100 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all text-sm font-bold text-red-900"
+                <Controller
+                  control={control}
+                  name="expectedDeliveryDate"
+                  render={({ field }) => (
+                    <div 
+                      className="relative cursor-pointer"
+                      onClick={(e) => {
+                        const input = e.currentTarget.querySelector('input[type="date"]') as HTMLInputElement;
+                        if (input) {
+                          try {
+                            input.showPicker();
+                          } catch (err) {
+                            input.click();
+                          }
+                        }
+                      }}
+                    >
+                      <input 
+                        type="text" 
+                        value={field.value || ''}
+                        readOnly
+                        placeholder="DD/MM/YY"
+                        className="w-full px-4 py-3.5 bg-red-50 border border-red-100 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all text-sm font-bold text-red-900 pointer-events-none"
+                      />
+                      <input 
+                        type="date"
+                        value={toYYYYMMDD(field.value || '')}
+                        onChange={(e) => field.onChange(toDDMMYY(e.target.value))}
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                      />
+                    </div>
+                  )}
                 />
                 {errors.expectedDeliveryDate && <p className="text-red-500 text-xs ml-1">{errors.expectedDeliveryDate.message}</p>}
               </div>
 
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">Completed Date</label>
-                <input 
-                  type="date" 
-                  {...register("completedDate")}
-                  className="w-full px-4 py-3.5 bg-muted/30 border border-border rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium"
+                <Controller
+                  control={control}
+                  name="completedDate"
+                  render={({ field }) => (
+                    <div 
+                      className="relative cursor-pointer"
+                      onClick={(e) => {
+                        const input = e.currentTarget.querySelector('input[type="date"]') as HTMLInputElement;
+                        if (input) {
+                          try {
+                            input.showPicker();
+                          } catch (err) {
+                            input.click();
+                          }
+                        }
+                      }}
+                    >
+                      <input 
+                        type="text" 
+                        value={field.value || ''}
+                        readOnly
+                        placeholder="DD/MM/YY"
+                        className="w-full px-4 py-3.5 bg-muted/30 border border-border rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium pointer-events-none"
+                      />
+                      <input 
+                        type="date"
+                        value={toYYYYMMDD(field.value || '')}
+                        onChange={(e) => field.onChange(toDDMMYY(e.target.value))}
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                      />
+                    </div>
+                  )}
                 />
               </div>
 
               <div className="col-span-2 space-y-1.5">
                 <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">Actual Delivery Date</label>
-                <input 
-                  type="date" 
-                  {...register("actualDeliveryDate")}
-                  className="w-full px-4 py-3.5 bg-muted/30 border border-border rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium"
+                <Controller
+                  control={control}
+                  name="actualDeliveryDate"
+                  render={({ field }) => (
+                    <div 
+                      className="relative cursor-pointer"
+                      onClick={(e) => {
+                        const input = e.currentTarget.querySelector('input[type="date"]') as HTMLInputElement;
+                        if (input) {
+                          try {
+                            input.showPicker();
+                          } catch (err) {
+                            input.click();
+                          }
+                        }
+                      }}
+                    >
+                      <input 
+                        type="text" 
+                        value={field.value || ''}
+                        readOnly
+                        placeholder="DD/MM/YY"
+                        className="w-full px-4 py-3.5 bg-muted/30 border border-border rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium pointer-events-none"
+                      />
+                      <input 
+                        type="date"
+                        value={toYYYYMMDD(field.value || '')}
+                        onChange={(e) => field.onChange(toDDMMYY(e.target.value))}
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                      />
+                    </div>
+                  )}
                 />
               </div>
             </div>
