@@ -147,7 +147,7 @@ export default function Login() {
 
         {/* Footer Info */}
         <p className="mt-10 text-xs text-muted-foreground font-medium uppercase tracking-[0.2em] animate-in fade-in duration-1000 delay-500">
-          Powered by National Genius Institute
+          Powered by National Computer Allahabad
         </p>
       </div>
     </main>

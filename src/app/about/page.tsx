@@ -71,7 +71,7 @@ export default function AboutPage() {
           </div>
           <h3 className="text-xl font-bold text-foreground mb-2">Built for Reliability</h3>
           <p className="text-sm text-muted-foreground">
-            Version 1.0.0 • Developed with focus on data integrity and speed for the National Genius Institute.
+            Version 1.0.0 • Developed with focus on data integrity and speed for National Computer Allahabad.
           </p>
         </section>
       </div>

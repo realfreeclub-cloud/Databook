@@ -12,14 +12,14 @@ export interface RecordItem {
   extraProblem?: string;
   chargerCollected: boolean;
   signature: boolean;
-  workStatus: "Done" | "Pending" | "Non Repair";
+  workStatus: string;
   amount: number;
   isPaid: boolean;
   pendingAmount?: number;
   expectedDeliveryDate: string;
   completedDate?: string;
   actualDeliveryDate?: string;
-  finalStatus: "Complete" | "Non Repairing" | "Return Item";
+  finalStatus: string;
   password?: string;
   notes?: string;
 }

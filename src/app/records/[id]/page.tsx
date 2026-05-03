@@ -89,6 +89,15 @@ export default function RecordDetail({ params }: { params: Promise<{ id: string 
     return 'bg-red-100 text-red-700';
   };
 
+  const formatDate = (dateStr: string | undefined) => {
+    if (!dateStr) return '';
+    const parts = dateStr.split('-');
+    if (parts.length === 3) {
+      return `${parts[2]}/${parts[1]}/${parts[0]}`;
+    }
+    return dateStr;
+  };
+
   return (
     <main className="flex flex-col min-h-screen p-4 pt-8 pb-28 bg-muted/20">
       <header className="flex items-center justify-between mb-8">
@@ -98,7 +107,7 @@ export default function RecordDetail({ params }: { params: Promise<{ id: string 
           </Link>
           <div>
             <h1 className="text-2xl font-black tracking-tight text-foreground">{record.jobNumber}</h1>
-            <p className="text-muted-foreground text-xs font-bold uppercase tracking-wider">{record.receivedDate}</p>
+            <p className="text-muted-foreground text-xs font-bold uppercase tracking-wider">{formatDate(record.receivedDate)}</p>
           </div>
         </div>
         <div className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider ${
@@ -206,19 +215,19 @@ export default function RecordDetail({ params }: { params: Promise<{ id: string 
           <div className="grid grid-cols-2 gap-4 gap-y-6">
             <div>
               <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Received Date</p>
-              <p className="font-semibold text-foreground mt-1">{record.receivedDate}</p>
+              <p className="font-semibold text-foreground mt-1">{formatDate(record.receivedDate)}</p>
             </div>
             <div>
               <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Expected Delivery</p>
-              <p className="font-semibold text-amber-600 mt-1">{record.expectedDeliveryDate}</p>
+              <p className="font-semibold text-amber-600 mt-1">{formatDate(record.expectedDeliveryDate)}</p>
             </div>
             <div>
               <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Completed Date</p>
-              <p className="font-semibold text-foreground mt-1">{record.completedDate || '-'}</p>
+              <p className="font-semibold text-foreground mt-1">{record.completedDate ? formatDate(record.completedDate) : '-'}</p>
             </div>
             <div>
               <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Actual Delivery</p>
-              <p className="font-semibold text-green-600 mt-1">{record.actualDeliveryDate || '-'}</p>
+              <p className="font-semibold text-green-600 mt-1">{record.actualDeliveryDate ? formatDate(record.actualDeliveryDate) : '-'}</p>
             </div>
           </div>
         </section>

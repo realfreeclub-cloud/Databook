@@ -20,6 +20,9 @@ export default function ProfilePage() {
   const [user, setUser] = useState<{ id: string; name: string; phone: string } | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editName, setEditName] = useState("");
+  const [editPhone, setEditPhone] = useState("");
+  const [editPassword, setEditPassword] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
@@ -27,22 +30,34 @@ export default function ProfilePage() {
       const parsed = JSON.parse(savedUser);
       setUser(parsed);
       setEditName(parsed.name || "");
+      setEditPhone(parsed.phone || "");
     }
   }, []);
 
   const handleSaveProfile = async () => {
     if (!user) return;
+    setIsSaving(true);
     try {
       const { updateUserInDB } = await import("@/lib/actions");
-      const result = await updateUserInDB(user.id, editName);
+      const result = await updateUserInDB(user.id, {
+        name: editName,
+        phone: editPhone,
+        password: editPassword || undefined
+      });
       if (result.success && result.user) {
-        const updatedUser = { ...user, name: result.user.name || "" };
+        const updatedUser = { ...user, name: result.user.name || "", phone: result.user.phone || "" };
         setUser(updatedUser);
         localStorage.setItem("user", JSON.stringify(updatedUser));
         setIsEditing(false);
+        setEditPassword("");
+      } else {
+        alert("Failed to update profile: " + (result.error || "Unknown error"));
       }
     } catch (e) {
       console.error(e);
+      alert("Error updating profile");
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -104,7 +119,7 @@ export default function ProfilePage() {
               </div>
               <div className="flex-1">
                 <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Shop Name</p>
-                <p className="font-bold text-base text-foreground">{user ? "National Genius Institute" : "---"}</p>
+                <p className="font-bold text-base text-foreground">{user ? "National Computer Allahabad" : "---"}</p>
               </div>
             </div>
 
@@ -185,19 +200,40 @@ export default function ProfilePage() {
                   className="w-full px-4 py-3 bg-muted/30 border border-border rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium"
                 />
               </div>
+              <div>
+                <label className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1 block">Phone Number</label>
+                <input 
+                  type="tel" 
+                  value={editPhone}
+                  onChange={(e) => setEditPhone(e.target.value)}
+                  className="w-full px-4 py-3 bg-muted/30 border border-border rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1 block">New Password (Optional)</label>
+                <input 
+                  type="password" 
+                  value={editPassword}
+                  onChange={(e) => setEditPassword(e.target.value)}
+                  placeholder="Leave blank to keep current"
+                  className="w-full px-4 py-3 bg-muted/30 border border-border rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium"
+                />
+              </div>
             </div>
             <div className="flex gap-3">
               <button 
                 onClick={() => setIsEditing(false)}
-                className="flex-1 py-3 bg-muted text-foreground font-bold rounded-xl hover:bg-muted/80 transition-colors"
+                disabled={isSaving}
+                className="flex-1 py-3 bg-muted text-foreground font-bold rounded-xl hover:bg-muted/80 transition-colors disabled:opacity-50"
               >
                 Cancel
               </button>
               <button 
                 onClick={handleSaveProfile}
-                className="flex-1 py-3 bg-primary text-primary-foreground font-bold rounded-xl hover:bg-primary/90 transition-colors"
+                disabled={isSaving}
+                className="flex-1 py-3 bg-primary text-primary-foreground font-bold rounded-xl hover:bg-primary/90 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
               >
-                Save
+                {isSaving ? "Saving..." : "Save"}
               </button>
             </div>
           </div>

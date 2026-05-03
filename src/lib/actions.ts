@@ -98,13 +98,20 @@ export async function syncRecordsToDB(userId: string, records: Omit<RecordItem, 
   }
 }
 
-export async function updateUserInDB(id: string, name: string) {
+export async function updateUserInDB(id: string, data: { name?: string; phone?: string; password?: string }) {
   try {
+    const updateData: any = {};
+    if (data.name) updateData.name = data.name;
+    if (data.phone) updateData.phone = data.phone;
+    if (data.password) {
+      const bcrypt = require("bcrypt");
+      updateData.password = await bcrypt.hash(data.password, 10);
+    }
     const user = await prisma.user.update({
       where: { id },
-      data: { name }
+      data: updateData
     });
-    return { success: true, user };
+    return { success: true, user: { id: user.id, name: user.name, phone: user.phone } };
   } catch (e) {
     console.error("Failed to update user:", e);
     return { success: false, error: "Failed to update user" };

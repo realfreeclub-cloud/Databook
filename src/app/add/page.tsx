@@ -19,14 +19,14 @@ const formSchema = z.object({
   extraProblem: z.string().optional(),
   chargerCollected: z.boolean(),
   signature: z.boolean(),
-  workStatus: z.enum(["Done", "Pending", "Non Repair"]),
+  workStatus: z.string().min(1, "Work Status is required"),
   amount: z.union([z.string(), z.number()]),
   isPaid: z.boolean(),
   pendingAmount: z.union([z.string(), z.number()]).optional(),
   expectedDeliveryDate: z.string().min(1, "Expected delivery date is required"),
   completedDate: z.string().optional(),
   actualDeliveryDate: z.string().optional(),
-  finalStatus: z.enum(["Complete", "Non Repairing", "Return Item"]),
+  finalStatus: z.string().min(1, "Final Status is required"),
   password: z.string().optional(),
   notes: z.string().optional()
 });
@@ -51,9 +51,9 @@ export default function AddRecord() {
       receivedDate: today,
       chargerCollected: false,
       signature: false,
-      workStatus: "Pending",
+      workStatus: "",
       isPaid: false,
-      finalStatus: "Complete",
+      finalStatus: "",
       amount: 0,
     }
   });
@@ -276,8 +276,8 @@ export default function AddRecord() {
                   name="chargerCollected"
                   render={({ field }) => (
                     <div className="flex bg-muted/30 border border-border p-1 rounded-2xl">
-                      <button type="button" onClick={() => field.onChange(true)} className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${field.value ? "bg-white text-primary shadow-sm" : "text-muted-foreground"}`}>Yes</button>
-                      <button type="button" onClick={() => field.onChange(false)} className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${!field.value ? "bg-white text-foreground shadow-sm" : "text-muted-foreground"}`}>No</button>
+                      <button type="button" onClick={() => field.onChange(true)} className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${field.value ? "bg-primary text-primary-foreground shadow-md" : "text-muted-foreground hover:text-foreground"}`}>Yes</button>
+                      <button type="button" onClick={() => field.onChange(false)} className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${!field.value ? "bg-zinc-800 text-white shadow-md" : "text-muted-foreground hover:text-foreground"}`}>No</button>
                     </div>
                   )}
                 />
@@ -290,8 +290,8 @@ export default function AddRecord() {
                   name="signature"
                   render={({ field }) => (
                     <div className="flex bg-muted/30 border border-border p-1 rounded-2xl">
-                      <button type="button" onClick={() => field.onChange(true)} className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${field.value ? "bg-white text-primary shadow-sm" : "text-muted-foreground"}`}>Yes</button>
-                      <button type="button" onClick={() => field.onChange(false)} className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${!field.value ? "bg-white text-foreground shadow-sm" : "text-muted-foreground"}`}>No</button>
+                      <button type="button" onClick={() => field.onChange(true)} className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${field.value ? "bg-primary text-primary-foreground shadow-md" : "text-muted-foreground hover:text-foreground"}`}>Yes</button>
+                      <button type="button" onClick={() => field.onChange(false)} className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${!field.value ? "bg-zinc-800 text-white shadow-md" : "text-muted-foreground hover:text-foreground"}`}>No</button>
                     </div>
                   )}
                 />
@@ -309,7 +309,7 @@ export default function AddRecord() {
             <div className="space-y-2">
               <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">Work Status</label>
               <div 
-                className="w-full px-4 py-3.5 bg-muted/30 border border-border rounded-2xl cursor-pointer text-sm font-medium flex justify-between items-center"
+                className={`w-full px-4 py-3.5 bg-muted/30 border rounded-2xl cursor-pointer text-sm font-medium flex justify-between items-center ${errors.workStatus ? 'border-red-500 focus:ring-red-500/20' : 'border-border'}`}
                 onClick={() => setActiveSelect({ field: "workStatus", options: WORK_STATUSES, allowManual: false })}
               >
                 <Controller
@@ -322,12 +322,13 @@ export default function AddRecord() {
                   )}
                 />
               </div>
+              {errors.workStatus && <p className="text-red-500 text-xs ml-1">{errors.workStatus.message}</p>}
             </div>
 
             <div className="space-y-2">
               <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider ml-1">Final Status</label>
               <div 
-                className="w-full px-4 py-3.5 bg-muted/30 border border-border rounded-2xl cursor-pointer text-sm font-medium flex justify-between items-center"
+                className={`w-full px-4 py-3.5 bg-muted/30 border rounded-2xl cursor-pointer text-sm font-medium flex justify-between items-center ${errors.finalStatus ? 'border-red-500 focus:ring-red-500/20' : 'border-border'}`}
                 onClick={() => setActiveSelect({ field: "finalStatus", options: FINAL_STATUSES, allowManual: false })}
               >
                 <Controller
@@ -340,6 +341,7 @@ export default function AddRecord() {
                   )}
                 />
               </div>
+              {errors.finalStatus && <p className="text-red-500 text-xs ml-1">{errors.finalStatus.message}</p>}
             </div>
           </section>
 
