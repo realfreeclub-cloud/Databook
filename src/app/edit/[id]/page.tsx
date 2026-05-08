@@ -38,9 +38,9 @@ type FormValues = z.infer<typeof formSchema>;
 const LAPTOP_BRANDS = ["Dell", "HP", "Lenovo", "Asus", "Acer", "Apple", "MSI", "Other"];
 const ISSUES = ["Screen Broken", "Battery Issue", "Keyboard Not Working", "Motherboard Issue", "Software Issue", "Data Recovery", "Other"];
 const WORK_STATUSES = ["Pending", "Done", "Non Repair"];
-const FINAL_STATUSES = ["Complete", "Return Item", "Non Repairing"];
+const FINAL_STATUSES = ["Complete", "Return Item", "Non Repairing", "Pending"];
 
-const toYYYYMMDD = (d: string) => {
+const toYYYYMMDD = (d: string | undefined) => {
   if (!d || !d.includes('/')) return '';
   const parts = d.split('/');
   if (parts.length !== 3) return '';
@@ -48,7 +48,7 @@ const toYYYYMMDD = (d: string) => {
   return `20${yy}-${mm}-${dd}`;
 };
 
-const toDDMMYY = (d: string) => {
+const toDDMMYY = (d: string | undefined) => {
   if (!d) return '';
   if (d.includes('-')) {
     const parts = d.split('-');
