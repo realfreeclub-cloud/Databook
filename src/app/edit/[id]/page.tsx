@@ -61,6 +61,8 @@ export default function EditRecord({ params }: { params: Promise<{ id: string }>
   const router = useRouter();
   const resolvedParams = use(params);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [activeSelect, setActiveSelect] = useState<{ field: string, options: string[], allowManual?: boolean } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -142,16 +144,30 @@ export default function EditRecord({ params }: { params: Promise<{ id: string }>
     if (!userStr) return;
     const user = JSON.parse(userStr);
     
-    await updateRecordInDB(user.id, resolvedParams.id, {
-      ...data,
-      amount: Number(data.amount) || 0,
-      pendingAmount: data.isPaid ? 0 : (data.pendingAmount ? Number(data.pendingAmount) : 0)
-    });
-    setIsSubmitted(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setTimeout(() => {
-      router.push(`/records/${resolvedParams.id}`);
-    }, 1500);
+    setIsSubmitting(true);
+    setSubmitError(null);
+    try {
+      const res = await updateRecordInDB(user.id, resolvedParams.id, {
+        ...data,
+        amount: Number(data.amount) || 0,
+        pendingAmount: data.isPaid ? 0 : (data.pendingAmount ? Number(data.pendingAmount) : 0)
+      });
+      if (res && res.success) {
+        setIsSubmitted(true);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(() => {
+          router.push(`/records/${resolvedParams.id}`);
+        }, 1500);
+      } else {
+        setSubmitError(res?.error || "Failed to update record. Please check the details.");
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    } catch (err: any) {
+      setSubmitError(err?.message || "An unexpected error occurred.");
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const getBadgeColor = (status: string, type: 'work' | 'payment' | 'final') => {
@@ -188,6 +204,15 @@ export default function EditRecord({ params }: { params: Promise<{ id: string }>
           <div>
             <h4 className="font-bold text-red-800 text-sm">Overdue Delivery</h4>
             <p className="text-xs text-red-600 mt-0.5">The expected delivery date has passed.</p>
+          </div>
+        </div>
+      )}
+      {submitError && (
+        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-2xl flex items-start gap-3 shadow-sm animate-in fade-in">
+          <AlertCircle className="text-red-600 mt-0.5" size={20} />
+          <div>
+            <h4 className="font-bold text-red-800 text-sm">Error Updating Record</h4>
+            <p className="text-xs text-red-600 mt-0.5">{submitError}</p>
           </div>
         </div>
       )}
@@ -629,9 +654,10 @@ export default function EditRecord({ params }: { params: Promise<{ id: string }>
 
           <button 
             type="submit"
-            className="w-full py-5 bg-primary text-primary-foreground font-black text-lg rounded-[2rem] shadow-xl shadow-primary/30 hover:shadow-2xl hover:-translate-y-1 transition-all active:scale-[0.98] mt-2 mb-10 border border-primary-foreground/10"
+            disabled={isSubmitting}
+            className="w-full py-5 bg-primary text-primary-foreground font-black text-lg rounded-[2rem] shadow-xl shadow-primary/30 hover:shadow-2xl hover:-translate-y-1 transition-all active:scale-[0.98] mt-2 mb-10 border border-primary-foreground/10 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
           >
-            Update Record
+            {isSubmitting ? "Updating..." : "Update Record"}
           </button>
         </form>
       )}

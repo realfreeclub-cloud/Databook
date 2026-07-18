@@ -41,9 +41,12 @@ export async function addRecordToDB(userId: string, record: Omit<RecordItem, 'id
       }
     });
     return { success: true, record: created };
-  } catch (e) {
+  } catch (e: any) {
     console.error("Failed to add record:", e);
-    return { success: false, error: "Failed to save record" };
+    if (e?.code === 'P2002') {
+      return { success: false, error: "Job Number already exists. Please use a unique Job Number." };
+    }
+    return { success: false, error: e?.message || "Failed to save record" };
   }
 }
 
@@ -56,9 +59,12 @@ export async function updateRecordInDB(userId: string, id: string, record: Parti
       data: record
     });
     return { success: true, count: updated.count };
-  } catch (e) {
+  } catch (e: any) {
     console.error("Failed to update record:", e);
-    return { success: false, error: "Failed to update record" };
+    if (e?.code === 'P2002') {
+      return { success: false, error: "Job Number already exists. Please use a unique Job Number." };
+    }
+    return { success: false, error: e?.message || "Failed to update record" };
   }
 }
 

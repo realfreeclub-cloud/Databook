@@ -58,6 +58,8 @@ const toDDMMYY = (d: string | undefined) => {
 
 export default function AddRecord() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [activeSelect, setActiveSelect] = useState<{ field: string, options: string[], allowManual?: boolean } | null>(null);
 
   const now = new Date();
@@ -114,13 +116,27 @@ export default function AddRecord() {
     if (!userStr) return;
     const user = JSON.parse(userStr);
     
-    await addRecordToDB(user.id, {
-      ...data,
-      amount: Number(data.amount) || 0,
-      pendingAmount: data.isPaid ? 0 : (data.pendingAmount ? Number(data.pendingAmount) : 0)
-    });
-    setIsSubmitted(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsSubmitting(true);
+    setSubmitError(null);
+    try {
+      const res = await addRecordToDB(user.id, {
+        ...data,
+        amount: Number(data.amount) || 0,
+        pendingAmount: data.isPaid ? 0 : (data.pendingAmount ? Number(data.pendingAmount) : 0)
+      });
+      if (res && res.success) {
+        setIsSubmitted(true);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        setSubmitError(res?.error || "Failed to save record. Please check the details.");
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    } catch (err: any) {
+      setSubmitError(err?.message || "An unexpected error occurred.");
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const getBadgeColor = (status: string, type: 'work' | 'payment' | 'final') => {
@@ -151,7 +167,15 @@ export default function AddRecord() {
           </div>
         </div>
       )}
-
+      {submitError && (
+        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-2xl flex items-start gap-3 shadow-sm animate-in fade-in">
+          <AlertCircle className="text-red-600 mt-0.5" size={20} />
+          <div>
+            <h4 className="font-bold text-red-800 text-sm">Error Saving Record</h4>
+            <p className="text-xs text-red-600 mt-0.5">{submitError}</p>
+          </div>
+        </div>
+      )}
       {isSubmitted ? (
         <div className="flex flex-col items-center justify-center flex-1 py-12 text-center animate-in fade-in slide-in-from-bottom-4 bg-white rounded-[2rem] shadow-sm border border-border p-8">
           <div className="w-20 h-20 bg-green-100 text-green-600 rounded-[2rem] flex items-center justify-center mb-6 shadow-inner border border-green-200">
@@ -592,9 +616,10 @@ export default function AddRecord() {
 
           <button 
             type="submit"
-            className="w-full py-5 bg-primary text-primary-foreground font-black text-lg rounded-[2rem] shadow-xl shadow-primary/30 hover:shadow-2xl hover:-translate-y-1 transition-all active:scale-[0.98] mt-2 mb-10 border border-primary-foreground/10"
+            disabled={isSubmitting}
+            className="w-full py-5 bg-primary text-primary-foreground font-black text-lg rounded-[2rem] shadow-xl shadow-primary/30 hover:shadow-2xl hover:-translate-y-1 transition-all active:scale-[0.98] mt-2 mb-10 border border-primary-foreground/10 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
           >
-            Create Record
+            {isSubmitting ? "Saving..." : "Create Record"}
           </button>
         </form>
       )}
