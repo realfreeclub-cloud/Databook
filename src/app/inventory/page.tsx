@@ -46,6 +46,7 @@ export default function InventoryDashboard() {
   const [saleQuantity, setSaleQuantity] = useState(1);
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     getCurrentUser().then(sessionUser => {
@@ -111,6 +112,9 @@ export default function InventoryDashboard() {
   const handleAddSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name) return setErrorMsg("Product name is required");
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    setErrorMsg("");
     
     try {
       const res = await addInventoryItem({
@@ -130,12 +134,17 @@ export default function InventoryDashboard() {
       }
     } catch (err: any) {
       setErrorMsg(err.message || "An unexpected error occurred");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const handleEditSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name) return setErrorMsg("Product name is required");
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    setErrorMsg("");
     
     try {
       const res = await updateInventoryItem(selectedItem.id, {
@@ -155,6 +164,8 @@ export default function InventoryDashboard() {
       }
     } catch (err: any) {
       setErrorMsg(err.message || "An unexpected error occurred");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -162,7 +173,10 @@ export default function InventoryDashboard() {
     e.preventDefault();
     if (saleQuantity <= 0) return setErrorMsg("Quantity must be greater than 0");
     if (selectedItem.stock < saleQuantity) return setErrorMsg(`Insufficient stock. Only ${selectedItem.stock} left.`);
-
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    setErrorMsg("");
+ 
     try {
       const res = await recordSale(selectedItem.id, saleQuantity, selectedItem.price);
       if (res.success) {
@@ -176,6 +190,8 @@ export default function InventoryDashboard() {
       }
     } catch (err: any) {
       setErrorMsg(err.message || "An unexpected error occurred");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -507,9 +523,10 @@ export default function InventoryDashboard() {
                   </button>
                   <button 
                     type="submit"
-                    className="flex-1 py-3 bg-primary text-white font-bold rounded-xl transition-all shadow-md shadow-primary/10 hover:shadow-lg text-sm"
+                    disabled={isSubmitting}
+                    className="flex-1 py-3 bg-primary text-white font-bold rounded-xl transition-all shadow-md shadow-primary/10 hover:shadow-lg text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Save Product
+                    {isSubmitting ? "Saving..." : "Save Product"}
                   </button>
                 </div>
               </form>
@@ -564,9 +581,10 @@ export default function InventoryDashboard() {
                   </button>
                   <button 
                     type="submit"
-                    className="flex-1 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl transition-all shadow-md shadow-emerald-500/10 hover:shadow-lg text-sm"
+                    disabled={isSubmitting}
+                    className="flex-1 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl transition-all shadow-md shadow-emerald-500/10 hover:shadow-lg text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Complete Sale
+                    {isSubmitting ? "Processing..." : "Complete Sale"}
                   </button>
                 </div>
               </form>

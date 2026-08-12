@@ -148,6 +148,7 @@ export default function EditRecord({ params }: { params: Promise<{ id: string }>
   const isOverdue = watchExpectedDeliveryDate && parseDate(today) > parseDate(watchExpectedDeliveryDate) && !watchActualDeliveryDate;
 
   const onSubmit = async (data: FormValues) => {
+    if (isSubmitting) return;
     const userStr = localStorage.getItem("user");
     if (!userStr) return;
     const user = JSON.parse(userStr);

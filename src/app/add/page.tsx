@@ -182,6 +182,7 @@ export default function AddRecord() {
   const isOverdue = watchExpectedDeliveryDate && parseDate(today) > parseDate(watchExpectedDeliveryDate) && !watchActualDeliveryDate;
 
   const onJobSubmit = async (data: FormValues) => {
+    if (isSubmitting) return;
     setIsSubmitting(true);
     setSubmitError(null);
     try {
@@ -216,6 +217,7 @@ export default function AddRecord() {
   };
 
   const onProductSubmit = async (data: any) => {
+    if (isSubmitting) return;
     setIsSubmitting(true);
     setSubmitError(null);
     try {
