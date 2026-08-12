@@ -1,29 +1,54 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft, Phone, Mail, MessageCircle, Send, CheckCircle2, User, MessageSquare } from "lucide-react";
+import { createSupportRequest } from "@/lib/adminActions";
 
 export default function SupportPage() {
   const [formData, setFormData] = useState({ name: "", message: "" });
+  const [phone, setPhone] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      try {
+        const parsed = JSON.parse(savedUser);
+        setPhone(parsed.phone || null);
+        if (parsed.name && !formData.name) {
+          setFormData(prev => ({ ...prev, name: parsed.name }));
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, []);
 
   const contactNumber = "+917786961902";
   const whatsappNumber = "917860130721";
   const emailAddress = "support@refurhub.com";
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isLoading) return;
     setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const res = await createSupportRequest(formData.name, phone, formData.message);
+      if (res.success) {
+        setIsSubmitted(true);
+        setFormData({ name: "", message: "" });
+      } else {
+        alert(res.error || "Failed to submit message.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong. Please try again.");
+    } finally {
       setIsLoading(false);
-      setIsSubmitted(true);
-      setFormData({ name: "", message: "" });
-    }, 1500);
+    }
   };
 
   return (

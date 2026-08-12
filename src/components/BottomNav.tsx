@@ -8,17 +8,27 @@ import { Home, Plus, List, Package, User, LogIn } from "lucide-react";
 export default function BottomNav() {
   const pathname = usePathname();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState<{ name: string } | null>(null);
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    setIsLoggedIn(!!user);
+    const savedUser = localStorage.getItem("user");
+    setIsLoggedIn(!!savedUser);
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    } else {
+      setUser(null);
+    }
   }, [pathname]); // Refresh on navigation
 
+  const isSuperAdmin = user && (user as any).role === "SUPER_ADMIN";
+
   const navItems = [
-    { name: "Home", href: "/", icon: Home },
-    { name: "Records", href: isLoggedIn ? "/records" : "/login", icon: List },
-    { name: "Add", href: isLoggedIn ? "/add" : "/login", icon: Plus, isCenter: true },
-    { name: "Inventory", href: isLoggedIn ? "/inventory" : "/login", icon: Package },
+    { name: "Home", href: isSuperAdmin ? "/admin" : "/", icon: Home },
+    ...(!isSuperAdmin ? [
+      { name: "Records", href: isLoggedIn ? "/records" : "/login", icon: List },
+      { name: "Add", href: isLoggedIn ? "/add" : "/login", icon: Plus, isCenter: true },
+      { name: "Inventory", href: isLoggedIn ? "/inventory" : "/login", icon: Package }
+    ] : []),
     { 
       name: isLoggedIn ? "Profile" : "Login", 
       href: isLoggedIn ? "/profile" : "/login", 

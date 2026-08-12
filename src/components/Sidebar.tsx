@@ -32,11 +32,15 @@ export default function Sidebar() {
     router.push("/login");
   };
 
+  const isSuperAdmin = user && (user as any).role === "SUPER_ADMIN";
+
   const navItems = [
-    { name: "Home Dashboard", href: "/", icon: Home },
-    { name: "Repair Records", href: isLoggedIn ? "/records" : "/login", icon: List },
-    { name: "Add Entry", href: isLoggedIn ? "/add" : "/login", icon: Plus },
-    { name: "Shop Inventory", href: isLoggedIn ? "/inventory" : "/login", icon: Package },
+    { name: "Home Dashboard", href: isSuperAdmin ? "/admin" : "/", icon: Home },
+    ...(!isSuperAdmin ? [
+      { name: "Repair Records", href: isLoggedIn ? "/records" : "/login", icon: List },
+      { name: "Add Entry", href: isLoggedIn ? "/add" : "/login", icon: Plus },
+      { name: "Shop Inventory", href: isLoggedIn ? "/inventory" : "/login", icon: Package }
+    ] : []),
     { name: "Support Center", href: "/support", icon: LifeBuoy },
     { 
       name: isLoggedIn ? "My Profile" : "Log In", 

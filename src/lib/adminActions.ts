@@ -203,3 +203,44 @@ export async function requestSubscriptionActivation(planName: string) {
     return { success: false, error: "Failed to submit request" };
   }
 }
+
+// Create a new support request
+export async function createSupportRequest(name: string, phone: string | null, message: string) {
+  try {
+    await prisma.supportRequest.create({
+      data: {
+        name,
+        phone,
+        message,
+        status: "PENDING"
+      }
+    });
+    return { success: true };
+  } catch (e) {
+    console.error("Failed to create support request:", e);
+    return { success: false, error: "Failed to submit request" };
+  }
+}
+
+// Fetch all support requests (Super Admin only)
+export async function getSupportRequests() {
+  const isAdmin = await checkSuperAdmin();
+  if (!isAdmin) return [];
+
+  try {
+    const requests = await prisma.supportRequest.findMany({
+      orderBy: { createdAt: "desc" }
+    });
+    return requests.map(r => ({
+      id: r.id,
+      name: r.name,
+      phone: r.phone || "Not provided",
+      message: r.message,
+      status: r.status,
+      createdAt: r.createdAt.toISOString()
+    }));
+  } catch (e) {
+    console.error("Failed to fetch support requests:", e);
+    return [];
+  }
+}
