@@ -22,9 +22,7 @@ import {
   ChevronDown,
   ShieldCheck,
   HelpCircle,
-  TrendingUp,
   Cpu,
-  RefreshCw,
   Zap
 } from "lucide-react";
 import { getRecordsFromDB, getCurrentUser } from "@/lib/actions";
@@ -99,29 +97,29 @@ export default function Home() {
     );
   }
 
-  // 1. PUBLIC WEBSITE HOMEPAGE (If user is not logged in)
+  // 1. PUBLIC WEBSITE HOMEPAGE (If user is not logged in - Complete Light Mode Redesign)
   if (!user) {
     return (
-      <main className="flex flex-col min-h-screen bg-[#070a13] text-slate-100 overflow-x-hidden">
-        {/* Decorative Grid & Blur */}
-        <div className="absolute top-0 inset-x-0 h-[600px] bg-gradient-to-b from-primary/10 to-transparent blur-[120px] pointer-events-none -z-10" />
-        <div className="absolute bottom-[20%] right-[-10%] w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[150px] pointer-events-none -z-10" />
+      <main className="flex flex-col min-h-screen bg-[#f8fafc] text-slate-900 overflow-x-hidden w-full">
+        {/* Decorative Grid & Soft Light Blur */}
+        <div className="absolute top-0 inset-x-0 h-[600px] bg-gradient-to-b from-indigo-50 to-transparent blur-[100px] pointer-events-none -z-10" />
+        <div className="absolute bottom-[20%] right-[-10%] w-[500px] h-[500px] bg-indigo-500/[0.02] rounded-full blur-[150px] pointer-events-none -z-10" />
         
         {/* HERO SECTION */}
-        <section className="max-w-7xl mx-auto px-6 pt-20 md:pt-28 pb-16 text-center space-y-8 relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/[0.03] border border-white/10 rounded-full text-xs font-bold text-slate-300 backdrop-blur-md shadow-inner animate-fade-in">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 md:pt-24 pb-16 text-center space-y-8 relative z-10 w-full">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-white border border-slate-200/80 rounded-full text-xs font-bold text-slate-600 shadow-sm animate-fade-in">
             <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
             Designed Specially for Laptop & PC Repair Stores
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.05] max-w-4xl mx-auto">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.05] max-w-4xl mx-auto text-slate-900">
             Say Goodbye to Paper Registers. <br className="hidden sm:inline"/>
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-indigo-400 to-violet-500 font-black">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-violet-600 to-primary font-black">
               Manage Your Repair Shop Digitally
             </span>
           </h1>
 
-          <p className="text-slate-400 text-sm sm:text-base md:text-lg max-w-2xl mx-auto font-medium leading-relaxed">
+          <p className="text-slate-500 text-sm sm:text-base md:text-lg max-w-2xl mx-auto font-semibold leading-relaxed">
             A secure, cloud-backed service register to organize customer repair entries, track parts inventory, log product sales, and automatically dispatch WhatsApp service confirmations.
           </p>
 
@@ -136,25 +134,25 @@ export default function Home() {
             
             <Link 
               href="/login" 
-              className="w-full sm:w-auto inline-flex items-center justify-center py-4 px-8 bg-white/5 hover:bg-white/10 text-slate-300 font-extrabold rounded-2xl border border-white/10 transition-all hover:translate-y-[-1px] active:translate-y-0 gap-2 text-sm"
+              className="w-full sm:w-auto inline-flex items-center justify-center py-4 px-8 bg-white hover:bg-slate-50 text-slate-700 font-extrabold rounded-2xl border border-slate-200 transition-all hover:translate-y-[-1px] active:translate-y-0 gap-2 text-sm shadow-sm"
             >
               Sign In to Store
             </Link>
           </div>
 
           {/* INTERACTIVE PREVIEW MOCKUP */}
-          <div className="pt-10 max-w-4xl mx-auto w-full">
-            <div className="bg-[#0b0f19] border border-slate-800 rounded-3xl overflow-hidden shadow-2xl shadow-black/50 text-left animate-in zoom-in-95 duration-500">
+          <div className="pt-10 max-w-4xl mx-auto w-full px-2">
+            <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-2xl shadow-slate-200/85 text-left animate-in zoom-in-95 duration-500">
               {/* Mockup Toolbar */}
-              <div className="bg-[#0e1422] px-6 py-4 border-b border-slate-800/80 flex items-center justify-between">
+              <div className="bg-slate-50 px-6 py-4 border-b border-slate-200 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-red-500/80" />
-                  <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                  <span className="w-3 h-3 rounded-full bg-green-500/80" />
-                  <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider ml-3">Registry Dashboard Live Preview</span>
+                  <span className="w-3 h-3 rounded-full bg-red-400" />
+                  <span className="w-3 h-3 rounded-full bg-yellow-400" />
+                  <span className="w-3 h-3 rounded-full bg-green-400" />
+                  <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider ml-3">Registry Dashboard Live Preview</span>
                 </div>
-                <div className="w-32 h-6 bg-[#070a13] rounded-lg border border-slate-800 flex items-center justify-center">
-                  <span className="text-[9px] text-slate-500 font-mono">job-wale.com</span>
+                <div className="w-32 h-6 bg-[#f1f5f9] rounded-lg border border-slate-200 flex items-center justify-center">
+                  <span className="text-[9px] text-slate-400 font-mono">job-wale.com</span>
                 </div>
               </div>
               
@@ -162,41 +160,41 @@ export default function Home() {
               <div className="p-6 space-y-6">
                 {/* Stats Cards */}
                 <div className="grid grid-cols-3 gap-4">
-                  <div className="p-4 bg-white/[0.02] border border-white/5 rounded-2xl">
-                    <p className="text-[9px] text-slate-500 font-bold uppercase tracking-wider">Total Records</p>
-                    <p className="text-xl font-black text-white mt-1">128</p>
+                  <div className="p-4 bg-slate-50 border border-slate-100 rounded-2xl">
+                    <p className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Total Records</p>
+                    <p className="text-xl font-black text-slate-800 mt-1">128</p>
                   </div>
-                  <div className="p-4 bg-white/[0.02] border border-white/5 rounded-2xl">
-                    <p className="text-[9px] text-slate-500 font-bold uppercase tracking-wider">Active Repairs</p>
-                    <p className="text-xl font-black text-emerald-400 mt-1">84</p>
+                  <div className="p-4 bg-slate-50 border border-slate-100 rounded-2xl">
+                    <p className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Active Repairs</p>
+                    <p className="text-xl font-black text-indigo-600 mt-1">84</p>
                   </div>
-                  <div className="p-4 bg-white/[0.02] border border-white/5 rounded-2xl">
-                    <p className="text-[9px] text-slate-500 font-bold uppercase tracking-wider">Pending Cash</p>
-                    <p className="text-xl font-black text-amber-400 mt-1">₹18,400</p>
+                  <div className="p-4 bg-slate-50 border border-slate-100 rounded-2xl">
+                    <p className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Pending Cash</p>
+                    <p className="text-xl font-black text-amber-600 mt-1">₹18,400</p>
                   </div>
                 </div>
                 
                 {/* Simulated Records List */}
                 <div className="space-y-3">
-                  <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Active Jobs Register</p>
+                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Active Jobs Register</p>
                   <div className="space-y-2">
                     {MOCK_RECORDS.map((row, idx) => (
-                      <div key={idx} className="p-4 bg-white/[0.01] hover:bg-white/[0.02] border border-white/5 rounded-2xl flex items-center justify-between gap-4 text-xs font-semibold text-slate-300">
+                      <div key={idx} className="p-4 bg-white hover:bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-between gap-4 text-xs font-semibold text-slate-600 shadow-sm transition-colors">
                         <div className="flex items-center gap-3">
-                          <span className="font-mono text-slate-500">{row.job}</span>
+                          <span className="font-mono text-slate-400">{row.job}</span>
                           <div>
-                            <p className="font-bold text-white text-sm">{row.name}</p>
-                            <p className="text-[10px] text-slate-500 mt-0.5">{row.device}</p>
+                            <p className="font-bold text-slate-800 text-sm">{row.name}</p>
+                            <p className="text-[10px] text-slate-400 mt-0.5">{row.device}</p>
                           </div>
                         </div>
                         <div className="flex items-center gap-4">
-                          <span className="text-[10px] text-slate-400">{row.issue}</span>
+                          <span className="text-[10px] text-slate-400 hidden sm:inline">{row.issue}</span>
                           <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                            row.status === "Done" ? "bg-green-500/10 text-green-400 border border-green-500/20" :
-                            row.status === "Pending" ? "bg-amber-500/10 text-amber-400 border border-amber-500/20" :
-                            "bg-red-500/10 text-red-400 border border-red-500/20"
+                            row.status === "Done" ? "bg-green-50 text-green-600 border border-green-200" :
+                            row.status === "Pending" ? "bg-amber-50 text-amber-600 border border-amber-200" :
+                            "bg-red-50 text-red-600 border border-red-200"
                           }`}>{row.status}</span>
-                          <span className="font-black text-white">{row.amt}</span>
+                          <span className="font-black text-slate-800">{row.amt}</span>
                         </div>
                       </div>
                     ))}
@@ -208,23 +206,23 @@ export default function Home() {
         </section>
 
         {/* TRADITIONAL PAPER VS DIGITAL REGISTER COMPARISON */}
-        <section className="max-w-6xl mx-auto px-6 py-20 border-t border-slate-900 mt-10">
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-slate-200 mt-10 w-full">
           <div className="text-center space-y-3 mb-16">
             <span className="text-xs font-bold text-primary uppercase tracking-[0.2em]">The Evolution of Service Register</span>
-            <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight">Why Switch to Digital Register?</h2>
-            <p className="text-slate-400 text-sm max-w-lg mx-auto">Traditional paper ledger notebooks lead to critical issues. Here is how we transform your shop operation.</p>
+            <h2 className="text-3xl md:text-4xl font-black text-slate-800 tracking-tight">Why Switch to Digital Register?</h2>
+            <p className="text-slate-500 text-sm max-w-lg mx-auto">Traditional paper ledger notebooks lead to critical issues. Here is how we transform your shop operation.</p>
           </div>
 
           <div className="grid gap-8 md:grid-cols-2">
             {/* The Old Way */}
-            <div className="p-8 bg-red-950/5 border border-red-500/10 rounded-3xl space-y-6">
+            <div className="p-8 bg-red-50/30 border border-red-200 rounded-3xl space-y-6">
               <div className="flex items-center gap-3">
-                <div className="p-3 bg-red-500/10 text-red-400 rounded-2xl border border-red-500/25">
+                <div className="p-3 bg-red-50 text-red-600 rounded-2xl border border-red-200">
                   <AlertTriangle size={24} />
                 </div>
-                <h3 className="font-extrabold text-xl text-white">Traditional Paper Register (Old Way)</h3>
+                <h3 className="font-extrabold text-xl text-slate-850">Traditional Paper Register (Old Way)</h3>
               </div>
-              <ul className="space-y-4 text-xs font-semibold text-slate-400">
+              <ul className="space-y-4 text-xs font-semibold text-slate-500 leading-relaxed">
                 <li className="flex items-start gap-2.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5 shrink-0" />
                   <span>Messy handwriting makes reading customer phone numbers, serials, and laptop password configurations difficult.</span>
@@ -245,15 +243,15 @@ export default function Home() {
             </div>
 
             {/* The Digital Way */}
-            <div className="p-8 bg-[#0b0f19] border border-indigo-500/20 rounded-3xl space-y-6 relative overflow-hidden shadow-lg shadow-indigo-500/[0.02]">
+            <div className="p-8 bg-white border border-indigo-200 rounded-3xl space-y-6 relative overflow-hidden shadow-md shadow-indigo-100">
               <div className="absolute top-0 right-0 p-3 bg-indigo-600 text-white rounded-bl-2xl text-[9px] font-black uppercase tracking-wider">Recommended</div>
               <div className="flex items-center gap-3">
-                <div className="p-3 bg-primary/10 text-primary rounded-2xl border border-primary/25">
+                <div className="p-3 bg-indigo-50 text-indigo-600 rounded-2xl border border-indigo-100">
                   <CheckCircle2 size={24} />
                 </div>
-                <h3 className="font-extrabold text-xl text-white">Digital Register Portal (New Way)</h3>
+                <h3 className="font-extrabold text-xl text-slate-850">Digital Register Portal (New Way)</h3>
               </div>
-              <ul className="space-y-4 text-xs font-semibold text-slate-300">
+              <ul className="space-y-4 text-xs font-semibold text-slate-600 leading-relaxed">
                 <li className="flex items-start gap-2.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
                   <span>**Auto-Generated Unique Job Numbers** & integrated verification checklists to prevent hardware disputes.</span>
@@ -276,49 +274,49 @@ export default function Home() {
         </section>
 
         {/* DETAILED CORE FEATURES TOUR */}
-        <section className="max-w-6xl mx-auto px-6 py-20 border-t border-slate-900">
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-slate-200 w-full">
           <div className="text-center space-y-3 mb-16">
             <span className="text-xs font-bold text-primary uppercase tracking-[0.2em]">Designed for Performance</span>
-            <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight">Core Features Built for You</h2>
+            <h2 className="text-3xl md:text-4xl font-black text-slate-800 tracking-tight">Core Features Built for You</h2>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="p-6 bg-white/[0.01] hover:bg-white/[0.02] border border-white/5 rounded-3xl transition-all space-y-4">
-              <div className="p-3 bg-blue-500/10 text-blue-400 rounded-xl border border-blue-500/20 w-fit">
+            <div className="p-6 bg-white border border-slate-200/60 rounded-3xl hover:border-slate-350 transition-all space-y-4 shadow-sm hover:shadow-md">
+              <div className="p-3 bg-blue-50 text-blue-600 rounded-xl border border-blue-100 w-fit">
                 <Wrench size={22} />
               </div>
-              <h4 className="font-extrabold text-base text-white">Repair Registry</h4>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <h4 className="font-extrabold text-base text-slate-850">Repair Registry</h4>
+              <p className="text-xs text-slate-500 leading-relaxed">
                 Log laptop brands, main issues, customer configurations, passwords, signature status, and expected delivery timers.
               </p>
             </div>
 
-            <div className="p-6 bg-white/[0.01] hover:bg-white/[0.02] border border-white/5 rounded-3xl transition-all space-y-4">
-              <div className="p-3 bg-emerald-500/10 text-emerald-400 rounded-xl border border-emerald-500/20 w-fit">
+            <div className="p-6 bg-white border border-slate-200/60 rounded-3xl hover:border-slate-350 transition-all space-y-4 shadow-sm hover:shadow-md">
+              <div className="p-3 bg-emerald-50 text-emerald-600 rounded-xl border border-emerald-100 w-fit">
                 <Package size={22} />
               </div>
-              <h4 className="font-extrabold text-base text-white">Parts Inventory</h4>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <h4 className="font-extrabold text-base text-slate-850">Parts Inventory</h4>
+              <p className="text-xs text-slate-500 leading-relaxed">
                 Add screens, SSDs, keyboards, or RAM. Monitor stock levels with auto-triggered low stock warnings (under 5 items).
               </p>
             </div>
 
-            <div className="p-6 bg-white/[0.01] hover:bg-white/[0.02] border border-white/5 rounded-3xl transition-all space-y-4">
-              <div className="p-3 bg-indigo-500/10 text-indigo-400 rounded-xl border border-indigo-500/20 w-fit">
+            <div className="p-6 bg-white border border-slate-200/60 rounded-3xl hover:border-slate-350 transition-all space-y-4 shadow-sm hover:shadow-md">
+              <div className="p-3 bg-indigo-50 text-indigo-600 rounded-xl border border-indigo-100 w-fit">
                 <Cpu size={22} />
               </div>
-              <h4 className="font-extrabold text-base text-white">Log Shop Sales</h4>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <h4 className="font-extrabold text-base text-slate-850">Log Shop Sales</h4>
+              <p className="text-xs text-slate-500 leading-relaxed">
                 Make sales entries of spare parts directly to clients. The system updates stock levels and records transaction logs automatically.
               </p>
             </div>
 
-            <div className="p-6 bg-white/[0.01] hover:bg-white/[0.02] border border-white/5 rounded-3xl transition-all space-y-4">
-              <div className="p-3 bg-violet-500/10 text-violet-400 rounded-xl border border-violet-500/20 w-fit">
+            <div className="p-6 bg-white border border-slate-200/60 rounded-3xl hover:border-slate-350 transition-all space-y-4 shadow-sm hover:shadow-md">
+              <div className="p-3 bg-violet-50 text-violet-600 rounded-xl border border-violet-100 w-fit">
                 <Download size={22} />
               </div>
-              <h4 className="font-extrabold text-base text-white">Excel Sync Backups</h4>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <h4 className="font-extrabold text-base text-slate-850">Excel Sync Backups</h4>
+              <p className="text-xs text-slate-500 leading-relaxed">
                 Bulk import existing Excel worksheets or download active register lists for accounting offline.
               </p>
             </div>
@@ -326,52 +324,52 @@ export default function Home() {
         </section>
 
         {/* PRICING & SUBSCRIPTION SECTION */}
-        <section className="max-w-6xl mx-auto px-6 py-20 border-t border-slate-900">
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-slate-200 w-full">
           <div className="text-center space-y-3 mb-16">
             <span className="text-xs font-bold text-primary uppercase tracking-[0.2em]">Affordable License Plans</span>
-            <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight">Select Shop Subscription</h2>
-            <p className="text-slate-400 text-sm max-w-sm mx-auto">Get started instantly. Licenses are manually activated by Super Admin.</p>
+            <h2 className="text-3xl md:text-4xl font-black text-slate-800 tracking-tight">Select Shop Subscription</h2>
+            <p className="text-slate-500 text-sm max-w-sm mx-auto">Get started instantly. Licenses are manually activated by Super Admin.</p>
           </div>
 
           <div className="grid gap-6 md:grid-cols-3 max-w-4xl mx-auto">
-            <div className="p-6 bg-[#0a0d18] border border-slate-800 rounded-3xl flex flex-col justify-between space-y-6">
+            <div className="p-6 bg-white border border-slate-200 rounded-3xl flex flex-col justify-between space-y-6 shadow-sm">
               <div>
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Basic access</span>
-                <h4 className="font-extrabold text-lg text-white mt-1">1 Month License</h4>
-                <p className="text-2xl font-black text-white mt-4">₹21<span className="text-xs text-slate-500 font-semibold">/month</span></p>
-                <p className="text-xs text-slate-400 mt-4 leading-relaxed">Perfect for test periods. Manual activation by admin.</p>
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Basic access</span>
+                <h4 className="font-extrabold text-lg text-slate-800 mt-1">1 Month License</h4>
+                <p className="text-2xl font-black text-slate-850 mt-4">₹21<span className="text-xs text-slate-400 font-semibold">/month</span></p>
+                <p className="text-xs text-slate-500 mt-4 leading-relaxed font-semibold">Perfect for test periods. Manual activation by admin.</p>
               </div>
-              <Link href="/register" className="w-full py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-center font-bold text-xs rounded-xl transition-all text-white">Register & Subscribe</Link>
+              <Link href="/register" className="w-full py-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-center font-bold text-xs rounded-xl transition-all text-slate-700">Register & Subscribe</Link>
             </div>
 
-            <div className="p-6 bg-[#0b0f19] border border-indigo-500/30 rounded-3xl flex flex-col justify-between space-y-6 relative shadow-lg shadow-indigo-500/[0.02]">
-              <span className="absolute top-0 right-6 p-2 bg-indigo-600 text-white rounded-b-xl text-[8px] font-black uppercase tracking-wider">Most Popular</span>
+            <div className="p-6 bg-white border border-indigo-500/30 rounded-3xl flex flex-col justify-between space-y-6 relative shadow-lg shadow-indigo-500/[0.03]">
+              <span className="absolute top-0 right-6 p-2 bg-indigo-600 text-white rounded-b-xl text-[8px] font-black uppercase tracking-wider animate-pulse">Most Popular</span>
               <div>
                 <span className="text-[10px] font-bold text-primary uppercase tracking-widest">Quarterly plan</span>
-                <h4 className="font-extrabold text-lg text-white mt-1">Quarterly (3 Months)</h4>
-                <p className="text-2xl font-black text-white mt-4">₹60<span className="text-xs text-slate-500 font-semibold">/3 months</span></p>
-                <p className="text-xs text-slate-400 mt-4 leading-relaxed">Save on manual fees. Recommended for established shops.</p>
+                <h4 className="font-extrabold text-lg text-slate-800 mt-1">Quarterly (3 Months)</h4>
+                <p className="text-2xl font-black text-slate-850 mt-4">₹60<span className="text-xs text-slate-400 font-semibold">/3 months</span></p>
+                <p className="text-xs text-slate-500 mt-4 leading-relaxed font-semibold">Save on manual fees. Recommended for established shops.</p>
               </div>
               <Link href="/register" className="w-full py-3 bg-primary hover:bg-primary/95 text-center font-bold text-xs rounded-xl transition-all text-white shadow-md shadow-primary/10">Register & Subscribe</Link>
             </div>
 
-            <div className="p-6 bg-[#0a0d18] border border-slate-800 rounded-3xl flex flex-col justify-between space-y-6">
+            <div className="p-6 bg-white border border-slate-200 rounded-3xl flex flex-col justify-between space-y-6 shadow-sm">
               <div>
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Best value</span>
-                <h4 className="font-extrabold text-lg text-white mt-1">6 Months License</h4>
-                <p className="text-2xl font-black text-white mt-4">₹120<span className="text-xs text-slate-500 font-semibold">/6 months</span></p>
-                <p className="text-xs text-slate-400 mt-4 leading-relaxed">Maximum value option. Fully synced backups guaranteed.</p>
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Best value</span>
+                <h4 className="font-extrabold text-lg text-slate-800 mt-1">6 Months License</h4>
+                <p className="text-2xl font-black text-slate-850 mt-4">₹120<span className="text-xs text-slate-400 font-semibold">/6 months</span></p>
+                <p className="text-xs text-slate-500 mt-4 leading-relaxed font-semibold">Maximum value option. Fully synced backups guaranteed.</p>
               </div>
-              <Link href="/register" className="w-full py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-center font-bold text-xs rounded-xl transition-all text-white">Register & Subscribe</Link>
+              <Link href="/register" className="w-full py-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-center font-bold text-xs rounded-xl transition-all text-slate-700">Register & Subscribe</Link>
             </div>
           </div>
         </section>
 
         {/* FAQ ACCORDION SECTION */}
-        <section className="max-w-3xl mx-auto px-6 py-20 border-t border-slate-900">
+        <section className="max-w-3xl mx-auto px-4 sm:px-6 py-20 border-t border-slate-200 w-full">
           <div className="text-center space-y-3 mb-16">
             <span className="text-xs font-bold text-primary uppercase tracking-[0.2em]">Have Questions?</span>
-            <h2 className="text-3xl font-black text-white tracking-tight">Frequently Asked Questions</h2>
+            <h2 className="text-3xl font-black text-slate-800 tracking-tight">Frequently Asked Questions</h2>
           </div>
 
           <div className="space-y-4">
@@ -381,16 +379,16 @@ export default function Home() {
               { q: "Can I import bulk customer records from Excel?", a: "Yes. In the registry dashboard, we provide an 'Upload Excel' option. Download our sample Excel sheet, paste your existing customer data, and upload to sync instantly." },
               { q: "How does the WhatsApp service confirmation work?", a: "When you submit a new repair job entry, a success card appears with a green 'WhatsApp Confirmation' button. Clicking it automatically opens a formatted message template in WhatsApp Web or App pre-filled with the Job Number, device model, issues, and cost for the customer." },
             ].map((faq, idx) => (
-              <div key={idx} className="border border-slate-800 rounded-2xl bg-white/[0.01] overflow-hidden">
+              <div key={idx} className="border border-slate-200 rounded-2xl bg-white overflow-hidden shadow-sm">
                 <button
                   onClick={() => toggleFaq(idx)}
-                  className="w-full p-5 text-left flex justify-between items-center text-xs sm:text-sm font-bold text-white hover:bg-white/[0.02] transition-colors"
+                  className="w-full p-5 text-left flex justify-between items-center text-xs sm:text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors"
                 >
                   <span className="flex items-center gap-2"><HelpCircle size={16} className="text-primary shrink-0" /> {faq.q}</span>
-                  <ChevronDown size={16} className={`transition-transform duration-200 shrink-0 text-slate-500 ${openFaq === idx ? "rotate-180 text-white" : ""}`} />
+                  <ChevronDown size={16} className={`transition-transform duration-200 shrink-0 text-slate-400 ${openFaq === idx ? "rotate-180 text-primary" : ""}`} />
                 </button>
                 {openFaq === idx && (
-                  <div className="p-5 pt-0 border-t border-slate-900 text-xs text-slate-400 leading-relaxed font-semibold animate-in slide-in-from-top-2 duration-200">
+                  <div className="p-5 pt-0 border-t border-slate-100 text-xs text-slate-500 leading-relaxed font-semibold animate-in slide-in-from-top-2 duration-200">
                     {faq.a}
                   </div>
                 )}
@@ -400,25 +398,25 @@ export default function Home() {
         </section>
 
         {/* FOUNDER & SPONSOR MESSAGE */}
-        <section className="max-w-4xl mx-auto px-6 py-12 border-t border-slate-900 mt-10">
-          <div className="bg-white/[0.01] border border-white/5 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row gap-8 items-center">
+        <section className="max-w-4xl mx-auto px-4 sm:px-6 py-12 border-t border-slate-200 mt-10 w-full">
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row gap-8 items-center shadow-sm">
             <div className="space-y-4 flex-1">
-              <span className="text-[10px] bg-slate-800 px-3 py-1 rounded-full font-bold text-slate-300 uppercase tracking-wider w-fit block">Vision & Sponsorship</span>
-              <blockquote className="text-sm font-semibold text-slate-300 italic leading-relaxed">
+              <span className="text-[10px] bg-slate-100 px-3 py-1 rounded-full font-bold text-slate-600 uppercase tracking-wider w-fit block">Vision & Sponsorship</span>
+              <blockquote className="text-sm font-semibold text-slate-600 italic leading-relaxed">
                 "We faced massive difficulties managing laptop service forms and pending customer balances on paper sheets. Collaborating with developer Devraj Singh Tomar, we built Digital Register to provide an absolute digital ledger solution for laptop repair shops nationwide."
               </blockquote>
               <div>
-                <p className="font-bold text-sm text-white">National Computer</p>
-                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mt-0.5"> Allahabad (Sponsor & Co-founder)</p>
+                <p className="font-bold text-sm text-slate-800">National Computer</p>
+                <p className="text-[10px] text-slate-450 font-bold uppercase tracking-wider mt-0.5"> Allahabad (Sponsor & Co-founder)</p>
               </div>
             </div>
             
             {/* Developer showcase */}
-            <div className="bg-[#0b0f19] border border-indigo-500/20 rounded-2xl p-6 md:w-80 shrink-0 space-y-4">
+            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 md:w-80 shrink-0 space-y-4 w-full">
               <span className="text-[9px] text-primary font-bold uppercase tracking-widest">Designed & Developed By</span>
               <div>
-                <h4 className="font-black text-sm text-white">Devraj Singh Tomar</h4>
-                <p className="text-[10px] text-slate-400 leading-relaxed mt-1">Full-stack software architect specializing in database speed and secure POS portals.</p>
+                <h4 className="font-black text-sm text-slate-850">Devraj Singh Tomar</h4>
+                <p className="text-[10px] text-slate-500 leading-relaxed mt-1 font-semibold">Full-stack software architect specializing in database speed and secure POS portals.</p>
               </div>
               <a 
                 href="https://devrajsinghtomar.com/" 
@@ -434,8 +432,8 @@ export default function Home() {
         </section>
 
         {/* FOOTER */}
-        <footer className="bg-[#04060d] border-t border-slate-900 py-12 mt-20 text-center text-xs text-slate-500 font-semibold space-y-2">
-          <p className="uppercase tracking-widest text-[9px] text-slate-600">V1.0.0 • NATIONAL COMPUTER REGISTER BOOK</p>
+        <footer className="bg-white border-t border-slate-200 py-12 mt-20 text-center text-xs text-slate-450 font-semibold space-y-2 w-full">
+          <p className="uppercase tracking-widest text-[9px] text-slate-400">V1.0.0 • NATIONAL COMPUTER REGISTER BOOK</p>
           <p>© 2026 Digital Register. Developed by Devraj Singh Tomar.</p>
         </footer>
       </main>
