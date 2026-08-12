@@ -18,6 +18,8 @@ model User {
   subscriptionActive    Boolean         @default(false)
   subscriptionPlan      String?
   subscriptionExpiresAt DateTime?
+  pendingPlan           String?
+  pendingMonths         Int?
   createdAt             DateTime        @default(now())
   updatedAt             DateTime        @updatedAt
   records               RepairRecord[]

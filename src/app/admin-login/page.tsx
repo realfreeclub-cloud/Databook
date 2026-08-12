@@ -29,7 +29,7 @@ export default function AdminLoginPage() {
     setIsLoading(true);
 
     try {
-      const result = await loginUser(phone, password);
+      const result = await loginUser(phone, password, true);
 
       if (result.success) {
         // Store user session attributes

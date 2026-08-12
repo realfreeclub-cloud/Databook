@@ -49,7 +49,7 @@ export default function SubscriptionPage() {
     setErrorMsg("");
     setSuccessMsg("");
     try {
-      const res = await requestSubscriptionActivation(plan.name);
+      const res = await requestSubscriptionActivation(plan.name, plan.months);
       if (res.success) {
         setSuccessMsg(
           `Request for ${plan.name} submitted! Please contact Super Admin at +917786961902 to complete manual activation.`
@@ -112,6 +112,13 @@ export default function SubscriptionPage() {
             </div>
           )}
         </div>
+        
+        {subStatus?.pendingPlan && (
+          <div className="p-3.5 bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold rounded-2xl flex items-center gap-2 mt-4 animate-pulse">
+            <AlertCircle size={16} className="text-amber-600 shrink-0" />
+            <span>Pending activation: {subStatus.pendingPlan} ({subStatus.pendingMonths} Months extension requested)</span>
+          </div>
+        )}
       </div>
 
       {/* Main Subscription Interface */}

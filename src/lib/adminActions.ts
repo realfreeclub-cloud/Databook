@@ -78,6 +78,10 @@ export async function getAllUsers() {
         subscriptionPlan: true,
         // @ts-ignore
         subscriptionExpiresAt: true,
+        // @ts-ignore
+        pendingPlan: true,
+        // @ts-ignore
+        pendingMonths: true,
         createdAt: true,
       },
       orderBy: { createdAt: 'desc' }
@@ -89,6 +93,8 @@ export async function getAllUsers() {
       subscriptionActive: u.subscriptionActive,
       subscriptionPlan: u.subscriptionPlan || "None",
       subscriptionExpiresAt: u.subscriptionExpiresAt ? u.subscriptionExpiresAt.toISOString() : null,
+      pendingPlan: u.pendingPlan || null,
+      pendingMonths: u.pendingMonths || null,
       createdAt: u.createdAt.toISOString()
     }));
   } catch (e) {
@@ -136,7 +142,11 @@ export async function updateUserSubscription(targetUserId: string, planName: str
         // @ts-ignore
         subscriptionPlan: planName,
         // @ts-ignore
-        subscriptionExpiresAt: expiryDate
+        subscriptionExpiresAt: expiryDate,
+        // @ts-ignore
+        pendingPlan: null,
+        // @ts-ignore
+        pendingMonths: null
       }
     });
     return { success: true, expiresAt: expiryDate.toISOString() };
@@ -162,7 +172,11 @@ export async function getMySubscription() {
         // @ts-ignore
         subscriptionExpiresAt: true,
         // @ts-ignore
-        role: true
+        role: true,
+        // @ts-ignore
+        pendingPlan: true,
+        // @ts-ignore
+        pendingMonths: true
       }
     });
     if (!user) return null;
@@ -174,7 +188,11 @@ export async function getMySubscription() {
       // @ts-ignore
       expiresAt: user.subscriptionExpiresAt ? user.subscriptionExpiresAt.toISOString() : null,
       // @ts-ignore
-      role: user.role
+      role: user.role,
+      // @ts-ignore
+      pendingPlan: user.pendingPlan || null,
+      // @ts-ignore
+      pendingMonths: user.pendingMonths || null
     };
   } catch (e) {
     console.error("Failed to fetch subscription status:", e);
@@ -183,18 +201,18 @@ export async function getMySubscription() {
 }
 
 // Request a subscription update/activation
-export async function requestSubscriptionActivation(planName: string) {
+export async function requestSubscriptionActivation(planName: string, durationMonths: number) {
   const userId = await getSessionUserId();
   if (!userId) return { success: false, error: "Not logged in" };
 
   try {
-    // In a fully integrated system, you could create a request log.
-    // For now, we update the user's plan name and set active to false so Super Admin sees the request plan.
     await prisma.user.update({
       where: { id: userId },
       data: {
         // @ts-ignore
-        subscriptionPlan: `${planName} (Pending Activation)`
+        pendingPlan: planName,
+        // @ts-ignore
+        pendingMonths: durationMonths
       }
     });
     return { success: true };

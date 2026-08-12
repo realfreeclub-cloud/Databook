@@ -93,8 +93,13 @@ export default function AdminDashboard() {
 
   const openSubscriptionModal = (user: any) => {
     setSelectedUser(user);
-    setSubPlan("1 MONTH LICENSE");
-    setSubMonths(1);
+    if (user.pendingPlan) {
+      setSubPlan(user.pendingPlan);
+      setSubMonths(user.pendingMonths || 1);
+    } else {
+      setSubPlan("1 MONTH LICENSE");
+      setSubMonths(1);
+    }
     setErrorMsg("");
     setSuccessMsg("");
     setActiveModal("subscription");
@@ -337,7 +342,14 @@ export default function AdminDashboard() {
                             {u.subscriptionActive ? "Active" : "Expired"}
                           </span>
                         </td>
-                        <td className="py-4 px-4 font-bold text-foreground">{u.subscriptionPlan}</td>
+                        <td className="py-4 px-4 font-bold text-foreground">
+                          {u.subscriptionPlan}
+                          {u.pendingPlan && (
+                            <span className="block text-[10px] text-amber-700 font-extrabold bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-lg mt-1 w-fit animate-pulse">
+                              ⚠️ Req: {u.pendingPlan} ({u.pendingMonths}M)
+                            </span>
+                          )}
+                        </td>
                         <td className="py-4 px-4 text-muted-foreground font-semibold">
                           {u.subscriptionExpiresAt 
                             ? new Date(u.subscriptionExpiresAt).toLocaleDateString() 
