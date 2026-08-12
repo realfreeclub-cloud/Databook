@@ -3,9 +3,13 @@
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import { setSession, clearSession } from "@/lib/session";
+import { seedSuperAdmin } from "@/lib/adminActions";
 
 export async function loginUser(phone: string, password: string) {
   try {
+    // Seed Super Admin if missing
+    await seedSuperAdmin();
+    
     const user = await prisma.user.findUnique({
       where: { phone },
     });
@@ -28,7 +32,13 @@ export async function loginUser(phone: string, password: string) {
       user: { 
         id: user.id, 
         name: user.name, 
-        phone: user.phone 
+        phone: user.phone,
+        // @ts-ignore
+        role: user.role,
+        // @ts-ignore
+        subscriptionActive: user.subscriptionActive,
+        // @ts-ignore
+        subscriptionPlan: user.subscriptionPlan
       } 
     };
   } catch (error) {

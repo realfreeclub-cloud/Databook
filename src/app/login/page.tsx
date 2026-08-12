@@ -36,7 +36,12 @@ export default function Login() {
       if (result.success) {
         // Store user info in localStorage for basic session persistence
         localStorage.setItem("user", JSON.stringify(result.user));
-        router.push("/");
+        // @ts-ignore
+        if (result.user && result.user.role === "SUPER_ADMIN") {
+          router.push("/admin");
+        } else {
+          router.push("/");
+        }
       } else {
         setError(result.error || "Login failed");
       }
