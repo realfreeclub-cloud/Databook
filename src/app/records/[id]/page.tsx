@@ -15,12 +15,24 @@ export default function RecordDetail({ params }: { params: Promise<{ id: string 
   const [isDeleted, setIsDeleted] = useState(false);
   const [record, setRecord] = useState<RecordItem | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState<any>(null);
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      try {
+        setCurrentUser(JSON.parse(savedUser));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const initData = async () => {
       try {
-        const currentUser = await getCurrentUser();
-        if (!currentUser) {
+        const cUser = await getCurrentUser();
+        if (!cUser) {
           localStorage.removeItem("user");
           router.push("/login");
           return;
@@ -36,6 +48,27 @@ export default function RecordDetail({ params }: { params: Promise<{ id: string 
     };
     initData();
   }, [resolvedParams.id, router]);
+
+  const getWhatsAppLink = () => {
+    if (!record) return "";
+    let cleanPhone = record.phone.replace(/\D/g, '');
+    if (cleanPhone.length === 10) {
+      cleanPhone = '91' + cleanPhone; // Default to India country code
+    }
+    
+    const shopName = currentUser?.name || "National Computer";
+    const shopPhone = currentUser?.phone || "7786961902";
+    const supportPhone = "7860130721";
+
+    let message = "";
+    if (!record.isPaid) {
+      message = `Dear Customer ${record.name} , We have Received Your Item For Repairing. There JOB No. is ${record.jobNumber}. Thanks, ${shopName} ${shopPhone}, ${supportPhone}`;
+    } else {
+      message = `Dear Customer ${record.name}, Job No. ${record.jobNumber} is Ready And Job Amount Rs. ${record.amount}/- Only, Please Collect Immediate. ${shopName}. ${shopPhone}, ${supportPhone}`;
+    }
+    
+    return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+  };
 
   const handleDelete = async () => {
     if (!resolvedParams.id) return;
@@ -270,21 +303,34 @@ export default function RecordDetail({ params }: { params: Promise<{ id: string 
           </section>
         )}
 
-        <div className="flex items-center gap-3 pt-2">
-          <Link 
-            href={`/edit/${record.id}`}
-            className="flex-1 flex items-center justify-center gap-2 py-4 bg-white text-foreground font-bold rounded-2xl shadow-sm border border-border hover:bg-muted/30 transition-all active:scale-[0.98]"
+        <div className="flex flex-col gap-3 pt-2">
+          <a
+            href={getWhatsAppLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold rounded-2xl shadow-lg shadow-emerald-500/20 hover:shadow-xl transition-all active:scale-[0.98] flex items-center justify-center gap-2"
           >
-            <Edit2 size={18} />
-            Edit Record
-          </Link>
-          <button 
-            onClick={() => setShowDeleteConfirm(true)}
-            className="flex-1 flex items-center justify-center gap-2 py-4 bg-red-50 text-red-600 font-bold rounded-2xl shadow-sm border border-red-100 hover:bg-red-100 transition-all active:scale-[0.98]"
-          >
-            <Trash2 size={18} />
-            Delete
-          </button>
+            <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.97C16.579 1.886 14.11 1.06 11.487 1.06 6.05 1.06 1.625 5.434 1.62 10.867c-.001 1.702.447 3.366 1.3 4.803l-1.052 3.841 3.938-1.033zM18.018 14.71c-.33-.165-1.953-.964-2.251-1.074-.299-.109-.517-.165-.733.165-.217.33-.84 1.074-1.03 1.293-.19.219-.38.244-.71.08-1.98-1.01-3.415-1.782-4.785-4.135-.362-.622.362-.577 1.035-1.926.113-.227.057-.425-.028-.59-.085-.165-.733-1.766-1.002-2.414-.262-.63-.529-.545-.733-.555-.19-.01-.407-.012-.624-.012-.217 0-.57.08-.87.408-.3.33-1.14 1.114-1.14 2.716 0 1.602 1.169 3.15 1.329 3.366.16.216 2.3 3.51 5.573 4.92.778.335 1.387.536 1.859.687.781.248 1.492.213 2.054.129.628-.094 1.953-.799 2.228-1.57.275-.771.275-1.431.19-1.57-.083-.14-.3-.227-.63-.393z"/>
+            </svg>
+            Send WhatsApp Reminder
+          </a>
+          <div className="flex items-center gap-3">
+            <Link 
+              href={`/edit/${record.id}`}
+              className="flex-1 flex items-center justify-center gap-2 py-4 bg-white text-foreground font-bold rounded-2xl shadow-sm border border-border hover:bg-muted/30 transition-all active:scale-[0.98]"
+            >
+              <Edit2 size={18} />
+              Edit Record
+            </Link>
+            <button 
+              onClick={() => setShowDeleteConfirm(true)}
+              className="flex-1 flex items-center justify-center gap-2 py-4 bg-red-50 text-red-600 font-bold rounded-2xl shadow-sm border border-red-100 hover:bg-red-100 transition-all active:scale-[0.98]"
+            >
+              <Trash2 size={18} />
+              Delete
+            </button>
+          </div>
         </div>
       </div>
 

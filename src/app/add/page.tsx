@@ -90,6 +90,18 @@ export default function AddRecord() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [activeSelect, setActiveSelect] = useState<{ field: string, options: string[], allowManual?: boolean } | null>(null);
+  const [currentUser, setCurrentUser] = useState<any>(null);
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      try {
+        setCurrentUser(JSON.parse(savedUser));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, []);
 
   const [createdRecord, setCreatedRecord] = useState<{
     name: string;
@@ -98,6 +110,7 @@ export default function AddRecord() {
     issue: string;
     jobNumber: string;
     amount: number;
+    isPaid: boolean;
     receivedDate: string;
     expectedDeliveryDate: string;
   } | null>(null);
@@ -199,6 +212,7 @@ export default function AddRecord() {
           issue: data.issue,
           jobNumber: res.record.jobNumber || data.jobNumber,
           amount: Number(data.amount) || 0,
+          isPaid: data.isPaid,
           receivedDate: data.receivedDate,
           expectedDeliveryDate: data.expectedDeliveryDate
         });
@@ -247,16 +261,16 @@ export default function AddRecord() {
       cleanPhone = '91' + cleanPhone; // Default to India country code
     }
     
-    const message = `*Service Confirmation*\n\n` +
-      `Hello *${record.name}*,\n` +
-      `Your laptop repair request has been registered.\n\n` +
-      `*Job Number:* ${record.jobNumber}\n` +
-      `*Device:* ${record.laptop}\n` +
-      `*Issue:* ${record.issue}\n` +
-      `*Received:* ${record.receivedDate}\n` +
-      `*Expected Delivery:* ${record.expectedDeliveryDate}\n` +
-      `*Est. Cost:* ₹${record.amount}\n\n` +
-      `Thank you for choosing our service!`;
+    const shopName = currentUser?.name || "National Computer";
+    const shopPhone = currentUser?.phone || "7786961902";
+    const supportPhone = "7860130721";
+
+    let message = "";
+    if (!record.isPaid) {
+      message = `Dear Customer ${record.name} , We have Received Your Item For Repairing. There JOB No. is ${record.jobNumber}. Thanks, ${shopName} ${shopPhone}, ${supportPhone}`;
+    } else {
+      message = `Dear Customer ${record.name}, Job No. ${record.jobNumber} is Ready And Job Amount Rs. ${record.amount}/- Only, Please Collect Immediate. ${shopName}. ${shopPhone}, ${supportPhone}`;
+    }
       
     return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
   };
