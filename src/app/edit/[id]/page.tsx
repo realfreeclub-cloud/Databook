@@ -240,7 +240,7 @@ export default function EditRecord({ params }: { params: Promise<{ id: string }>
           </button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 md:grid md:grid-cols-2 md:max-w-5xl md:mx-auto md:w-full">
           
           {/* 1. BASIC INFO */}
           <section className="bg-white border border-border rounded-3xl p-5 shadow-sm space-y-5">
@@ -646,7 +646,7 @@ export default function EditRecord({ params }: { params: Promise<{ id: string }>
           </section>
 
           {/* 8. NOTES */}
-          <section className="bg-white border border-border rounded-3xl p-5 shadow-sm space-y-3">
+          <section className="bg-white border border-border rounded-3xl p-5 shadow-sm space-y-3 md:col-span-2">
             <div className="flex items-center gap-2 mb-2">
               <div className="p-2 bg-slate-100 text-slate-600 rounded-xl"><FileText size={18} /></div>
               <h3 className="font-bold text-sm tracking-wide">Delivery Notes</h3>
@@ -660,13 +660,21 @@ export default function EditRecord({ params }: { params: Promise<{ id: string }>
             />
           </section>
 
-          <button 
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full py-5 bg-primary text-primary-foreground font-black text-lg rounded-[2rem] shadow-xl shadow-primary/30 hover:shadow-2xl hover:-translate-y-1 transition-all active:scale-[0.98] mt-2 mb-10 border border-primary-foreground/10 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-          >
-            {isSubmitting ? "Updating..." : "Update Record"}
-          </button>
+          <div className="md:col-span-2 mt-2 mb-10 flex gap-4">
+            <Link 
+              href={`/records/${resolvedParams.id}`}
+              className="w-1/3 py-5 bg-muted text-foreground font-black text-lg rounded-[2rem] border border-border/80 transition-all hover:bg-muted/80 active:scale-[0.98] flex items-center justify-center"
+            >
+              Cancel
+            </Link>
+            <button 
+              type="submit"
+              disabled={isSubmitting}
+              className="flex-1 py-5 bg-primary text-primary-foreground font-black text-lg rounded-[2rem] shadow-xl shadow-primary/30 hover:shadow-2xl hover:-translate-y-1 transition-all active:scale-[0.98] border border-primary-foreground/10 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+            >
+              {isSubmitting ? "Updating..." : "Update Record"}
+            </button>
+          </div>
         </form>
       )}
 

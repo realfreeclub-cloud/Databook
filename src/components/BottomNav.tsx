@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Home, Plus, List, LifeBuoy, User, LogIn } from "lucide-react";
+import { Home, Plus, List, Package, User, LogIn } from "lucide-react";
 
 export default function BottomNav() {
   const pathname = usePathname();
@@ -18,7 +18,7 @@ export default function BottomNav() {
     { name: "Home", href: "/", icon: Home },
     { name: "Records", href: isLoggedIn ? "/records" : "/login", icon: List },
     { name: "Add", href: isLoggedIn ? "/add" : "/login", icon: Plus, isCenter: true },
-    { name: "Support", href: "/support", icon: LifeBuoy },
+    { name: "Inventory", href: isLoggedIn ? "/inventory" : "/login", icon: Package },
     { 
       name: isLoggedIn ? "Profile" : "Login", 
       href: isLoggedIn ? "/profile" : "/login", 
@@ -27,7 +27,7 @@ export default function BottomNav() {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-t border-border pb-safe">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-t border-border pb-safe md:hidden">
       <div className="flex justify-around items-center h-20 max-w-md mx-auto px-2">
         {navItems.map((item) => {
           const isActive = pathname === item.href;

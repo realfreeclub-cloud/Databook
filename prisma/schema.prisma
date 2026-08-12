@@ -10,13 +10,15 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  phone     String   @unique
-  password  String
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  records   RepairRecord[]
+  id             String          @id @default(cuid())
+  phone          String          @unique
+  password       String
+  name           String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  records        RepairRecord[]
+  inventoryItems InventoryItem[]
+  saleItems      SaleItem[]
 }
 
 model RepairRecord {
@@ -44,4 +46,30 @@ model RepairRecord {
   user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
+}
+
+model InventoryItem {
+  id        String     @id @default(cuid())
+  name      String
+  sku       String?
+  stock     Int        @default(0)
+  price     Float      @default(0)
+  userId    String
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  sales     SaleItem[]
+}
+
+model SaleItem {
+  id              String        @id @default(cuid())
+  quantity        Int
+  totalAmount     Float
+  saleDate        DateTime      @default(now())
+  inventoryItemId String
+  inventoryItem   InventoryItem @relation(fields: [inventoryItemId], references: [id], onDelete: Cascade)
+  userId          String
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 }

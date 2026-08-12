@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import BottomNav from "@/components/BottomNav";
+import Sidebar from "@/components/Sidebar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -16,11 +17,11 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Digital Register",
-  description: "A simple digital register app",
+  description: "Secure Digital Register for Laptop & PC Repair Centers",
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
+  themeColor: "#0a0d18",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -35,11 +36,16 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#fafafd] text-foreground min-h-screen`}
         suppressHydrationWarning
       >
-        <div className="max-w-md mx-auto min-h-screen relative pb-24">
-          {children}
+        <div className="min-h-screen md:flex md:flex-row">
+          <Sidebar />
+          <div className="flex-1 min-h-screen relative pb-24 md:pb-0 md:bg-muted/5 md:overflow-y-auto md:h-screen">
+            <div className="max-w-md mx-auto md:max-w-none md:p-6 lg:p-8">
+              {children}
+            </div>
+          </div>
           <BottomNav />
         </div>
       </body>
