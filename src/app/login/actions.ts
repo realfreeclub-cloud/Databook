@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
+import { setSession, clearSession } from "@/lib/session";
 
 export async function loginUser(phone: string, password: string) {
   try {
@@ -19,8 +20,9 @@ export async function loginUser(phone: string, password: string) {
       return { success: false, error: "Invalid phone number or password" };
     }
 
-    // In a real production app, you would set a session cookie or JWT here
-    // For now, we'll return success and let the client handle navigation
+    // Set secure HTTP-only cookie
+    await setSession(user.id);
+
     return { 
       success: true, 
       user: { 
@@ -33,4 +35,9 @@ export async function loginUser(phone: string, password: string) {
     console.error("Login error:", error);
     return { success: false, error: "Something went wrong. Please try again." };
   }
+}
+
+export async function logoutUser() {
+  await clearSession();
+  return { success: true };
 }

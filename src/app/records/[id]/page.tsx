@@ -5,7 +5,7 @@ import { use } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Edit2, Trash2, User, Laptop, Wrench, IndianRupee, Lock, AlertTriangle, CalendarIcon, FileText } from "lucide-react";
-import { getRecordsFromDB, deleteRecordFromDB } from "@/lib/actions";
+import { getRecordsFromDB, deleteRecordFromDB, getCurrentUser } from "@/lib/actions";
 import { RecordItem } from "@/lib/data";
 
 export default function RecordDetail({ params }: { params: Promise<{ id: string }> }) {
@@ -17,26 +17,29 @@ export default function RecordDetail({ params }: { params: Promise<{ id: string 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const userStr = localStorage.getItem("user");
-    if (userStr) {
-      const user = JSON.parse(userStr);
-      getRecordsFromDB(user.id).then(records => {
+    const initData = async () => {
+      try {
+        const currentUser = await getCurrentUser();
+        if (!currentUser) {
+          localStorage.removeItem("user");
+          router.push("/login");
+          return;
+        }
+        const records = await getRecordsFromDB();
         const found = records.find(r => r.id === resolvedParams.id);
         setRecord(found || null);
+      } catch (e) {
+        console.error("Failed to load record details:", e);
+      } finally {
         setIsLoading(false);
-      });
-    } else {
-      setIsLoading(false);
-    }
-  }, [resolvedParams.id]);
+      }
+    };
+    initData();
+  }, [resolvedParams.id, router]);
 
   const handleDelete = async () => {
     if (!resolvedParams.id) return;
-    const userStr = localStorage.getItem("user");
-    if (!userStr) return;
-    const user = JSON.parse(userStr);
-    
-    await deleteRecordFromDB(user.id, resolvedParams.id);
+    await deleteRecordFromDB(resolvedParams.id);
     
     setIsDeleted(true);
     setTimeout(() => {

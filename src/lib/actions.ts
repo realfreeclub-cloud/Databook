@@ -2,8 +2,35 @@
 
 import { prisma } from "@/lib/prisma";
 import { RecordItem } from "@/lib/data";
+import { getSessionUserId } from "@/lib/session";
 
-export async function getRecordsFromDB(userId: string): Promise<RecordItem[]> {
+export async function getCurrentUser() {
+  const userId = await getSessionUserId();
+  if (!userId) return null;
+  
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        name: true,
+        phone: true,
+      }
+    });
+    if (!user) return null;
+    return {
+      id: user.id,
+      name: user.name || "",
+      phone: user.phone,
+    };
+  } catch (e) {
+    console.error("Failed to fetch current user:", e);
+    return null;
+  }
+}
+
+export async function getRecordsFromDB(): Promise<RecordItem[]> {
+  const userId = await getSessionUserId();
   if (!userId) return [];
   
   try {
@@ -30,7 +57,8 @@ export async function getRecordsFromDB(userId: string): Promise<RecordItem[]> {
   }
 }
 
-export async function addRecordToDB(userId: string, record: Omit<RecordItem, 'id'>) {
+export async function addRecordToDB(record: Omit<RecordItem, 'id'>) {
+  const userId = await getSessionUserId();
   if (!userId) return { success: false, error: "Not logged in" };
 
   try {
@@ -50,7 +78,8 @@ export async function addRecordToDB(userId: string, record: Omit<RecordItem, 'id
   }
 }
 
-export async function updateRecordInDB(userId: string, id: string, record: Partial<Omit<RecordItem, 'id'>>) {
+export async function updateRecordInDB(id: string, record: Partial<Omit<RecordItem, 'id'>>) {
+  const userId = await getSessionUserId();
   if (!userId) return { success: false, error: "Not logged in" };
 
   try {
@@ -68,8 +97,9 @@ export async function updateRecordInDB(userId: string, id: string, record: Parti
   }
 }
 
-export async function deleteRecordFromDB(userId: string, id: string) {
-  if (!userId) return { success: false };
+export async function deleteRecordFromDB(id: string) {
+  const userId = await getSessionUserId();
+  if (!userId) return { success: false, error: "Not logged in" };
   try {
     await prisma.repairRecord.deleteMany({
       where: { id, userId }
@@ -81,8 +111,9 @@ export async function deleteRecordFromDB(userId: string, id: string) {
   }
 }
 
-export async function syncRecordsToDB(userId: string, records: Omit<RecordItem, 'id'>[]) {
-  if (!userId) return { success: false };
+export async function syncRecordsToDB(records: Omit<RecordItem, 'id'>[]) {
+  const userId = await getSessionUserId();
+  if (!userId) return { success: false, error: "Not logged in" };
   try {
     // For import feature, we'll create many
     // First, map to include userId
@@ -104,7 +135,9 @@ export async function syncRecordsToDB(userId: string, records: Omit<RecordItem, 
   }
 }
 
-export async function updateUserInDB(id: string, data: { name?: string; phone?: string; password?: string }) {
+export async function updateUserInDB(data: { name?: string; phone?: string; password?: string }) {
+  const id = await getSessionUserId();
+  if (!id) return { success: false, error: "Not logged in" };
   try {
     const updateData: any = {};
     if (data.name) updateData.name = data.name;

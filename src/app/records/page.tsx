@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft, Search, Laptop, Wrench, Phone } from "lucide-react";
-import { getRecordsFromDB } from "@/lib/actions";
+import { useRouter } from "next/navigation";
+import { getRecordsFromDB, getCurrentUser } from "@/lib/actions";
 import { RecordItem } from "@/lib/data";
 
 type FilterType = "All" | "Paid" | "Unpaid";
@@ -13,13 +14,25 @@ export default function Records() {
   const [filter, setFilter] = useState<FilterType>("All");
   const [records, setRecords] = useState<RecordItem[]>([]);
 
+  const router = useRouter();
+
   useEffect(() => {
-    const userStr = localStorage.getItem("user");
-    if (userStr) {
-      const user = JSON.parse(userStr);
-      getRecordsFromDB(user.id).then(setRecords);
-    }
-  }, []);
+    const initData = async () => {
+      try {
+        const currentUser = await getCurrentUser();
+        if (!currentUser) {
+          localStorage.removeItem("user");
+          router.push("/login");
+          return;
+        }
+        const recordsData = await getRecordsFromDB();
+        setRecords(recordsData);
+      } catch (e) {
+        console.error("Failed to load records list:", e);
+      }
+    };
+    initData();
+  }, [router]);
 
   // Filter and search logic
   const filteredRecords = records.filter(record => {

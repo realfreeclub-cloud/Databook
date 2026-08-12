@@ -1,15 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft, UploadCloud, CheckCircle2, FileSpreadsheet } from "lucide-react";
 import * as XLSX from "xlsx";
 import { RecordItem } from "@/lib/data";
-import { getRecordsFromDB, syncRecordsToDB } from "@/lib/actions";
+import { useRouter } from "next/navigation";
+import { getRecordsFromDB, syncRecordsToDB, getCurrentUser } from "@/lib/actions";
 
 export default function UploadExcel() {
+  const router = useRouter();
   const [isUploading, setIsUploading] = useState(false);
   const [results, setResults] = useState<{ success: number; updated: number; total: number } | null>(null);
+
+  useEffect(() => {
+    getCurrentUser().then(user => {
+      if (!user) {
+        localStorage.removeItem("user");
+        router.push("/login");
+      }
+    });
+  }, [router]);
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -24,14 +35,7 @@ export default function UploadExcel() {
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
       const jsonData = XLSX.utils.sheet_to_json(worksheet) as Record<string, string | number | boolean>[];
 
-      const userStr = localStorage.getItem("user");
-      if (!userStr) {
-        alert("Please login first.");
-        return;
-      }
-      const user = JSON.parse(userStr);
-      
-      const existingRecords = await getRecordsFromDB(user.id);
+      const existingRecords = await getRecordsFromDB();
       const existingJobNumbersMap = new Map(existingRecords.map(r => [r.jobNumber.trim().toLowerCase(), r]));
 
       let successCount = 0;
@@ -105,7 +109,7 @@ export default function UploadExcel() {
       }
 
       if (newRecords.length > 0) {
-        await syncRecordsToDB(user.id, newRecords);
+        await syncRecordsToDB(newRecords);
       }
 
       setResults({

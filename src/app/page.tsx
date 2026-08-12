@@ -11,10 +11,14 @@ import {
   CheckCircle2, 
   Clock, 
   FileText,
-  Upload
+  Upload,
+  ShieldAlert,
+  Server,
+  Lock,
+  ChevronRight,
+  Database
 } from "lucide-react";
-import { getRecordsFromDB } from "@/lib/actions";
-import { RecordItem } from "@/lib/data";
+import { getRecordsFromDB, getCurrentUser } from "@/lib/actions";
 
 export default function Home() {
   const [user, setUser] = useState<{ name: string } | null>(null);
@@ -26,89 +30,136 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Load user and stats
     const fetchStats = async () => {
-      const savedUser = localStorage.getItem("user");
-      if (savedUser) {
-        const userObj = JSON.parse(savedUser);
-        setUser(userObj);
-        
-        try {
-          const records = await getRecordsFromDB(userObj.id);
+      try {
+        const currentUser = await getCurrentUser();
+        if (currentUser) {
+          setUser(currentUser);
+          localStorage.setItem("user", JSON.stringify(currentUser));
+          
+          const records = await getRecordsFromDB();
           const paid = records.filter(r => r.isPaid).length;
           setStats({
             total: records.length,
             paid: paid,
             unpaid: records.length - paid
           });
-        } catch (error) {
-          console.error("Failed to fetch records", error);
+        } else {
+          // If no server session, clear localStorage display info
+          localStorage.removeItem("user");
+          setUser(null);
         }
+      } catch (error) {
+        console.error("Failed to load user and dashboard stats:", error);
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     };
 
     fetchStats();
   }, []);
 
-  if (!user && !isLoading) {
+  if (isLoading) {
     return (
-      <main className="flex flex-col min-h-screen bg-white">
+      <main className="flex flex-col items-center justify-center min-h-screen p-6 bg-muted/20">
+        <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4"></div>
+        <p className="text-muted-foreground font-medium animate-pulse">Initializing Portal...</p>
+      </main>
+    );
+  }
+
+  if (!user) {
+    return (
+      <main className="flex flex-col min-h-screen bg-[#0c0f1d] text-slate-100 overflow-x-hidden pb-24">
+        {/* Glow effects */}
+        <div className="absolute top-[-20%] left-[-20%] w-[80%] h-[60%] bg-primary/10 rounded-full blur-[150px] pointer-events-none" />
+        <div className="absolute bottom-[10%] right-[-20%] w-[60%] h-[50%] bg-teal-500/10 rounded-full blur-[120px] pointer-events-none" />
+
         {/* Hero Section */}
-        <section className="px-6 pt-16 pb-12 text-center space-y-6">
-          <div className="w-20 h-20 bg-primary/10 text-primary rounded-3xl flex items-center justify-center mx-auto mb-6 border border-primary/20 shadow-sm">
+        <section className="px-6 pt-20 pb-16 text-center space-y-6 max-w-lg mx-auto relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs font-semibold text-primary-foreground/90 backdrop-blur-md mb-2 shadow-inner">
+            <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+            V1.0.0 Now Fully Secure
+          </div>
+          
+          <div className="w-20 h-20 bg-gradient-to-br from-primary to-violet-600 text-white rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-primary/20 rotate-6 hover:rotate-0 transition-transform duration-300 border border-white/15">
             <LayoutDashboard size={40} strokeWidth={1.5} />
           </div>
-          <h1 className="text-4xl font-extrabold tracking-tight text-foreground leading-[1.1]">
+          
+          <h1 className="text-4xl font-black tracking-tight leading-[1.1] bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-slate-400">
             Digital Register <br/>
-            <span className="text-primary text-3xl font-bold opacity-90">for Repair Shops</span>
+            <span className="text-primary text-3xl font-extrabold opacity-95">for Repair Professionals</span>
           </h1>
-          <p className="text-muted-foreground text-lg max-w-xs mx-auto font-medium leading-relaxed">
-            Manage your jobs, track payments, and export data in seconds.
+          
+          <p className="text-slate-400 text-base max-w-sm mx-auto font-medium leading-relaxed">
+            A premium, multi-user web portal to securely manage client jobs, track technician workflow, monitor payment states, and download reports.
           </p>
-          <div className="pt-4">
+          
+          <div className="pt-6 flex flex-col sm:flex-row gap-4 justify-center">
+            <Link 
+              href="/register" 
+              className="inline-flex items-center justify-center py-4 px-8 bg-primary hover:bg-primary/95 text-white font-bold rounded-2xl shadow-xl shadow-primary/10 hover:shadow-2xl transition-all hover:scale-[1.02] active:scale-[0.98] gap-2 text-base border border-white/10"
+            >
+              Register Shop Account
+              <ArrowRight size={18} />
+            </Link>
+            
             <Link 
               href="/login" 
-              className="inline-flex items-center justify-center w-full max-w-xs py-4 px-8 bg-primary text-primary-foreground font-bold rounded-2xl shadow-lg shadow-primary/20 hover:shadow-xl active:scale-[0.98] transition-all gap-2"
+              className="inline-flex items-center justify-center py-4 px-8 bg-white/5 hover:bg-white/10 text-white font-bold rounded-2xl backdrop-blur-md transition-all hover:scale-[1.02] active:scale-[0.98] gap-2 text-base border border-white/10"
             >
-              Get Started Now
-              <ArrowRight size={20} />
+              Sign In
             </Link>
           </div>
         </section>
 
+        {/* Security Alert Section */}
+        <section className="px-6 max-w-md mx-auto mb-10">
+          <div className="bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-500/20 p-5 rounded-3xl flex gap-4 backdrop-blur-md shadow-lg shadow-emerald-950/20">
+            <div className="p-3 bg-emerald-500/20 text-emerald-400 rounded-2xl h-fit border border-emerald-500/30">
+              <Lock size={22} />
+            </div>
+            <div>
+              <h4 className="font-bold text-emerald-300 text-sm">Strict User-to-User Isolation</h4>
+              <p className="text-xs text-slate-400 leading-relaxed mt-1">
+                Your registers are 100% private. Secured by HTTP-Only session cookies and isolated database query boundaries, preventing data leakage or conflict between users.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Features Grid */}
-        <section className="px-6 py-10 space-y-8 pb-32">
-          <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-[0.2em] text-center mb-6">Key Features</h3>
+        <section className="px-6 py-10 space-y-6 max-w-md mx-auto relative z-10">
+          <h3 className="text-xs font-black text-slate-500 uppercase tracking-[0.25em] text-center mb-6">Designed for Excellence</h3>
           
-          <div className="grid gap-6">
-            <div className="flex items-start gap-4 p-5 bg-muted/30 rounded-2xl border border-border/50">
-              <div className="p-3 bg-white text-blue-600 rounded-xl shadow-sm border border-border/50">
-                <List size={24} />
+          <div className="grid gap-5">
+            <div className="flex items-start gap-4 p-5 bg-white/[0.02] hover:bg-white/[0.04] rounded-3xl border border-white/5 transition-all">
+              <div className="p-3 bg-blue-500/10 text-blue-400 rounded-xl border border-blue-500/20 shadow-sm">
+                <List size={22} />
               </div>
               <div>
-                <h4 className="font-bold text-foreground">Record Management</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed mt-1">Keep a digital log of all repair jobs, customer info, and laptop passwords.</p>
+                <h4 className="font-bold text-slate-100">Job Record Sheets</h4>
+                <p className="text-sm text-slate-400 leading-relaxed mt-1">Log brand details, hardware check verification, expected delivery dates, accessories collection, and customer passwords securely.</p>
               </div>
             </div>
 
-            <div className="flex items-start gap-4 p-5 bg-muted/30 rounded-2xl border border-border/50">
-              <div className="p-3 bg-white text-green-600 rounded-xl shadow-sm border border-border/50">
-                <CheckCircle2 size={24} />
+            <div className="flex items-start gap-4 p-5 bg-white/[0.02] hover:bg-white/[0.04] rounded-3xl border border-white/5 transition-all">
+              <div className="p-3 bg-emerald-500/10 text-emerald-400 rounded-xl border border-emerald-500/20 shadow-sm">
+                <CheckCircle2 size={22} />
               </div>
               <div>
-                <h4 className="font-bold text-foreground">Payment Tracking</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed mt-1">Easily track paid and unpaid jobs. Never miss a payment again.</p>
+                <h4 className="font-bold text-slate-100">Smart Payment Balance</h4>
+                <p className="text-sm text-slate-400 leading-relaxed mt-1">Mark full payments or compute pending advance values automatically to track outstanding center balances.</p>
               </div>
             </div>
 
-            <div className="flex items-start gap-4 p-5 bg-muted/30 rounded-2xl border border-border/50">
-              <div className="p-3 bg-white text-purple-600 rounded-xl shadow-sm border border-border/50">
-                <Download size={24} />
+            <div className="flex items-start gap-4 p-5 bg-white/[0.02] hover:bg-white/[0.04] rounded-3xl border border-white/5 transition-all">
+              <div className="p-3 bg-purple-500/10 text-purple-400 rounded-xl border border-purple-500/20 shadow-sm">
+                <Download size={22} />
               </div>
               <div>
-                <h4 className="font-bold text-foreground">Excel Export/Import</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed mt-1">Export your data to Excel for backups or printouts in one tap.</p>
+                <h4 className="font-bold text-slate-100">Excel Backups & Import</h4>
+                <p className="text-sm text-slate-400 leading-relaxed mt-1">Export formatted worksheets in one click or import legacy customer lists directly into the system database.</p>
               </div>
             </div>
           </div>
@@ -117,8 +168,9 @@ export default function Home() {
     );
   }
 
+  // Logged In Dashboard
   return (
-    <main className="flex flex-col min-h-screen p-6 pt-10 pb-24">
+    <main className="flex flex-col min-h-screen p-6 pt-10 pb-24 bg-muted/20">
       {/* Header Section */}
       <header className="flex items-center justify-between mb-8">
         <div>
@@ -142,7 +194,7 @@ export default function Home() {
           </div>
           <div>
             <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">Total Records</p>
-            <p className="text-3xl font-black text-foreground leading-none mt-1">{isLoading ? "--" : stats.total}</p>
+            <p className="text-3xl font-black text-foreground leading-none mt-1">{stats.total}</p>
           </div>
         </div>
         
@@ -151,7 +203,7 @@ export default function Home() {
             <CheckCircle2 size={20} />
           </div>
           <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">Paid Jobs</p>
-          <p className="text-2xl font-black text-foreground leading-none mt-1">{isLoading ? "--" : stats.paid}</p>
+          <p className="text-2xl font-black text-foreground leading-none mt-1">{stats.paid}</p>
         </div>
 
         <div className="p-5 bg-white border border-border rounded-[2rem] shadow-sm">
@@ -159,7 +211,7 @@ export default function Home() {
             <Clock size={20} />
           </div>
           <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">Unpaid Jobs</p>
-          <p className="text-2xl font-black text-foreground leading-none mt-1">{isLoading ? "--" : stats.unpaid}</p>
+          <p className="text-2xl font-black text-foreground leading-none mt-1">{stats.unpaid}</p>
         </div>
       </div>
 
@@ -215,4 +267,3 @@ export default function Home() {
     </main>
   );
 }
-

@@ -7,7 +7,8 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
-import { addRecordToDB } from "@/lib/actions";
+import { useRouter } from "next/navigation";
+import { addRecordToDB, getCurrentUser } from "@/lib/actions";
 
 const formSchema = z.object({
   receivedDate: z.string().min(1, "Received date is required"),
@@ -57,10 +58,20 @@ const toDDMMYY = (d: string | undefined) => {
 };
 
 export default function AddRecord() {
+  const router = useRouter();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [activeSelect, setActiveSelect] = useState<{ field: string, options: string[], allowManual?: boolean } | null>(null);
+
+  useEffect(() => {
+    getCurrentUser().then(user => {
+      if (!user) {
+        localStorage.removeItem("user");
+        router.push("/login");
+      }
+    });
+  }, [router]);
 
   const now = new Date();
   const dd = String(now.getDate()).padStart(2, '0');
@@ -119,7 +130,7 @@ export default function AddRecord() {
     setIsSubmitting(true);
     setSubmitError(null);
     try {
-      const res = await addRecordToDB(user.id, {
+      const res = await addRecordToDB({
         ...data,
         amount: Number(data.amount) || 0,
         pendingAmount: data.isPaid ? 0 : (data.pendingAmount ? Number(data.pendingAmount) : 0)

@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft, Download, FileSpreadsheet } from "lucide-react";
 import * as XLSX from "xlsx";
-import { getRecordsFromDB } from "@/lib/actions";
+import { useRouter } from "next/navigation";
+import { getRecordsFromDB, getCurrentUser } from "@/lib/actions";
 import { RecordItem } from "@/lib/data";
 
 type FilterType = "All" | "Paid" | "Unpaid";
@@ -14,13 +15,25 @@ export default function ExportRecords() {
   const [records, setRecords] = useState<RecordItem[]>([]);
   const [isExporting, setIsExporting] = useState(false);
 
+  const router = useRouter();
+
   useEffect(() => {
-    const userStr = localStorage.getItem("user");
-    if (userStr) {
-      const user = JSON.parse(userStr);
-      getRecordsFromDB(user.id).then(setRecords);
-    }
-  }, []);
+    const initData = async () => {
+      try {
+        const currentUser = await getCurrentUser();
+        if (!currentUser) {
+          localStorage.removeItem("user");
+          router.push("/login");
+          return;
+        }
+        const recordsData = await getRecordsFromDB();
+        setRecords(recordsData);
+      } catch (e) {
+        console.error("Failed to load records to export:", e);
+      }
+    };
+    initData();
+  }, [router]);
 
   const filteredRecords = records.filter((record) => {
     if (filter === "Paid") return record.isPaid;

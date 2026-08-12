@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 
 import { useRouter } from "next/navigation";
+import { getCurrentUser, updateUserInDB } from "@/lib/actions";
+import { logoutUser } from "@/app/login/actions";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -25,21 +27,24 @@ export default function ProfilePage() {
   const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
-    const savedUser = localStorage.getItem("user");
-    if (savedUser) {
-      const parsed = JSON.parse(savedUser);
-      setUser(parsed);
-      setEditName(parsed.name || "");
-      setEditPhone(parsed.phone || "");
-    }
-  }, []);
+    getCurrentUser().then(currentUser => {
+      if (!currentUser) {
+        localStorage.removeItem("user");
+        router.push("/login");
+      } else {
+        setUser(currentUser);
+        setEditName(currentUser.name || "");
+        setEditPhone(currentUser.phone || "");
+        localStorage.setItem("user", JSON.stringify(currentUser));
+      }
+    });
+  }, [router]);
 
   const handleSaveProfile = async () => {
     if (!user) return;
     setIsSaving(true);
     try {
-      const { updateUserInDB } = await import("@/lib/actions");
-      const result = await updateUserInDB(user.id, {
+      const result = await updateUserInDB({
         name: editName,
         phone: editPhone,
         password: editPassword || undefined
@@ -61,7 +66,12 @@ export default function ProfilePage() {
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+    } catch (e) {
+      console.error("Failed to call logout action:", e);
+    }
     localStorage.removeItem("user");
     router.push("/login");
   };

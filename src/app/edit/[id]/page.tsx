@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useRouter } from "next/navigation";
 
-import { getRecordsFromDB, updateRecordInDB } from "@/lib/actions";
+import { getRecordsFromDB, updateRecordInDB, getCurrentUser } from "@/lib/actions";
 
 const formSchema = z.object({
   receivedDate: z.string().min(1, "Received date is required"),
@@ -94,10 +94,16 @@ export default function EditRecord({ params }: { params: Promise<{ id: string }>
   });
 
   useEffect(() => {
-    const userStr = localStorage.getItem("user");
-    if (userStr) {
-      const user = JSON.parse(userStr);
-      getRecordsFromDB(user.id).then(records => {
+    const initData = async () => {
+      try {
+        const currentUser = await getCurrentUser();
+        if (!currentUser) {
+          localStorage.removeItem("user");
+          router.push("/login");
+          return;
+        }
+        
+        const records = await getRecordsFromDB();
         const found = records.find(r => r.id === resolvedParams.id);
         if (found) {
           reset({
@@ -110,12 +116,14 @@ export default function EditRecord({ params }: { params: Promise<{ id: string }>
             pendingAmount: found.pendingAmount,
           });
         }
+      } catch (e) {
+        console.error("Failed to load edit record page data:", e);
+      } finally {
         setIsLoading(false);
-      });
-    } else {
-      setIsLoading(false);
-    }
-  }, [resolvedParams.id, reset]);
+      }
+    };
+    initData();
+  }, [resolvedParams.id, reset, router]);
 
   const watchPaid = watch("isPaid");
   const watchActualDeliveryDate = watch("actualDeliveryDate");
@@ -147,7 +155,7 @@ export default function EditRecord({ params }: { params: Promise<{ id: string }>
     setIsSubmitting(true);
     setSubmitError(null);
     try {
-      const res = await updateRecordInDB(user.id, resolvedParams.id, {
+      const res = await updateRecordInDB(resolvedParams.id, {
         ...data,
         amount: Number(data.amount) || 0,
         pendingAmount: data.isPaid ? 0 : (data.pendingAmount ? Number(data.pendingAmount) : 0)
