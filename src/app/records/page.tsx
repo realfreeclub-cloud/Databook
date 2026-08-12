@@ -9,15 +9,49 @@ import { RecordItem } from "@/lib/data";
 
 type FilterType = "All" | "Paid" | "Unpaid";
 
+const SkeletonCard = () => (
+  <div className="flex flex-col bg-white border border-border rounded-2xl p-4 shadow-sm animate-pulse space-y-4">
+    <div className="flex justify-between items-start">
+      <div className="space-y-2 flex-1">
+        <div className="h-5 bg-slate-100 rounded-lg w-1/2"></div>
+        <div className="h-4 bg-slate-100 rounded-lg w-1/3"></div>
+      </div>
+      <div className="h-6 bg-slate-100 rounded-lg w-16"></div>
+    </div>
+    <div className="space-y-3 pt-2">
+      <div className="flex items-center gap-3">
+        <div className="w-9 h-9 bg-slate-100 rounded-lg"></div>
+        <div className="space-y-1.5 flex-1">
+          <div className="h-3 bg-slate-100 rounded-lg w-1/4"></div>
+          <div className="h-4 bg-slate-100 rounded-lg w-2/3"></div>
+        </div>
+      </div>
+      <div className="flex items-center gap-3">
+        <div className="w-9 h-9 bg-slate-100 rounded-lg"></div>
+        <div className="space-y-1.5 flex-1">
+          <div className="h-3 bg-slate-100 rounded-lg w-1/4"></div>
+          <div className="h-4 bg-slate-100 rounded-lg w-1/2"></div>
+        </div>
+      </div>
+    </div>
+    <div className="border-t border-border pt-4 flex justify-between items-center">
+      <div className="h-6 bg-slate-100 rounded-lg w-20"></div>
+      <div className="h-8 bg-slate-100 rounded-lg w-14"></div>
+    </div>
+  </div>
+);
+
 export default function Records() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState<FilterType>("All");
   const [records, setRecords] = useState<RecordItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const router = useRouter();
 
   useEffect(() => {
     const initData = async () => {
+      setIsLoading(true);
       try {
         const currentUser = await getCurrentUser();
         if (!currentUser) {
@@ -29,6 +63,8 @@ export default function Records() {
         setRecords(recordsData);
       } catch (e) {
         console.error("Failed to load records list:", e);
+      } finally {
+        setIsLoading(false);
       }
     };
     initData();
@@ -48,14 +84,14 @@ export default function Records() {
   });
 
   return (
-    <main className="flex flex-col min-h-screen p-6 pt-10 pb-24">
+    <main className="flex flex-col min-h-screen p-4 pt-8 pb-28 bg-muted/10">
       <header className="flex items-center mb-6 space-x-3">
-        <Link href="/" className="p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors">
-          <ArrowLeft size={24} />
+        <Link href="/" className="p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors bg-white rounded-full shadow-sm">
+          <ArrowLeft size={20} />
         </Link>
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">Repair Records</h1>
-          <p className="text-muted-foreground text-sm">Manage jobs and payments</p>
+          <h1 className="text-xl font-extrabold tracking-tight text-foreground">Repair Records</h1>
+          <p className="text-muted-foreground text-xs font-medium">Manage jobs and payments</p>
         </div>
       </header>
 
@@ -69,17 +105,17 @@ export default function Records() {
           placeholder="Search by name or phone..." 
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full pl-11 pr-4 py-3 bg-white border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-base shadow-sm"
+          className="w-full pl-11 pr-4 py-3.5 bg-white border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium shadow-sm"
         />
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex bg-white border border-border p-1 rounded-xl shadow-sm mb-6">
+      <div className="flex bg-white border border-border p-1 rounded-2xl shadow-sm mb-6">
         {(["All", "Paid", "Unpaid"] as FilterType[]).map((f) => (
           <button
             key={f}
             onClick={() => setFilter(f)}
-            className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${
+            className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${
               filter === f 
                 ? "bg-primary text-primary-foreground shadow-sm" 
                 : "text-muted-foreground hover:text-foreground"
@@ -92,7 +128,13 @@ export default function Records() {
 
       {/* Records List (Card UI) */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredRecords.length > 0 ? (
+        {isLoading ? (
+          <>
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+          </>
+        ) : filteredRecords.length > 0 ? (
           filteredRecords.map((record) => (
             <Link 
               href={`/records/${record.id}`}
@@ -102,13 +144,13 @@ export default function Records() {
               {/* Card Header */}
               <div className="flex justify-between items-start p-4 border-b border-border bg-muted/30">
                 <div>
-                  <h3 className="font-bold text-foreground text-lg">{record.name}</h3>
-                  <div className="flex items-center text-muted-foreground text-sm mt-0.5 space-x-1">
-                    <Phone size={14} />
+                  <h3 className="font-bold text-foreground text-base leading-none">{record.name}</h3>
+                  <div className="flex items-center text-muted-foreground text-xs mt-1.5 space-x-1">
+                    <Phone size={12} />
                     <span>{record.phone}</span>
                   </div>
                 </div>
-                <div className="px-2.5 py-1 bg-background border border-border rounded-lg text-xs font-semibold tracking-wide text-muted-foreground">
+                <div className="px-2.5 py-1 bg-background border border-border rounded-lg text-[10px] font-bold tracking-wider text-muted-foreground uppercase">
                   {record.jobNumber}
                 </div>
               </div>
@@ -117,36 +159,36 @@ export default function Records() {
               <div className="p-4 flex flex-col gap-3">
                 <div className="flex items-start gap-3">
                   <div className="p-2 bg-blue-50 text-blue-600 rounded-lg shrink-0 mt-0.5">
-                    <Laptop size={18} />
+                    <Laptop size={16} />
                   </div>
                   <div>
-                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-0.5">Device</p>
-                    <p className="text-sm font-medium text-foreground">{record.laptop}</p>
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-0.5">Device</p>
+                    <p className="text-xs font-semibold text-foreground">{record.laptop}</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
                   <div className="p-2 bg-amber-50 text-amber-600 rounded-lg shrink-0 mt-0.5">
-                    <Wrench size={18} />
+                    <Wrench size={16} />
                   </div>
                   <div>
-                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-0.5">Issue</p>
-                    <p className="text-sm text-foreground line-clamp-2">{record.issue}</p>
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-0.5">Issue</p>
+                    <p className="text-xs text-foreground line-clamp-2">{record.issue}</p>
                   </div>
                 </div>
               </div>
 
               {/* Card Footer */}
-              <div className="flex items-center justify-between p-4 bg-muted/10 border-t border-border">
+              <div className="flex items-center justify-between p-4 bg-muted/10 border-t border-border mt-auto">
                 <div className="flex items-baseline space-x-1">
-                  <span className="text-muted-foreground font-medium text-sm">₹</span>
-                  <span className="text-xl font-bold text-foreground">{record.amount.toFixed(2)}</span>
+                  <span className="text-muted-foreground font-bold text-xs">₹</span>
+                  <span className="text-base font-black text-foreground">{record.amount.toFixed(2)}</span>
                 </div>
                 
-                <div className={`px-3 py-1.5 rounded-lg text-sm font-semibold flex items-center justify-center ${
+                <div className={`px-2.5 py-1 rounded-lg text-xs font-bold border ${
                   record.isPaid 
-                    ? "bg-green-100 text-green-700 border border-green-200" 
-                    : "bg-amber-100 text-amber-700 border border-amber-200"
+                    ? "bg-green-100 text-green-700 border-green-200" 
+                    : "bg-amber-100 text-amber-700 border-amber-200"
                 }`}>
                   {record.isPaid ? "Paid" : "Unpaid"}
                 </div>
@@ -154,7 +196,7 @@ export default function Records() {
             </Link>
           ))
         ) : (
-          <div className="py-12 text-center text-muted-foreground">
+          <div className="py-12 text-center text-muted-foreground col-span-full">
             <p>No records found matching your criteria.</p>
           </div>
         )}
