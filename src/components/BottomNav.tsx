@@ -26,6 +26,8 @@ export default function BottomNav() {
     },
   ];
 
+  if (!isLoggedIn) return null;
+
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-t border-border pb-safe md:hidden">
       <div className="flex justify-around items-center h-20 max-w-md mx-auto px-2">

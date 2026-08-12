@@ -45,6 +45,8 @@ export default function Sidebar() {
     },
   ];
 
+  if (!isLoggedIn) return null;
+
   return (
     <aside className="hidden md:flex flex-col w-64 bg-[#0a0d18] text-slate-200 border-r border-slate-800 min-h-screen p-6 sticky top-0 z-40">
       {/* Brand Header */}

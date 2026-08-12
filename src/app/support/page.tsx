@@ -15,6 +15,7 @@ export default function SupportPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (isLoading) return;
     setIsLoading(true);
     
     // Simulate API call
@@ -26,65 +27,65 @@ export default function SupportPage() {
   };
 
   return (
-    <main className="flex flex-col min-h-screen p-6 pt-10 pb-24">
+    <main className="flex flex-col min-h-screen p-4 pt-8 pb-24 max-w-4xl mx-auto w-full bg-muted/10">
       <header className="flex items-center mb-8 space-x-3">
-        <Link href="/" className="p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors">
-          <ArrowLeft size={24} />
+        <Link href="/" className="p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors bg-white rounded-full shadow-sm">
+          <ArrowLeft size={20} />
         </Link>
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">Support</h1>
-          <p className="text-muted-foreground text-sm">We're here to help you</p>
+          <h1 className="text-xl font-extrabold tracking-tight text-foreground">Contact Us</h1>
+          <p className="text-muted-foreground text-xs font-semibold">Get in touch with our support team</p>
         </div>
       </header>
 
       {/* Contact Cards */}
-      <div className="grid gap-4 mb-10">
-        <div className="flex gap-4 p-5 bg-white border border-border rounded-2xl shadow-sm">
+      <div className="grid gap-4 md:grid-cols-3 mb-8">
+        <div className="flex gap-4 p-5 bg-white border border-border rounded-3xl shadow-sm">
           <div className="p-3 bg-blue-50 text-blue-600 rounded-xl h-fit">
-            <Phone size={24} />
+            <Phone size={20} />
           </div>
           <div className="flex-1">
-            <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Support Line 01</p>
-            <p className="font-bold text-foreground mb-1">+91 77869 61902</p>
-            <p className="text-xs text-muted-foreground mb-3 font-medium">Mon-Sat, 10am - 8pm</p>
+            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1">Call Support</p>
+            <p className="font-bold text-foreground text-sm mb-1">+91 77869 61902</p>
+            <p className="text-[10px] text-muted-foreground mb-3 font-medium">Mon-Sat, 10am - 8pm</p>
             <a 
               href={`tel:${contactNumber}`}
-              className="inline-flex items-center text-sm font-bold text-primary hover:underline"
+              className="inline-flex items-center text-xs font-bold text-primary hover:underline"
             >
               Start Call
             </a>
           </div>
         </div>
 
-        <div className="flex gap-4 p-5 bg-white border border-border rounded-2xl shadow-sm">
+        <div className="flex gap-4 p-5 bg-white border border-border rounded-3xl shadow-sm">
           <div className="p-3 bg-green-50 text-green-600 rounded-xl h-fit">
-            <MessageCircle size={24} />
+            <MessageCircle size={20} />
           </div>
           <div className="flex-1">
-            <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">WhatsApp Support</p>
-            <p className="font-bold text-foreground mb-1">+91 91786 01307</p>
-            <p className="text-xs text-muted-foreground mb-3 font-medium">Priority Technical Support</p>
+            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1">WhatsApp Chat</p>
+            <p className="font-bold text-foreground text-sm mb-1">+91 91786 01307</p>
+            <p className="text-[10px] text-muted-foreground mb-3 font-medium">Priority Helpdesk</p>
             <a 
               href={`https://wa.me/${whatsappNumber}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center text-sm font-bold text-green-600 hover:underline"
+              className="inline-flex items-center text-xs font-bold text-green-600 hover:underline"
             >
               Chat Now
             </a>
           </div>
         </div>
 
-        <div className="flex gap-4 p-5 bg-white border border-border rounded-2xl shadow-sm">
+        <div className="flex gap-4 p-5 bg-white border border-border rounded-3xl shadow-sm">
           <div className="p-3 bg-amber-50 text-amber-600 rounded-xl h-fit">
-            <Mail size={24} />
+            <Mail size={20} />
           </div>
           <div className="flex-1">
-            <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Email Registry</p>
-            <p className="font-bold text-foreground mb-3">{emailAddress}</p>
+            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1">Email Support</p>
+            <p className="font-bold text-foreground text-sm mb-3 truncate">{emailAddress}</p>
             <a 
               href={`mailto:${emailAddress}`}
-              className="inline-flex items-center text-sm font-bold text-amber-600 hover:underline"
+              className="inline-flex items-center text-xs font-bold text-amber-600 hover:underline"
             >
               Send Email
             </a>
@@ -93,16 +94,16 @@ export default function SupportPage() {
       </div>
 
       {/* Support Form */}
-      <section className="bg-white border border-border rounded-3xl p-6 shadow-sm overflow-hidden relative">
-        <h2 className="text-xl font-bold mb-6 text-foreground flex items-center gap-2">
-          <MessageSquare size={20} className="text-primary" />
+      <section className="bg-white border border-border rounded-3xl p-6 md:p-8 shadow-sm overflow-hidden relative">
+        <h2 className="text-lg font-bold mb-6 text-foreground flex items-center gap-2">
+          <MessageSquare size={18} className="text-primary" />
           Send a Message
         </h2>
 
         {isSubmitted ? (
           <div className="py-10 flex flex-col items-center text-center animate-in zoom-in duration-300">
-            <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-4">
-              <CheckCircle2 size={32} />
+            <div className="w-16 h-16 bg-green-100 text-green-600 rounded-[2rem] flex items-center justify-center mb-4">
+              <CheckCircle2 size={30} />
             </div>
             <h3 className="text-xl font-bold text-foreground mb-2">Message Sent!</h3>
             <p className="text-muted-foreground text-sm mb-6">
@@ -123,7 +124,7 @@ export default function SupportPage() {
               </label>
               <div className="relative">
                 <div className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground">
-                  <User size={18} />
+                  <User size={16} />
                 </div>
                 <input
                   id="name"
@@ -131,7 +132,7 @@ export default function SupportPage() {
                   placeholder="Enter your name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full pl-11 pr-4 py-4 bg-muted/30 border border-border rounded-2xl focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all font-medium"
+                  className="w-full pl-11 pr-4 py-3.5 bg-muted/30 border border-border rounded-2xl focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all text-sm font-medium"
                   required
                 />
               </div>
@@ -147,7 +148,7 @@ export default function SupportPage() {
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 rows={4}
-                className="w-full p-4 bg-muted/30 border border-border rounded-2xl focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all font-medium resize-none"
+                className="w-full p-4 bg-muted/30 border border-border rounded-2xl focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all text-sm font-medium resize-none"
                 required
               />
             </div>
@@ -155,12 +156,12 @@ export default function SupportPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-4 bg-primary text-primary-foreground font-bold text-lg rounded-2xl shadow-lg shadow-primary/20 hover:shadow-xl active:scale-[0.98] transition-all disabled:opacity-70 flex items-center justify-center gap-2"
+              className="w-full py-4 bg-primary text-primary-foreground font-bold text-base rounded-2xl shadow-lg shadow-primary/20 hover:shadow-xl active:scale-[0.98] transition-all disabled:opacity-70 flex items-center justify-center gap-2"
             >
               {isLoading ? "Sending..." : (
                 <>
-                  <Send size={18} />
-                  Submit Request
+                  <Send size={16} />
+                  Submit Message
                 </>
               )}
             </button>

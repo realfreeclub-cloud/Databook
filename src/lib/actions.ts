@@ -15,6 +15,12 @@ export async function getCurrentUser() {
         id: true,
         name: true,
         phone: true,
+        // @ts-ignore
+        role: true,
+        // @ts-ignore
+        subscriptionActive: true,
+        // @ts-ignore
+        subscriptionPlan: true,
       }
     });
     if (!user) return null;
@@ -22,6 +28,12 @@ export async function getCurrentUser() {
       id: user.id,
       name: user.name || "",
       phone: user.phone,
+      // @ts-ignore
+      role: user.role,
+      // @ts-ignore
+      subscriptionActive: user.subscriptionActive,
+      // @ts-ignore
+      subscriptionPlan: user.subscriptionPlan || "None",
     };
   } catch (e) {
     console.error("Failed to fetch current user:", e);

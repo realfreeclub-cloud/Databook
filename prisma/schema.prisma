@@ -10,15 +10,19 @@ datasource db {
 }
 
 model User {
-  id             String          @id @default(cuid())
-  phone          String          @unique
-  password       String
-  name           String?
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-  records        RepairRecord[]
-  inventoryItems InventoryItem[]
-  saleItems      SaleItem[]
+  id                    String          @id @default(cuid())
+  phone                 String          @unique
+  password              String
+  name                  String?
+  role                  String          @default("USER") // "USER" | "SUPER_ADMIN"
+  subscriptionActive    Boolean         @default(false)
+  subscriptionPlan      String?
+  subscriptionExpiresAt DateTime?
+  createdAt             DateTime        @default(now())
+  updatedAt             DateTime        @updatedAt
+  records               RepairRecord[]
+  inventoryItems        InventoryItem[]
+  saleItems             SaleItem[]
 }
 
 model RepairRecord {
