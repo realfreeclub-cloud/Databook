@@ -8,26 +8,50 @@ export async function getNextJobNumber(): Promise<string> {
   if (!userId) return "JOB-1001";
 
   try {
-    const lastRecord = await prisma.repairRecord.findFirst({
+    const userRecords = await prisma.repairRecord.findMany({
       where: { userId },
-      orderBy: { createdAt: 'desc' }
+      select: { jobNumber: true }
     });
-    
-    if (!lastRecord || !lastRecord.jobNumber) {
+
+    if (userRecords.length === 0) {
       return "JOB-1001";
     }
-    
-    // Match digits in the job number
-    const match = lastRecord.jobNumber.match(/\d+/);
-    if (match) {
-      const numStr = match[0];
-      const nextNum = parseInt(numStr, 10) + 1;
-      // Preserve padding of zero if needed, e.g. JOB-0001
-      const padded = String(nextNum).padStart(numStr.length, '0');
-      return lastRecord.jobNumber.replace(numStr, padded);
+
+    const existingNumbers = new Set(userRecords.map(r => r.jobNumber ? r.jobNumber.trim() : ''));
+
+    let maxNum = 0;
+    let maxNumStr = "";
+    let sampleFormat = "";
+
+    for (const r of userRecords) {
+      if (!r.jobNumber) continue;
+      const match = r.jobNumber.match(/\d+/);
+      if (match) {
+        const val = parseInt(match[0], 10);
+        if (val > maxNum) {
+          maxNum = val;
+          maxNumStr = match[0];
+          sampleFormat = r.jobNumber;
+        }
+      }
     }
-    
-    return lastRecord.jobNumber + "-1";
+
+    if (maxNum > 0) {
+      let nextCandidateNum = maxNum + 1;
+      let candidate = "";
+      do {
+        const padded = String(nextCandidateNum).padStart(maxNumStr.length, '0');
+        candidate = sampleFormat.replace(maxNumStr, padded);
+        if (!existingNumbers.has(candidate)) {
+          return candidate;
+        }
+        nextCandidateNum++;
+      } while (nextCandidateNum < maxNum + 10000);
+
+      return candidate;
+    }
+
+    return "JOB-1001";
   } catch (e) {
     console.error("Failed to generate next job number:", e);
     return "JOB-1001";
