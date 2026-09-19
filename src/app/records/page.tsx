@@ -74,7 +74,8 @@ export default function Records() {
   const filteredRecords = records.filter(record => {
     const matchesSearch = 
       record.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      record.phone.includes(searchTerm);
+      record.phone.includes(searchTerm) ||
+      record.jobNumber.toLowerCase().includes(searchTerm.toLowerCase());
       
     if (!matchesSearch) return false;
     
