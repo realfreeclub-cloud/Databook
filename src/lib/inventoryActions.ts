@@ -4,8 +4,12 @@ import { prisma } from "@/lib/prisma";
 import { getSessionUserId } from "@/lib/session";
 
 export async function getNextJobNumber(): Promise<string> {
+  const userId = await getSessionUserId();
+  if (!userId) return "JOB-1001";
+
   try {
     const lastRecord = await prisma.repairRecord.findFirst({
+      where: { userId },
       orderBy: { createdAt: 'desc' }
     });
     
