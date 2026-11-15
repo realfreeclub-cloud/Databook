@@ -58,7 +58,15 @@ import {
   HardDrive,
   Monitor,
   Shield,
-  Award
+  Award,
+  Landmark,
+  Fingerprint,
+  IndianRupee,
+  Ticket,
+  FileCheck,
+  Briefcase,
+  Car,
+  X
 } from "lucide-react";
 import { getRecordsFromDB, getCurrentUser } from "@/lib/actions";
 import { logoutUser } from "@/app/login/actions";
@@ -368,6 +376,239 @@ const LAPTOP_CARE_TIPS = [
   }
 ];
 
+// =========================================================================
+// Cyber Cafe & Online Service Centre Data (All 11 Categories)
+// =========================================================================
+export const CYBER_CAFE_SERVICES = [
+  {
+    id: 1,
+    title: "1. Online Government Services",
+    hindi: "सरकारी नौकरी के आवेदन एवं ऑनलाइन योजनाएं",
+    badge: "Govt Portals & Schemes",
+    icon: Landmark,
+    color: "blue",
+    desc: "Complete, error-free application form filling for all state and central government recruitment, competitive exams, welfare schemes, and student scholarships.",
+    services: [
+      "Online Form Filling (ऑनलाइन फॉर्म भरना)",
+      "सरकारी नौकरी के आवेदन (SSC, Railway, Police, UPSSSC, Banking)",
+      "सरकारी भर्ती के फॉर्म (State & Central Govt Recruitment)",
+      "Admit Card Download (प्रवेश पत्र डाउनलोड एवं प्रिंट)",
+      "Online Exam Registration (परीक्षा पंजीकरण एवं स्लॉट बुकिंग)",
+      "Exam Result Download (परीक्षा परिणाम एवं मेरिट लिस्ट)",
+      "सरकारी योजनाओं के आवेदन (PM Awas, PM Kisan, etc.)",
+      "Scholarship Form (UP Dashmottar, Post-Matric & NSP)",
+      "E-KYC Services (Ration, PM Kisan, Bank e-KYC)",
+      "Pension Online Application (वृद्धा, विधवा, दिव्यांग पेंशन)",
+      "Labour Card Application (मजदूर / श्रमिक कार्ड पंजीयन)",
+      "Employment Registration (रोजगार संगम / सेवायोजन पंजीयन)"
+    ]
+  },
+  {
+    id: 2,
+    title: "2. Aadhaar Card Services",
+    hindi: "आधार कार्ड सेवाएं",
+    badge: "UIDAI Portal Assistance",
+    icon: Fingerprint,
+    color: "emerald",
+    desc: "Official portal-assisted e-Aadhaar downloads, PVC plastic card orders, demographic address updates, and heavy-laminated crystal clear prints.",
+    services: [
+      "Aadhaar Card Download (ई-आधार कार्ड डाउनलोड)",
+      "Aadhaar PVC Card Order (ओरिजिनल प्लास्टिक पीवीसी कार्ड ऑर्डर)",
+      "Aadhaar Printout (हाई-क्वालिटी लेमिनेटेड प्रिंट)",
+      "Aadhaar PVC Status Check (पीवीसी डिलीवरी स्टेटस जांच)",
+      "Aadhaar Address Update (जहां अधिकृत ऑनलाइन सुविधा उपलब्ध हो)",
+      "Aadhaar PVC Reprint (खोया हुआ आधार दोबारा मंगाना)"
+    ]
+  },
+  {
+    id: 3,
+    title: "3. PAN Card Services",
+    hindi: "पैन कार्ड सेवाएं",
+    badge: "NSDL / UTIITSL Services",
+    icon: CreditCard,
+    color: "indigo",
+    desc: "Instant new PAN card applications (Form 49A), minor-to-major conversion, corrections in name/DOB, instant digital e-PAN, and reprint dispatch.",
+    services: [
+      "New PAN Card Application (नया पैन कार्ड आवेदन - Form 49A)",
+      "PAN Card Correction (नाम, जन्मतिथि, पिता का नाम सुधार)",
+      "PAN Card Download (डिजिटल पैन कार्ड डाउनलोड)",
+      "e-PAN Download (इंस्टेंट ई-पैन कार्ड प्राप्ति)",
+      "PAN Card Reprint (टूटा या खोया पैन कार्ड दोबारा मंगाना)",
+      "PAN-Aadhaar Linking Status Check (पैन-आधार लिंक स्थिति जांच)"
+    ]
+  },
+  {
+    id: 4,
+    title: "4. Banking & Financial Services",
+    hindi: "बैंकिंग एवं वित्तीय सेवाएं",
+    badge: "AEPS & Money Transfer",
+    icon: IndianRupee,
+    color: "amber",
+    desc: "Fast domestic money transfers (IMPS/NEFT/RTGS) to any bank across India, Aadhaar biometric cash withdrawal, balance enquiry, and mini statements.",
+    services: [
+      "Online Money Transfer (किसी भी बैंक खाते में तुरंत पैसा ट्रांसफर)",
+      "NEFT / RTGS / IMPS (हाई-स्पीड बैंक ट्रांसफर)",
+      "AEPS Services (अधिकृत एजेंट होने पर आधार फिंगरप्रिंट सेवा)",
+      "Cash Withdrawal (अधिकृत एजेंट होने पर आधार से नकद निकासी)",
+      "Balance Enquiry (खाता बैलेंस जांच)",
+      "Mini Statement (अंतिम 10 लेन-देन पर्ची)",
+      "Bank Account Opening Assistance (नया बैंक खाता खोलने में सहायता)",
+      "Bank Statement Download (PDF बैंक स्टेटमेंट प्राप्त करें)",
+      "Passbook Printing (जहां अधिकृत सुविधा उपलब्ध हो)"
+    ]
+  },
+  {
+    id: 5,
+    title: "5. Printing & Documentation",
+    hindi: "प्रिंटिंग एवं दस्तावेज़ कार्य",
+    badge: "High-Speed Print & Xerox",
+    icon: Printer,
+    color: "sky",
+    desc: "Ultra-sharp laser B&W and vibrant color printing, urgent photocopy/Xerox, scanning, heavy lamination, spiral binding, and 5-minute passport photos.",
+    services: [
+      "Black & White Printing (हाई-स्पीड सादा प्रिंटिंग)",
+      "Colour Printing (रंगीन प्रिंटिंग - ग्लॉसी व बॉन्ड पेपर)",
+      "Photocopy / Xerox (सस्ती एवं साफ फोटोकॉपी)",
+      "Document Scanning (हाई-रिज़ॉल्यूशन PDF/JPG स्कैनिंग)",
+      "Lamination (सुरक्षित वाटरप्रूफ हैवी लेमिनेशन)",
+      "Spiral Binding (स्पाइरल व प्रोजेक्ट बाइंडिंग)",
+      "ID Card Printing (स्मार्ट PVC पहचान पत्र प्रिंट)",
+      "Passport Size Photo (तत्काल पासपोर्ट फोटो - 5 मिनट में)",
+      "Photo Editing (फोटो बैकग्राउंड चेंज व क्लीनिंग)",
+      "Resume Printing (प्रोफेशनल रिज्यूमे / बायोडाटा प्रिंट)",
+      "PDF Printout (फोन / व्हाट्सएप / पेनड्राइव से डायरेक्ट प्रिंट)",
+      "Document Formatting (दस्तावेज़ टाइपिंग एवं फॉर्मेटिंग)"
+    ]
+  },
+  {
+    id: 6,
+    title: "6. Online Ticket Booking",
+    hindi: "ऑनलाइन टिकट बुकिंग",
+    badge: "IRCTC & Travel Desk",
+    icon: Ticket,
+    color: "rose",
+    desc: "Fast, confirmed train reservation booking, Tatkal assistance, inter-state Volvo and roadways bus tickets, domestic & international air flight tickets.",
+    services: [
+      "Railway Ticket Booking (ट्रेन टिकट - कन्फर्म सीट बुकिंग)",
+      "Bus Ticket Booking (UPSRTC रोडवेज एवं प्राइवेट एसी बस)",
+      "Flight Ticket Booking (सस्ती डोमेस्टिक व इंटरनेशनल एयर टिकट)",
+      "Train PNR Status (लाइव पीएनआर स्थिति जांच)",
+      "Train Schedule (ट्रेन टाइम टेबल एवं लाइव रनिंग स्टेटस)",
+      "Ticket Cancellation Assistance (टिकट कैंसिलेशन व रिफंड सहायता)",
+      "Hotel Booking Assistance (यात्रा के लिए होटल रूम बुकिंग)"
+    ]
+  },
+  {
+    id: 7,
+    title: "7. Government Certificate Services",
+    hindi: "सरकारी प्रमाण पत्र सेवाएं",
+    badge: "e-District UP Portal",
+    icon: FileCheck,
+    color: "teal",
+    desc: "Timely submission on Uttar Pradesh e-District portal for all essential citizen certificates required for school/college admissions and govt jobs.",
+    services: [
+      "Income Certificate (आय प्रमाण पत्र)",
+      "Caste Certificate (जाति प्रमाण पत्र - SC/ST/OBC/GEN)",
+      "Domicile Certificate (निवास प्रमाण पत्र)",
+      "Birth Certificate Application (जन्म प्रमाण पत्र)",
+      "Death Certificate Application (मृत्यु प्रमाण पत्र)",
+      "Residence Certificate (अधिवास प्रमाण पत्र)",
+      "Character Certificate (चरित्र प्रमाण पत्र / पुलिस वेरिफिकेशन)",
+      "EWS Certificate (आर्थिक रूप से कमजोर वर्ग प्रमाण पत्र - 10% कोटा)",
+      "Family Register Copy (कुटुंब / परिवार रजिस्टर नकल)",
+      "Ration Card Application (नया राशन कार्ड ऑनलाइन आवेदन)",
+      "Ration Card Correction (राशन कार्ड में नाम जोड़ना / सुधार)"
+    ]
+  },
+  {
+    id: 8,
+    title: "8. Job & Education Services",
+    hindi: "शिक्षा एवं नौकरी सेवाएं",
+    badge: "Students & Aspirants",
+    icon: GraduationCap,
+    color: "violet",
+    desc: "Dedicated student and job-seeker support: Online recruitment applications, resume creation, university admission forms, entrance fees, and marksheet downloads.",
+    services: [
+      "Online Job Application (सरकारी एवं प्राइवेट नौकरी फॉर्म)",
+      "Resume / CV Making (प्रोफेशनल बायोडाटा निर्माण)",
+      "Job Registration (रोजगार मेला व सेवायोजन पोर्टल)",
+      "University Admission Form (Allahabad University, CSJMU, etc.)",
+      "College Admission Form (डिग्री कॉलेज एवं स्कूल प्रवेश फॉर्म)",
+      "Scholarship Application (UP व नेशनल स्कॉलरशिप)",
+      "Entrance Exam Forms (JEE, NEET, CUET, B.Ed, CTET, UPTET)",
+      "Exam Fee Payment (ऑनलाइन परीक्षा शुल्क भुगतान)",
+      "Marksheet Download (बोर्ड मार्कशीट व डिजीलॉकर)",
+      "Migration Certificate Application (माइग्रेशन व डिग्री आवेदन)",
+      "Result Download (रिजल्ट एवं रैंक कार्ड डाउनलोड)"
+    ]
+  },
+  {
+    id: 9,
+    title: "9. Business & Document Services",
+    hindi: "व्यापारिक एवं कानूनी दस्तावेज़",
+    badge: "MSME, GST & Startup",
+    icon: Briefcase,
+    color: "orange",
+    desc: "Legal registration and compliance for shopkeepers, traders, and small businesses: GST filing, Udyam MSME certificate, FSSAI food license, and Digital Signatures.",
+    services: [
+      "GST Registration Assistance (नया जीएसटी नंबर आवेदन सहायता)",
+      "Udyam Registration (उद्यम आधार प्रमाण पत्र)",
+      "MSME Registration (लघु एवं मध्यम उद्योग पंजीकरण)",
+      "Shop Registration Assistance (दुकान एवं व्यापार पंजीकरण सहायता)",
+      "FSSAI Registration Assistance (फूड लाइसेंस - होटल, किराना, रेस्टोरेंट)",
+      "Online Business Registration (व्यापार का ऑनलाइन पंजीयन)",
+      "Digital Signature Certificate (DSC - क्लास-3 डिजिटल सिग्नेचर)",
+      "E-Tender Registration Assistance (ई-टेंडरिंग व बिड सबमिशन सहायता)"
+    ]
+  },
+  {
+    id: 10,
+    title: "10. Insurance & Other Services",
+    hindi: "बीमा एवं आवश्यक नागरिक सेवाएं",
+    badge: "Bills, Recharge & RTO",
+    icon: Car,
+    color: "emerald",
+    desc: "Instant two-wheeler and four-wheeler vehicle insurance, traffic e-challan checks, driving license assistance, voter ID, passport slots, and electricity bills.",
+    services: [
+      "Vehicle Insurance Assistance (बाइक, कार व कमर्शियल वाहन बीमा)",
+      "Health Insurance Assistance (स्वास्थ्य बीमा सहायता)",
+      "Life Insurance Assistance (जीवन बीमा सहायता)",
+      "Vehicle Challan Check (ट्रैफिक चालान जांच एवं ऑनलाइन भुगतान)",
+      "Driving Licence Application Assistance (ड्राइविंग लाइसेंस - Sarathi)",
+      "Learner Licence Application (लर्निंग लाइसेंस ऑनलाइन फॉर्म)",
+      "Voter ID Application (नया वोटर पहचान पत्र - NVSP)",
+      "Voter ID Correction (वोटर कार्ड में नाम, पता सुधार)",
+      "Passport Application Assistance (पासपोर्ट सेवा केंद्र स्लॉट बुकिंग)",
+      "Electricity Bill Payment (बिजली बिल तुरंत चेक व भुगतान)",
+      "Water Bill Payment (जल कर एवं नगर निगम बिल भुगतान)",
+      "Mobile Recharge (सभी कंपनियों का तुरंत रिचार्ज)",
+      "DTH Recharge (टाटा प्ले, एयरटेल, डिश टीवी रिचार्ज)"
+    ]
+  },
+  {
+    id: 11,
+    title: "11. Computer & Internet Services",
+    hindi: "कम्प्यूटर, इंटरनेट एवं ऑफिस कार्य",
+    badge: "High-Speed Internet Hub",
+    icon: Monitor,
+    color: "blue",
+    desc: "High-speed internet browsing cabins, Gmail assistance, online document uploads, PDF editing, format conversion, Excel work, and Hindi/English typing.",
+    services: [
+      "Internet Browsing (सुरक्षित एवं तेज इंटरनेट केबिन)",
+      "Email Create & Send (नई ईमेल आईडी बनाना व महत्वपूर्ण मेल भेजना)",
+      "Gmail Account Assistance (पासवर्ड रीसेट व रिकवरी सहायता)",
+      "Online Document Upload (दस्तावेज़ साइज कंप्रेस व सुरक्षित अपलोड)",
+      "PDF Editing (पीडीएफ सुधार, री-साइज व मर्ज करना)",
+      "PDF to Word Conversion (पीडीएफ से वर्ड डॉक्यूमेंट बनाना)",
+      "Word to PDF Conversion (वर्ड फाइल को पीडीएफ बनाना)",
+      "Excel Work (माइक्रोसॉफ्ट एक्सेल डाटा एंट्री व हिसाब-किताब)",
+      "Hindi & English Typing (कुर्तिदेव, मंगल व अंग्रेजी में तेज़ टाइपिंग)",
+      "Online Application Submission (फॉर्म की अंतिम जांच व सबमिट)",
+      "File Download & Upload (पेनड्राइव व ड्राइव में फाइल ट्रांसफर)"
+    ]
+  }
+];
+
 // Helper to compute live stage for CustomerSafeRecord
 function computeSafeRecordStage(record: CustomerSafeRecord) {
   const status = (record.workStatus || "").toLowerCase();
@@ -422,6 +663,10 @@ export default function Home() {
   const [isAnnualPricing, setIsAnnualPricing] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [exportNotice, setExportNotice] = useState<string | null>(null);
+
+  // Cyber Cafe & Online Services Interactive State
+  const [cyberSearchQuery, setCyberSearchQuery] = useState("");
+  const [selectedCyberCategory, setSelectedCyberCategory] = useState<number | null>(null);
 
   // Privacy-Protected Track Repair Widget State
   const [trackJobId, setTrackJobId] = useState("");
@@ -1015,6 +1260,33 @@ export default function Home() {
                   <ExternalLink size={12} />
                 </a>
               </div>
+            </div>
+
+            {/* Cyber Cafe & Citizen Services Quick Callout Banner */}
+            <div className="md:col-span-2 p-6 rounded-3xl bg-gradient-to-r from-blue-950/60 via-slate-900 to-indigo-950/60 border border-blue-500/30 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-lg">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center shrink-0">
+                  <Landmark size={24} />
+                </div>
+                <div className="space-y-1 text-center sm:text-left">
+                  <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-[10px] font-black uppercase tracking-wider">
+                    Also Available In-Store
+                  </div>
+                  <h4 className="text-base sm:text-lg font-black text-white">
+                    National Computer Cyber Cafe & Online Citizen Service Centre
+                  </h4>
+                  <p className="text-xs text-slate-400">
+                    Sarkari Job Forms, Admit Cards, Aadhaar/PAN, e-District Certificates, Banking AEPS, Ticket Booking & High-Speed Xerox.
+                  </p>
+                </div>
+              </div>
+              <a
+                href="#cyber-cafe"
+                className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-black uppercase tracking-wider inline-flex items-center gap-1.5 shrink-0 shadow-md shadow-blue-600/30 transition-all hover:scale-105"
+              >
+                <span>Explore 100+ Services (11 Categories)</span>
+                <ArrowRight size={14} />
+              </a>
             </div>
 
           </div>
@@ -1926,6 +2198,260 @@ export default function Home() {
         </section>
 
         {/* ===================================================================
+            SECTION D3: CYBER CAFE & ONLINE / OFFLINE SERVICE CENTRE
+        =================================================================== */}
+        <section id="cyber-cafe" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full border-t border-slate-800/80">
+          
+          {/* Section Header */}
+          <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 text-xs font-bold text-blue-400 uppercase tracking-widest">
+              <Landmark size={13} />
+              <span>National Computer • Teliarganj Prayagraj</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
+              Cyber Cafe & Online / Offline Services
+            </h2>
+            <div className="text-blue-400 text-base sm:text-lg font-bold">
+              नेशनल कम्प्यूटर: साइबर कैफे एवं जन सेवा केंद्र • All Types of Online & Offline Services
+            </div>
+            <p className="text-slate-400 text-sm sm:text-base font-medium leading-relaxed">
+              Prayagraj&apos;s trusted single-window digital service hub at Rashoolabad Chauraha, Teliarganj. From Sarkari job application forms, scholarships, and e-District certificates (Income/Caste/Niwas) to Aadhaar, PAN, banking AEPS, fast ticket bookings, and crystal-clear laser printing—all under one roof.
+            </p>
+          </div>
+
+          {/* Quick Hub Stats & Live Shop Info Bar */}
+          <div className="mb-12 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-blue-950/40 to-slate-900 border border-blue-500/30 shadow-xl space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-slate-800">
+              <div className="space-y-1 md:pr-4">
+                <div className="text-xs font-extrabold uppercase tracking-wider text-blue-400">Total Digital Services</div>
+                <div className="text-2xl sm:text-3xl font-black text-white">100+ Services</div>
+                <div className="text-xs text-slate-400">11 comprehensive categories</div>
+              </div>
+
+              <div className="space-y-1 pt-4 md:pt-0 md:px-4">
+                <div className="text-xs font-extrabold uppercase tracking-wider text-emerald-400">Shop Location</div>
+                <div className="text-base font-bold text-white">Rashoolabad Chauraha</div>
+                <div className="text-xs text-slate-400">Teliarganj, Prayagraj, UP</div>
+              </div>
+
+              <div className="space-y-1 pt-4 md:pt-0 md:px-4">
+                <div className="text-xs font-extrabold uppercase tracking-wider text-amber-400">Opening Hours</div>
+                <div className="text-base font-bold text-white">10:00 AM – 10:00 PM</div>
+                <div className="text-xs text-slate-400">Open Everyday (Mon – Sun)</div>
+              </div>
+
+              <div className="space-y-1 pt-4 md:pt-0 md:pl-4">
+                <div className="text-xs font-extrabold uppercase tracking-wider text-indigo-400">Instant Assistance</div>
+                <div className="flex flex-col gap-1 pt-0.5">
+                  <a href="tel:7786961902" className="text-xs font-bold text-white hover:text-blue-400 flex items-center gap-1.5 justify-center md:justify-start">
+                    <Phone size={13} className="text-blue-400" />
+                    <span>Call: 7786961902</span>
+                  </a>
+                  <a href="https://wa.me/917860130721?text=Hello%20National%20Computer,%20I%20need%20assistance%20with%20cyber%20cafe%20online%20services." target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-emerald-400 hover:text-emerald-300 flex items-center gap-1.5 justify-center md:justify-start">
+                    <MessageSquare size={13} className="text-emerald-400" />
+                    <span>WhatsApp: 7860130721</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* 4 Trust Highlights */}
+            <div className="pt-4 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-semibold text-slate-300">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 size={16} className="text-blue-400 shrink-0" />
+                <span>100% Error-Free Form Filling</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                <span>Strict Document Confidentiality</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 size={16} className="text-amber-400 shrink-0" />
+                <span>Government Authorized Rates</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 size={16} className="text-sky-400 shrink-0" />
+                <span>Instant Slip & WhatsApp PDF</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Interactive Live Search & Category Filter */}
+          <div className="space-y-6 mb-10">
+            {/* Search Input */}
+            <div className="relative max-w-2xl mx-auto">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                <Search size={18} />
+              </div>
+              <input
+                type="text"
+                value={cyberSearchQuery}
+                onChange={e => setCyberSearchQuery(e.target.value)}
+                placeholder="Search any service (e.g. Aadhaar, PAN, Railway Ticket, आय प्रमाण पत्र, Scholarship, Resume, Bill)..."
+                className="w-full pl-11 pr-10 py-3.5 bg-slate-900 border border-slate-700/80 rounded-2xl text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all shadow-lg"
+              />
+              {cyberSearchQuery && (
+                <button
+                  onClick={() => setCyberSearchQuery("")}
+                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-white"
+                >
+                  <X size={16} />
+                </button>
+              )}
+            </div>
+
+            {/* Category Filter Pills */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-2 justify-start lg:justify-center scrollbar-thin scrollbar-thumb-slate-800">
+              <button
+                onClick={() => setSelectedCyberCategory(null)}
+                className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+                  selectedCyberCategory === null
+                    ? "bg-blue-600 text-white shadow-md shadow-blue-600/30"
+                    : "bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
+                }`}
+              >
+                All 11 Categories (100+)
+              </button>
+              {CYBER_CAFE_SERVICES.map(cat => {
+                const isSelected = selectedCyberCategory === cat.id;
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => setSelectedCyberCategory(isSelected ? null : cat.id)}
+                    className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 ${
+                      isSelected
+                        ? "bg-blue-600 text-white shadow-md shadow-blue-600/30"
+                        : "bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
+                    }`}
+                  >
+                    <span>{cat.id}. {cat.title.replace(/^\d+\.\s*/, '')}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 11 Categories Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {CYBER_CAFE_SERVICES.filter(cat => {
+              if (selectedCyberCategory !== null && cat.id !== selectedCyberCategory) {
+                return false;
+              }
+              if (!cyberSearchQuery.trim()) return true;
+              const q = cyberSearchQuery.toLowerCase();
+              return (
+                cat.title.toLowerCase().includes(q) ||
+                cat.hindi.toLowerCase().includes(q) ||
+                cat.desc.toLowerCase().includes(q) ||
+                cat.services.some(s => s.toLowerCase().includes(q))
+              );
+            }).map(cat => {
+              const IconComponent = cat.icon;
+              return (
+                <div
+                  key={cat.id}
+                  className="p-6 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-blue-500/50 hover:bg-slate-900 transition-all duration-300 flex flex-col justify-between space-y-5 shadow-lg group"
+                >
+                  <div className="space-y-4">
+                    {/* Header with Icon + Badge */}
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="w-12 h-12 rounded-2xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                        <IconComponent size={22} />
+                      </div>
+                      <span className="px-2.5 py-1 text-[10px] font-black uppercase tracking-wider rounded-lg bg-slate-800 text-slate-300 border border-slate-700/60">
+                        {cat.badge}
+                      </span>
+                    </div>
+
+                    {/* Title & Hindi Title */}
+                    <div className="space-y-1">
+                      <h3 className="text-lg font-black text-white group-hover:text-blue-400 transition-colors">
+                        {cat.title}
+                      </h3>
+                      <div className="text-xs font-bold text-blue-400/90">
+                        {cat.hindi}
+                      </div>
+                    </div>
+
+                    <p className="text-xs text-slate-400 leading-relaxed font-medium">
+                      {cat.desc}
+                    </p>
+
+                    {/* Sub-Services Checklist */}
+                    <div className="pt-2 border-t border-slate-800/80">
+                      <div className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 mb-2.5 flex items-center justify-between">
+                        <span>Available Services</span>
+                        <span className="text-emerald-400">{cat.services.length} items</span>
+                      </div>
+                      <ul className="space-y-2">
+                        {cat.services.map((item, idx) => {
+                          const isMatch = cyberSearchQuery.trim() && item.toLowerCase().includes(cyberSearchQuery.toLowerCase());
+                          return (
+                            <li
+                              key={idx}
+                              className={`flex items-start gap-2 text-xs font-semibold leading-tight ${
+                                isMatch ? "text-amber-300 bg-amber-500/10 px-1 py-0.5 rounded" : "text-slate-300"
+                              }`}
+                            >
+                              <CheckCircle2 size={13} className="text-emerald-400 shrink-0 mt-0.5" />
+                              <span>{item}</span>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Card Bottom WhatsApp Action */}
+                  <div className="pt-4 border-t border-slate-800/60 space-y-2">
+                    <a
+                      href={`https://wa.me/917860130721?text=${encodeURIComponent(`Hello National Computer, I need assistance regarding ${cat.title} (${cat.hindi}) at your Teliarganj cyber cafe.`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-2.5 px-3 rounded-xl bg-slate-800/80 hover:bg-emerald-600 text-slate-300 hover:text-white text-xs font-bold transition-all flex items-center justify-center gap-1.5 border border-slate-700/60 hover:border-emerald-500"
+                    >
+                      <MessageSquare size={13} className="text-emerald-400 group-hover:text-white" />
+                      <span>WhatsApp Inquiry / Apply</span>
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Quick Help Footer Callout */}
+          <div className="mt-12 p-6 rounded-2xl bg-slate-900/60 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <div className="space-y-1">
+              <div className="text-sm font-black text-white">
+                Need Urgent Assistance with Any Form, Admit Card or Certificate?
+              </div>
+              <div className="text-xs text-slate-400 font-medium">
+                Visit directly at Rashoolabad Chauraha, Teliarganj or send documents directly on WhatsApp for quick processing.
+              </div>
+            </div>
+            <div className="flex items-center gap-3 shrink-0">
+              <a
+                href="tel:7786961902"
+                className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition-all inline-flex items-center gap-1.5"
+              >
+                <Phone size={13} className="text-blue-400" />
+                <span>Call 7786961902</span>
+              </a>
+              <a
+                href="https://wa.me/917860130721?text=Hello%20National%20Computer,%20I%20have%20an%20urgent%20form%20to%20fill%20at%20your%20cyber%20cafe."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all inline-flex items-center gap-1.5 shadow-md shadow-emerald-600/20"
+              >
+                <MessageSquare size={13} />
+                <span>WhatsApp 7860130721</span>
+              </a>
+            </div>
+          </div>
+
+        </section>
+
+        {/* ===================================================================
             SECTION E: PRIVACY-PROTECTED "TRACK YOUR REPAIR" UTILITY WIDGET
         =================================================================== */}
         <section id="track-repair" className="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full border-t border-slate-800/80">
@@ -2293,6 +2819,10 @@ export default function Home() {
                         "E-Commerce Online Store",
                         "Laptop / Chip-Level Repair",
                         "CCTV Camera & Networking",
+                        "Cyber Cafe / Sarkari Form Filling",
+                        "Aadhaar / PAN Card Services",
+                        "Certificates & Ration Card",
+                        "Banking / AEPS Money Transfer",
                         "Custom Software / ERP",
                         "Public SaaS Store Demo"
                       ].map(service => {
@@ -2528,16 +3058,17 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Column 2: Technology Services */}
+              {/* Column 2: Technology & Cyber Cafe Services */}
               <div className="space-y-3">
-                <div className="font-bold text-xs uppercase tracking-wider text-white">Services</div>
+                <div className="font-bold text-xs uppercase tracking-wider text-white">Services & Lab</div>
                 <ul className="space-y-2 font-medium">
                   <li><a href="#business-web" className="hover:text-white transition-colors">Websites for Local Shopkeepers</a></li>
-                  <li><a href="#business-web" className="hover:text-white transition-colors">School & College Portals</a></li>
-                  <li><a href="#business-web" className="hover:text-white transition-colors">Doctor & Hospital Booking Sites</a></li>
-                  <li><a href="#business-web" className="hover:text-white transition-colors">Real Estate & Advocate Websites</a></li>
+                  <li><a href="#business-web" className="hover:text-white transition-colors">School & Clinic Portals</a></li>
                   <li><a href="#hardware-it" className="hover:text-white transition-colors">Chip-Level Laptop Repair & AMC</a></li>
                   <li><a href="#hardware-it" className="hover:text-white transition-colors">CCTV Installation & Networking</a></li>
+                  <li><a href="#cyber-cafe" className="text-emerald-400 hover:text-emerald-300 transition-colors font-bold">Cyber Cafe & Online Services (11 Categories) →</a></li>
+                  <li><a href="#cyber-cafe" className="hover:text-white transition-colors">Sarkari Job, Admit Card & Results</a></li>
+                  <li><a href="#cyber-cafe" className="hover:text-white transition-colors">Aadhaar, PAN & UP e-District Certificates</a></li>
                 </ul>
               </div>
 

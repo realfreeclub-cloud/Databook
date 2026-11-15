@@ -51,6 +51,7 @@ export default function PublicHeader() {
     { name: "Home", href: "/#home" },
     { name: "Business Websites", href: "/#business-web" },
     { name: "Repair & IT Hub", href: "/#hardware-it" },
+    { name: "Cyber Cafe", href: "/#cyber-cafe", badge: "Services" },
     { name: "SaaS Software", href: "/#software", badge: "SaaS" },
     { name: "Track Repair", href: "/track" },
   ];
@@ -84,7 +85,7 @@ export default function PublicHeader() {
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-7">
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
