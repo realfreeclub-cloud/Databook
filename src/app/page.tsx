@@ -49,6 +49,7 @@ import { getRecordsFromDB, getCurrentUser } from "@/lib/actions";
 import { logoutUser } from "@/app/login/actions";
 import { createSupportRequest } from "@/lib/adminActions";
 import LaunchSoftwareModal from "@/components/LaunchSoftwareModal";
+import { getCustomerRepairRecords, CustomerSafeRecord } from "@/lib/customerActions";
 
 // Interactive Mockup Data for Hero
 const HERO_TICKETS = [
@@ -99,73 +100,45 @@ const HERO_SALES = [
   { id: "SALE-814", client: "Vikram Rajput", item: "Dell Inspiron Original Keyboard", amount: "₹1,250", date: "3 hrs ago" },
 ];
 
-// Sample Track Records for Local Repair Customers
-const TRACK_DATABASE: Record<string, {
-  jobId: string;
-  customer: string;
-  phone: string;
-  device: string;
-  issue: string;
-  stage: number; // 1 to 4
-  stageText: string;
-  receivedDate: string;
-  expectedDate: string;
-  amount: string;
-  technicianNotes: string;
-}> = {
-  "NCA-1042": {
-    jobId: "NCA-1042",
-    customer: "Tushar Nagpal",
-    phone: "09140946121",
-    device: "Dell Inspiron 15 5000 Series",
-    issue: "Battery Drainage & Keyboard Not Working",
-    stage: 3,
-    stageText: "Parts Replaced / Final Stress Testing",
-    receivedDate: "19/09/2026",
-    expectedDate: "20/09/2026, 4:00 PM",
-    amount: "₹2,850",
-    technicianNotes: "Original OEM battery fitted. Keyboard replacement verified on testing rig. Running 3-hour battery cycle check before final pickup approval."
-  },
-  "559": {
-    jobId: "559",
-    customer: "Ranjit",
-    phone: "7905797354",
-    device: "HP 15s Core i5",
-    issue: "Power On Diagnostic & Motherboard Short",
-    stage: 4,
-    stageText: "Ready for Pickup",
-    receivedDate: "26/07/2026",
-    expectedDate: "Completed / Ready",
-    amount: "₹2,200",
-    technicianNotes: "Primary 19V power rail capacitor short repaired. Thermal paste refreshed with Arctic MX-4. Device thoroughly sanitized and sealed in customer bag."
-  },
-  "JOB-1088": {
-    jobId: "JOB-1088",
-    customer: "Adv. Alok Dwivedi",
-    phone: "9839012345",
-    device: "Apple MacBook Air M1",
-    issue: "Display Backlight Fused / Dim Screen",
-    stage: 2,
-    stageText: "Diagnosing & Component Rework",
-    receivedDate: "14/11/2026",
-    expectedDate: "16/11/2026, 6:00 PM",
-    amount: "₹6,500",
-    technicianNotes: "Backlight driver IC inspection on microscope. Replacement micro-component sourced from Refurhub warehouse. Soldering scheduled under BGA station."
-  },
-  "09140946121": {
-    jobId: "NCA-1042",
-    customer: "Tushar Nagpal",
-    phone: "09140946121",
-    device: "Dell Inspiron 15 5000 Series",
-    issue: "Battery Drainage & Keyboard Replacement",
-    stage: 3,
-    stageText: "Parts Replaced / Final Stress Testing",
-    receivedDate: "19/09/2026",
-    expectedDate: "20/09/2026, 4:00 PM",
-    amount: "₹2,850",
-    technicianNotes: "Original OEM battery fitted. Keyboard replacement verified on testing rig. Running 3-hour battery cycle check before final pickup approval."
+// Helper to compute live stage for CustomerSafeRecord
+function computeSafeRecordStage(record: CustomerSafeRecord) {
+  const status = (record.workStatus || "").toLowerCase();
+  const final = (record.finalStatus || "").toLowerCase();
+
+  if (record.actualDeliveryDate || final === "complete") {
+    return {
+      stage: 4,
+      stageText: "Ready for Pickup / Delivered",
+      notes: "Device inspection & burn-in passed. Ready for customer collection."
+    };
   }
-};
+  if (status === "done" || final.includes("complete")) {
+    return {
+      stage: 4,
+      stageText: "Repair Completed • Ready for Pickup",
+      notes: "Components fitted and tested on bench station. Unit sanitized and bagged."
+    };
+  }
+  if (status === "non repair" || final.includes("return")) {
+    return {
+      stage: 3,
+      stageText: "Diagnosed • Return Item / Non Repairable",
+      notes: "Hardware inspected under microscope. Customer advised regarding spares availability."
+    };
+  }
+  if (status === "pending" || !status) {
+    return {
+      stage: 2,
+      stageText: "In Diagnosis & Chip-Level Rework",
+      notes: "Device logged in National Computer Prayagraj register. Bench testing in progress."
+    };
+  }
+  return {
+    stage: 1,
+    stageText: "Device Checked In",
+    notes: "Device received at service desk. Initial physical assessment recorded."
+  };
+}
 
 export default function Home() {
   const router = useRouter();
@@ -180,9 +153,12 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [exportNotice, setExportNotice] = useState<string | null>(null);
 
-  // Track Repair Widget State
-  const [trackInput, setTrackInput] = useState("");
-  const [trackResult, setTrackResult] = useState<typeof TRACK_DATABASE[string] | null>(null);
+  // Privacy-Protected Track Repair Widget State
+  const [trackJobId, setTrackJobId] = useState("");
+  const [trackPhone, setTrackPhone] = useState("");
+  const [trackLoading, setTrackLoading] = useState(false);
+  const [trackError, setTrackError] = useState<string | null>(null);
+  const [trackResult, setTrackResult] = useState<CustomerSafeRecord | null>(null);
   const [trackSearched, setTrackSearched] = useState(false);
 
   // Contact Form State
@@ -230,39 +206,39 @@ export default function Home() {
     fetchStats();
   }, [router]);
 
-  const handleTrackSubmit = (e: React.FormEvent) => {
+  const handleTrackSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const cleanKey = trackInput.trim().toUpperCase();
-    const found = TRACK_DATABASE[cleanKey] || TRACK_DATABASE[trackInput.trim()];
-    
-    if (found) {
-      setTrackResult(found);
-    } else {
-      // Generate a dynamic realistic fallback simulation for any inputted Job ID
-      const inputStr = trackInput.trim() || "NCA-9921";
-      setTrackResult({
-        jobId: inputStr.toUpperCase(),
-        customer: "Customer Item (Verified Ticket)",
-        phone: "Registered Contact",
-        device: "Hardware Unit / Laptop",
-        issue: "Hardware Diagnostic & Component Inspection",
-        stage: 2,
-        stageText: "Diagnosing in Progress at Allahabad Lab",
-        receivedDate: "Recent Intake",
-        expectedDate: "Within 24-48 Hours",
-        amount: "₹1,500 - Estimated",
-        technicianNotes: "Device safely logged into National Computer Prayagraj repair register. Motherboard diagnostic in progress under bench test station."
-      });
-    }
-    setTrackSearched(true);
-  };
-
-  const handleQuickTrack = (code: string) => {
-    setTrackInput(code);
-    const found = TRACK_DATABASE[code];
-    if (found) {
-      setTrackResult(found);
+    const cleanDigits = trackPhone.replace(/\D/g, "");
+    if (cleanDigits.length < 10) {
+      setTrackError("Please enter your 10-digit registered mobile number to verify ownership.");
+      setTrackResult(null);
       setTrackSearched(true);
+      return;
+    }
+
+    setTrackLoading(true);
+    setTrackError(null);
+
+    try {
+      const res = await getCustomerRepairRecords({
+        phone: cleanDigits,
+        jobNumber: trackJobId.trim() || undefined
+      });
+
+      if (res.success && res.records && res.records.length > 0) {
+        setTrackResult(res.records[0]);
+        setTrackError(null);
+      } else {
+        setTrackResult(null);
+        setTrackError(res.error || "No repair record found matching this mobile number and Job ID.");
+      }
+      setTrackSearched(true);
+    } catch (err: any) {
+      setTrackResult(null);
+      setTrackError("Unable to verify repair status. Please try again or open our Customer Portal.");
+      setTrackSearched(true);
+    } finally {
+      setTrackLoading(false);
     }
   };
 
@@ -1283,165 +1259,246 @@ export default function Home() {
         </section>
 
         {/* ===================================================================
-            SECTION E: INTERACTIVE "TRACK YOUR REPAIR" UTILITY WIDGET
+            SECTION E: PRIVACY-PROTECTED "TRACK YOUR REPAIR" UTILITY WIDGET
         =================================================================== */}
         <section id="track-repair" className="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full border-t border-slate-800/80">
           
-          <div className="text-center max-w-2xl mx-auto mb-10 space-y-3">
+          <div className="text-center max-w-2xl mx-auto mb-8 space-y-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-400/20 text-xs font-bold text-emerald-400 uppercase tracking-widest">
-              <Search size={13} />
-              <span>Customer Self-Service Tracker</span>
+              <ShieldCheck size={13} />
+              <span>Privacy-Protected Customer Tracker</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white">
               Track Your Repair in Real Time
             </h2>
             <p className="text-slate-400 text-sm font-medium">
-              Had your laptop, desktop, or gadget submitted at our Prayagraj service center? Enter your Job ID or registered Phone Number below for instant live status.
+              Had your laptop, desktop, or gadget submitted at our Prayagraj service center? Enter your registered mobile number and Job ID below for verified live status.
             </p>
           </div>
 
-          {/* Search Lookup Bar */}
-          <div className="bg-slate-900 border border-slate-800 p-3 sm:p-4 rounded-3xl shadow-xl max-w-2xl mx-auto mb-4">
-            <form onSubmit={handleTrackSubmit} className="flex flex-col sm:flex-row gap-2">
-              <div className="relative flex-1">
-                <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
-                <input
-                  type="text"
-                  placeholder="Enter Job ID (e.g. NCA-1042, 559) or Phone Number..."
-                  value={trackInput}
-                  onChange={(e) => setTrackInput(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3.5 bg-slate-950 border border-slate-700 rounded-2xl text-sm font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
-                />
+          {/* Quick Access to Full Customer Portal Banner */}
+          <div className="mb-6 p-4 rounded-2xl bg-gradient-to-r from-blue-900/30 via-indigo-900/30 to-purple-900/30 border border-blue-500/30 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-blue-600/30 text-blue-400 flex items-center justify-center shrink-0">
+                <Laptop size={18} />
               </div>
+              <div>
+                <h4 className="text-xs font-bold text-white">Dedicated Customer Support Portal (CX Login)</h4>
+                <p className="text-[11px] text-slate-300">View complete repair history, print official job cards, and check pending bills.</p>
+              </div>
+            </div>
+            <Link
+              href="/track"
+              className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-blue-600/20 shrink-0 inline-flex items-center gap-1.5"
+            >
+              <span>Open Customer Portal</span>
+              <ArrowRight size={13} />
+            </Link>
+          </div>
+
+          {/* Search Lookup Bar with Phone & Job ID Verification */}
+          <div className="bg-slate-900 border border-slate-800 p-4 sm:p-6 rounded-3xl shadow-xl max-w-2xl mx-auto mb-8">
+            <form onSubmit={handleTrackSubmit} className="space-y-4">
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {/* Registered Phone Field */}
+                <div className="space-y-1 text-left">
+                  <label className="text-[11px] font-bold text-slate-300 uppercase tracking-wider">
+                    Registered Mobile Number *
+                  </label>
+                  <div className="relative">
+                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 font-mono">
+                      +91
+                    </span>
+                    <input
+                      type="tel"
+                      placeholder="e.g. 9876543210"
+                      value={trackPhone}
+                      onChange={(e) => setTrackPhone(e.target.value)}
+                      maxLength={14}
+                      required
+                      className="w-full pl-12 pr-4 py-3 bg-slate-950 border border-slate-700 rounded-2xl text-xs font-semibold text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+                    />
+                  </div>
+                </div>
+
+                {/* Job ID / Ticket Number Field */}
+                <div className="space-y-1 text-left">
+                  <label className="text-[11px] font-bold text-slate-300 uppercase tracking-wider">
+                    Job / Ticket Number (Optional)
+                  </label>
+                  <div className="relative">
+                    <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+                    <input
+                      type="text"
+                      placeholder="e.g. 559, NCA-1042"
+                      value={trackJobId}
+                      onChange={(e) => setTrackJobId(e.target.value)}
+                      className="w-full pl-10 pr-4 py-3 bg-slate-950 border border-slate-700 rounded-2xl text-xs font-semibold text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+                    />
+                  </div>
+                </div>
+              </div>
+
               <button
                 type="submit"
-                className="px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-black uppercase tracking-wider rounded-2xl transition-all shadow-md shadow-blue-600/30 shrink-0"
+                disabled={trackLoading}
+                className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 disabled:opacity-50 text-white text-xs font-black uppercase tracking-wider rounded-2xl transition-all shadow-md shadow-blue-600/30 flex items-center justify-center gap-2"
               >
-                Track Repair
+                {trackLoading ? (
+                  <>
+                    <RefreshCw size={15} className="animate-spin" />
+                    <span>Verifying Customer Record...</span>
+                  </>
+                ) : (
+                  <>
+                    <Search size={15} />
+                    <span>Track Repair Status</span>
+                  </>
+                )}
               </button>
+
+              <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-400 pt-1">
+                <Lock size={12} className="text-emerald-400" />
+                <span>Protected by Customer Phone Authentication. Zero public data exposure.</span>
+              </div>
             </form>
           </div>
 
-          {/* Quick Demo Test Chips */}
-          <div className="flex flex-wrap items-center justify-center gap-2 text-xs text-slate-400 mb-8">
-            <span className="font-semibold">Quick test examples:</span>
-            <button 
-              onClick={() => handleQuickTrack("NCA-1042")} 
-              className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-blue-400 rounded-lg font-mono font-bold transition-colors"
-            >
-              [Try: NCA-1042]
-            </button>
-            <button 
-              onClick={() => handleQuickTrack("559")} 
-              className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-emerald-400 rounded-lg font-mono font-bold transition-colors"
-            >
-              [Try: 559]
-            </button>
-            <button 
-              onClick={() => handleQuickTrack("09140946121")} 
-              className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-indigo-400 rounded-lg font-mono font-bold transition-colors"
-            >
-              [Try: 09140946121]
-            </button>
-            <button 
-              onClick={() => handleQuickTrack("JOB-1088")} 
-              className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-amber-400 rounded-lg font-mono font-bold transition-colors"
-            >
-              [Try: JOB-1088]
-            </button>
-          </div>
+          {/* Error Notice */}
+          {trackSearched && trackError && (
+            <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-2xl flex items-start gap-3 text-red-300 text-xs font-semibold max-w-2xl mx-auto mb-6 animate-in shake">
+              <AlertTriangle size={16} className="shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <p>{trackError}</p>
+                <div className="mt-2 flex items-center gap-3">
+                  <Link href="/track" className="text-blue-400 hover:underline font-bold">
+                    Go to Full Customer Portal →
+                  </Link>
+                  <a 
+                    href="https://wa.me/917860130721?text=Hello%20National%20Computer,%20I%20need%20assistance%20tracking%20my%20device." 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="text-emerald-400 hover:underline font-bold"
+                  >
+                    Contact Support on WhatsApp
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
 
-          {/* Live Repair Status Result Card */}
-          {trackSearched && trackResult && (
-            <div className="bg-slate-900 border border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 animate-in fade-in zoom-in-95 duration-200">
-              
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono font-bold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">
-                      Ticket #{trackResult.jobId}
-                    </span>
-                    <span className="text-xs text-slate-400">• National Computer Lab</span>
+          {/* Live Repair Status Result Card (Verified Data) */}
+          {trackSearched && trackResult && (() => {
+            const stageInfo = computeSafeRecordStage(trackResult);
+            return (
+              <div className="bg-slate-900 border border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 animate-in fade-in zoom-in-95 duration-200">
+                
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-mono font-bold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">
+                        Ticket #{trackResult.jobNumber}
+                      </span>
+                      <span className="text-xs text-slate-400">• {trackResult.shopName}</span>
+                    </div>
+                    <h3 className="text-xl font-black text-white">{trackResult.laptop}</h3>
+                    <p className="text-xs text-slate-400 font-medium">
+                      Customer: <strong className="text-slate-200">{trackResult.name}</strong> • Registered: +91 {trackResult.maskedPhone}
+                    </p>
                   </div>
-                  <h3 className="text-xl font-black text-white">{trackResult.device}</h3>
-                  <p className="text-xs text-slate-400 font-medium">
-                    Customer: <strong className="text-slate-200">{trackResult.customer}</strong> • Registered: {trackResult.phone}
+
+                  <div className="sm:text-right">
+                    <div className="text-xs text-slate-400">Current Phase</div>
+                    <div className="text-sm font-black text-emerald-400 mt-0.5">{stageInfo.stageText}</div>
+                    <div className="text-xs text-slate-400 mt-1">
+                      Received: <strong className="text-white">{trackResult.receivedDate}</strong> • Expected: <strong className="text-white">{trackResult.expectedDeliveryDate || "In Inspection"}</strong>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 4-Stage Interactive Progress Stepper */}
+                <div className="space-y-3">
+                  <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">Diagnostic & Repair Milestones</div>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
+                    {[
+                      { step: 1, name: "1. Intake Logged", desc: "Inspection & intake logged" },
+                      { step: 2, name: "2. Diagnosing", desc: "Chip-level circuit analysis" },
+                      { step: 3, name: "3. Repaired / Tested", desc: "Component fitted & burn-in" },
+                      { step: 4, name: "4. Ready for Pickup", desc: "Quality check passed" }
+                    ].map(s => {
+                      const isDone = s.step <= stageInfo.stage;
+                      const isCurrent = s.step === stageInfo.stage;
+                      return (
+                        <div 
+                          key={s.step} 
+                          className={`p-3 rounded-2xl border transition-all ${
+                            isCurrent
+                              ? "bg-blue-600/20 border-blue-500 text-white shadow-md shadow-blue-500/10"
+                              : isDone
+                              ? "bg-emerald-500/10 border-emerald-500/30 text-slate-200"
+                              : "bg-slate-950/50 border-slate-800 text-slate-500"
+                          }`}
+                        >
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="font-bold text-xs">{s.name}</span>
+                            {isDone ? (
+                              <CheckCircle2 size={14} className={isCurrent ? "text-blue-400" : "text-emerald-400"} />
+                            ) : (
+                              <Clock size={14} className="text-slate-600" />
+                            )}
+                          </div>
+                          <div className="text-[11px] text-slate-400">{s.desc}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Technician Notes Box */}
+                <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800/80 space-y-1.5">
+                  <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Bench Technician Observation:</div>
+                  <p className="text-xs text-slate-300 font-medium leading-relaxed">
+                    &ldquo;{stageInfo.notes}&rdquo;
                   </p>
                 </div>
 
-                <div className="sm:text-right">
-                  <div className="text-xs text-slate-400">Current Phase</div>
-                  <div className="text-sm font-black text-emerald-400 mt-0.5">{trackResult.stageText}</div>
-                  <div className="text-xs text-slate-400 mt-1">Est. Completion: <strong className="text-white">{trackResult.expectedDate}</strong></div>
-                </div>
-              </div>
+                {/* Direct WhatsApp Contact & Full Portal CTA */}
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+                  <div className="text-xs text-slate-400">
+                    Repair Amount: <strong className="text-white text-sm font-black">₹{trackResult.amount.toFixed(2)}</strong>{" "}
+                    <span className={`ml-2 px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
+                      trackResult.isPaid ? "bg-emerald-500/20 text-emerald-400" : "bg-amber-500/20 text-amber-400"
+                    }`}>
+                      {trackResult.isPaid ? "Paid" : "Unpaid"}
+                    </span>
+                  </div>
 
-              {/* 4-Stage Interactive Progress Stepper */}
-              <div className="space-y-3">
-                <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">Diagnostic & Repair Milestones</div>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
-                  {[
-                    { step: 1, name: "1. Checked In", desc: "Inspection & intake logged" },
-                    { step: 2, name: "2. Diagnosing", desc: "Chip-level circuit analysis" },
-                    { step: 3, name: "3. Repaired / Tested", desc: "Component fitted & burn-in" },
-                    { step: 4, name: "4. Ready for Pickup", desc: "Quality check passed" }
-                  ].map(s => {
-                    const isDone = s.step <= trackResult.stage;
-                    const isCurrent = s.step === trackResult.stage;
-                    return (
-                      <div 
-                        key={s.step} 
-                        className={`p-3 rounded-2xl border transition-all ${
-                          isCurrent
-                            ? "bg-blue-600/20 border-blue-500 text-white shadow-md shadow-blue-500/10"
-                            : isDone
-                            ? "bg-emerald-500/10 border-emerald-500/30 text-slate-200"
-                            : "bg-slate-950/50 border-slate-800 text-slate-500"
-                        }`}
-                      >
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="font-bold text-xs">{s.name}</span>
-                          {isDone ? (
-                            <CheckCircle2 size={14} className={isCurrent ? "text-blue-400" : "text-emerald-400"} />
-                          ) : (
-                            <Clock size={14} className="text-slate-600" />
-                          )}
-                        </div>
-                        <div className="text-[11px] text-slate-400">{s.desc}</div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
+                  <div className="flex items-center gap-2 w-full sm:w-auto">
+                    <Link
+                      href={`/track?job=${encodeURIComponent(trackResult.jobNumber)}&phone=${encodeURIComponent(trackPhone.replace(/\D/g, "").slice(-10))}`}
+                      className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-bold border border-slate-700 transition-all flex items-center justify-center gap-1.5"
+                    >
+                      <Laptop size={14} className="text-blue-400" />
+                      <span>Open in Customer Portal</span>
+                    </Link>
 
-              {/* Technician Notes Box */}
-              <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800/80 space-y-1.5">
-                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Bench Technician Observation:</div>
-                <p className="text-xs text-slate-300 font-medium leading-relaxed">
-                  &ldquo;{trackResult.technicianNotes}&rdquo;
-                </p>
-              </div>
-
-              {/* Direct WhatsApp Contact Button */}
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
-                <div className="text-xs text-slate-400">
-                  Total Repair Quote: <strong className="text-white text-sm font-black">{trackResult.amount}</strong>
+                    <a
+                      href={`https://wa.me/917860130721?text=${encodeURIComponent(`Hello National Computer, I am checking status of my Ticket #${trackResult.jobNumber} for ${trackResult.laptop}. Customer: ${trackResult.name}.`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold inline-flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 transition-all"
+                    >
+                      <MessageSquare size={14} />
+                      <span>Chat on WhatsApp</span>
+                    </a>
+                  </div>
                 </div>
 
-                <a
-                  href={`https://wa.me/917860130721?text=${encodeURIComponent(`Hello National Computer, I am checking status of my Ticket #${trackResult.jobId} for ${trackResult.device}`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold inline-flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 transition-all"
-                >
-                  <MessageSquare size={14} />
-                  <span>Inquire with Technician on WhatsApp</span>
-                </a>
               </div>
-
-            </div>
-          )}
+            );
+          })()}
 
         </section>
 

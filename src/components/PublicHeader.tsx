@@ -44,14 +44,14 @@ export default function PublicHeader() {
   }, [pathname]);
 
   // Public header only renders on public routes if NOT logged in as active dashboard user
-  const publicRoutes = ["/", "/about", "/support"];
+  const publicRoutes = ["/", "/about", "/support", "/track", "/cx-login"];
   if (!publicRoutes.includes(pathname) || isLoggedIn) return null;
 
   const navLinks = [
     { name: "Home", href: "/#home" },
     { name: "Services", href: "/#services" },
     { name: "Our Software (SaaS)", href: "/#software", badge: "SaaS" },
-    { name: "Track Repair", href: "/#track-repair" },
+    { name: "Track Repair", href: "/track" },
   ];
 
   return (

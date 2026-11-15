@@ -51,7 +51,9 @@ export default function RecordDetail({ params }: { params: Promise<{ id: string 
 
   const getWhatsAppLink = () => {
     if (!record) return "";
-    let cleanPhone = record.phone.replace(/\D/g, '');
+    const rawDigits = record.phone.replace(/\D/g, '');
+    const clean10 = rawDigits.length >= 10 ? rawDigits.slice(-10) : rawDigits;
+    let cleanPhone = rawDigits;
     if (cleanPhone.length === 10) {
       cleanPhone = '91' + cleanPhone; // Default to India country code
     }
@@ -60,11 +62,14 @@ export default function RecordDetail({ params }: { params: Promise<{ id: string 
     const shopPhone = currentUser?.phone || "7786961902";
     const supportPhone = "7860130721";
 
+    const hostUrl = typeof window !== "undefined" ? window.location.origin : "https://www.nationalcomputerallahabad.com";
+    const trackUrl = `${hostUrl}/track?job=${encodeURIComponent(record.jobNumber)}&phone=${clean10}`;
+
     let message = "";
     if (!record.isPaid) {
-      message = `Dear Customer ${record.name} , We have Received Your Item For Repairing. There JOB No. is ${record.jobNumber}. Thanks, ${shopName} ${shopPhone}, ${supportPhone}`;
+      message = `Dear Customer ${record.name}, We have Received Your Item For Repairing. There JOB No. is ${record.jobNumber}.\n\nTrack Live Status & Job Card:\n${trackUrl}\n\nThanks, ${shopName} ${shopPhone}, ${supportPhone}`;
     } else {
-      message = `Dear Customer ${record.name}, Job No. ${record.jobNumber} is Ready And Job Amount Rs. ${record.amount}/- Only, Please Collect Immediate. ${shopName}. ${shopPhone}, ${supportPhone}`;
+      message = `Dear Customer ${record.name}, Job No. ${record.jobNumber} is Ready And Job Amount Rs. ${record.amount}/- Only, Please Collect Immediate.\n\nView Bill & Status:\n${trackUrl}\n\nThanks, ${shopName}. ${shopPhone}, ${supportPhone}`;
     }
     
     return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;

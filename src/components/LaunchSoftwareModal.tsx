@@ -92,7 +92,34 @@ export default function LaunchSoftwareModal({ isOpen, onClose }: LaunchSoftwareM
             <ArrowRight size={16} className="text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all shrink-0 ml-2" />
           </Link>
 
-          {/* Option 2: Register New Shop */}
+          {/* Option 2: Customer Service Portal & Tracking */}
+          <Link
+            href="/track"
+            onClick={onClose}
+            className="group flex items-center justify-between p-4.5 bg-gradient-to-r from-indigo-50/60 to-blue-50/60 hover:from-indigo-50 hover:to-blue-50 border border-indigo-200 rounded-2xl transition-all p-4"
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-11 h-11 bg-indigo-600 text-white rounded-xl flex items-center justify-center shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform">
+                <Laptop size={20} />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h4 className="font-bold text-slate-900 text-sm group-hover:text-indigo-700 transition-colors">
+                    Customer Portal (Track Device)
+                  </h4>
+                  <span className="px-2 py-0.5 bg-indigo-100 text-indigo-800 text-[10px] font-extrabold rounded-md uppercase">
+                    Customer Login
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 font-medium">
+                  Check live repair milestones, download job card, and view bills with your mobile number.
+                </p>
+              </div>
+            </div>
+            <ArrowRight size={16} className="text-slate-400 group-hover:text-indigo-700 group-hover:translate-x-1 transition-all shrink-0 ml-2" />
+          </Link>
+
+          {/* Option 3: Register New Shop */}
           <Link
             href="/register"
             onClick={onClose}
