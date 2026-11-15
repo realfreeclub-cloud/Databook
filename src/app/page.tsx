@@ -74,55 +74,6 @@ import { createSupportRequest } from "@/lib/adminActions";
 import LaunchSoftwareModal from "@/components/LaunchSoftwareModal";
 import { getCustomerRepairRecords, CustomerSafeRecord } from "@/lib/customerActions";
 
-// Interactive Mockup Data for Hero
-const HERO_TICKETS = [
-  {
-    id: "JOB-1042",
-    customer: "Rajesh K. Verma",
-    phone: "+91 98390 XXXXX",
-    device: "Dell Latitude 5420",
-    issue: "Motherboard Power IC & BIOS",
-    status: "Ready for Pickup",
-    statusColor: "emerald",
-    amount: "₹3,400",
-    delivery: "Today, 5:00 PM"
-  },
-  {
-    id: "JOB-1043",
-    customer: "Priya Srivastava",
-    phone: "+91 94152 XXXXX",
-    device: "HP Pavilion 15 Gaming",
-    issue: "144Hz FHD Screen Replacement",
-    status: "In Progress",
-    statusColor: "blue",
-    amount: "₹4,200",
-    delivery: "Tomorrow, 12:00 PM"
-  },
-  {
-    id: "JOB-1044",
-    customer: "Alok Tripathi",
-    phone: "+91 79058 XXXXX",
-    device: "Lenovo ThinkPad E14",
-    issue: "Liquid Spill Ultrasonic Clean",
-    status: "Diagnosing",
-    statusColor: "amber",
-    amount: "₹1,800",
-    delivery: "Tomorrow, 6:00 PM"
-  }
-];
-
-const HERO_PARTS = [
-  { name: "512GB NVMe M.2 SSD (Gen 3x4)", stock: 3, alert: true, price: "₹2,650", category: "Storage" },
-  { name: "15.6\" Slim 30-Pin FHD IPS Screen", stock: 8, alert: false, price: "₹3,700", category: "Displays" },
-  { name: "16GB DDR4 3200MHz Laptop RAM", stock: 14, alert: false, price: "₹2,400", category: "Memory" },
-];
-
-const HERO_SALES = [
-  { id: "SALE-812", client: "Deepak Sharma", item: "Crucial 1TB NVMe SSD + Fitting", amount: "₹4,950", date: "Just now" },
-  { id: "SALE-813", client: "Allahabad Coaching Inst.", item: "3x 65W Original Type-C Adapters", amount: "₹3,600", date: "1 hr ago" },
-  { id: "SALE-814", client: "Vikram Rajput", item: "Dell Inspiron Original Keyboard", amount: "₹1,250", date: "3 hrs ago" },
-];
-
 // All Laptop Brands Repaired (From Banner / Poster)
 const REPAIRED_BRANDS = [
   { name: "HP", color: "from-sky-500 to-blue-600" },
@@ -656,7 +607,6 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   // Landing Page Interactive States
-  const [heroTab, setHeroTab] = useState<"tickets" | "inventory" | "sales">("tickets");
   const [activeModuleTab, setActiveModuleTab] = useState<number>(0);
   const [activeIndustryTab, setActiveIndustryTab] = useState<number>(0);
   const [activeHardwareTab, setActiveHardwareTab] = useState<"solutions" | "products" | "tips">("solutions");
@@ -807,252 +757,275 @@ export default function Home() {
         <div className="fixed top-[45%] right-[-10%] w-[550px] h-[550px] bg-emerald-100/40 rounded-full blur-[140px] pointer-events-none -z-10" />
 
         {/* ===================================================================
-            SECTION B: HERO SECTION
+            SECTION B: HERO SECTION - DETAILED NATIONAL COMPUTER INFORMATION HUB
         =================================================================== */}
-        <section className="relative pt-12 md:pt-20 pb-16 lg:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        <section className="relative pt-10 md:pt-16 pb-16 lg:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             
-            {/* Left Column: Headline & Action Copy */}
+            {/* Left Column: Detailed Information & Direct Hotlines */}
             <div className="lg:col-span-7 space-y-6 text-left">
               
-              {/* Pillar Badges Pill */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 text-xs font-bold text-slate-700 shadow-sm backdrop-blur-md">
+              {/* Location & Status Pill */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-blue-800 shadow-sm">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
                 </span>
-                <span>Web • Custom Software • Public SaaS • IT Solutions</span>
+                <MapPin size={13} className="text-blue-600" />
+                <span>Rashoolabad Chauraha, Teliarganj, Prayagraj • Open Everyday 10 AM – 10 PM</span>
               </div>
 
-              {/* Main Headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.08] text-slate-950">
-                Web Development,{" "}
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-600">
-                  Custom Software
-                </span>{" "}
-                & Complete IT Solutions.
-              </h1>
+              {/* Main Brand Title & Local Identity */}
+              <div className="space-y-2">
+                <div className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-blue-700 flex items-center gap-2">
+                  <Cpu size={16} className="text-blue-600" />
+                  <span>National Computer Allahabad • Trusted Service Since 2015</span>
+                </div>
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black tracking-tight leading-[1.08] text-slate-950">
+                  Prayagraj&apos;s Complete{" "}
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-700 via-indigo-700 to-emerald-600">
+                    Laptop Repair, Web Development
+                  </span>{" "}
+                  & 100+ Digital Services Hub.
+                </h1>
+                <div className="text-sm sm:text-base font-bold text-slate-800">
+                  नेशनल कम्प्यूटर: चिप-लेवल लैपटॉप रिपेयरिंग, वेबसाइट एवं सॉफ्टवेयर डेवलपमेंट व जन सेवा केंद्र
+                </div>
+              </div>
 
-              {/* Sub-headline */}
-              <p className="text-slate-700 text-base sm:text-lg font-medium leading-relaxed max-w-2xl">
-                At National Computer Allahabad, we build modern websites, engineer custom business software, offer public-use SaaS tools for repair & retail shops, and deliver expert IT support in Prayagraj.
+              {/* Detailed Business Summary */}
+              <p className="text-slate-700 text-sm sm:text-base font-medium leading-relaxed max-w-2xl">
+                Located at Rashoolabad Chauraha, Teliarganj, <strong>National Computer</strong> is Prayagraj&apos;s trusted single-window technology destination. From expert <strong>chip-level motherboard repair</strong>, screen and hinge replacement to <strong>high-ranking Google websites for local shopkeepers</strong>, schools, clinics & advocates, 100+ cyber cafe government form services, and certified refurbished hardware—we provide honest, transparent, same-day solutions backed by technical warranty.
               </p>
 
-              {/* Action Buttons */}
-              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              {/* Action Hotlines & Customer Portal Buttons */}
+              <div className="pt-2 flex flex-wrap items-center gap-3">
                 <a
-                  href="#software"
-                  className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl text-sm font-black uppercase tracking-wider text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-700 hover:to-indigo-700 shadow-xl shadow-blue-600/25 hover:shadow-2xl hover:shadow-blue-600/35 hover:-translate-y-0.5 active:translate-y-0 transition-all text-center"
+                  href="tel:7786961902"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider text-white bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-600/25 hover:-translate-y-0.5 active:translate-y-0 transition-all text-center"
                 >
-                  <Sparkles size={16} />
-                  <span>Explore Public Software</span>
+                  <Phone size={15} />
+                  <span>Call Lab: 7786961902</span>
                 </a>
 
                 <a
-                  href="#contact"
-                  className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl text-sm font-bold uppercase tracking-wider text-slate-800 hover:text-slate-950 bg-white hover:bg-slate-50 border border-slate-300 shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all text-center"
+                  href="https://wa.me/917860130721?text=Hello%20National%20Computer%20Allahabad,%20I%20need%20inquiry%20regarding%20your%20services."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider text-white bg-emerald-600 hover:bg-emerald-700 shadow-lg shadow-emerald-600/25 hover:-translate-y-0.5 active:translate-y-0 transition-all text-center"
                 >
-                  <Send size={15} className="text-blue-600" />
-                  <span>Get a Web / Software Quote</span>
+                  <MessageSquare size={15} />
+                  <span>WhatsApp: 7860130721</span>
+                </a>
+
+                <Link
+                  href="/track"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800 hover:text-slate-950 bg-white hover:bg-slate-50 border border-slate-300 shadow-sm hover:-translate-y-0.5 active:translate-y-0 transition-all text-center"
+                >
+                  <Search size={15} className="text-blue-600" />
+                  <span>Track Device Status</span>
+                </Link>
+              </div>
+
+              {/* Quick Jump Badges to Key Sections */}
+              <div className="flex flex-wrap items-center gap-2 pt-1 text-xs font-bold text-slate-600">
+                <span className="text-slate-400 font-medium">Quick Jump:</span>
+                <a href="#hardware-it" className="px-3 py-1 rounded-lg bg-white border border-slate-200 hover:border-blue-400 hover:text-blue-600 transition-colors shadow-sm">
+                  🔧 Laptop Repair Lab
+                </a>
+                <a href="#business-web" className="px-3 py-1 rounded-lg bg-white border border-slate-200 hover:border-blue-400 hover:text-blue-600 transition-colors shadow-sm">
+                  🌐 Business Websites
+                </a>
+                <a href="#cyber-cafe" className="px-3 py-1 rounded-lg bg-white border border-slate-200 hover:border-blue-400 hover:text-blue-600 transition-colors shadow-sm">
+                  🏛️ Cyber Cafe (100+)
+                </a>
+                <a href="https://refurhub.com/" target="_blank" rel="noopener noreferrer" className="px-3 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100 transition-colors shadow-sm flex items-center gap-1">
+                  <span>💻 Refurhub Store</span>
+                  <ExternalLink size={11} />
                 </a>
               </div>
 
-              {/* Trust Metric Strip */}
+              {/* Trust Metric Strip (Authentic Local Shop Stats) */}
               <div className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-slate-200">
                 <div>
-                  <div className="text-xl sm:text-2xl font-black text-slate-900">12+ Years</div>
-                  <div className="text-xs text-slate-600 font-semibold mt-0.5">Engineering Lab</div>
+                  <div className="text-xl sm:text-2xl font-black text-slate-950">10+ Years</div>
+                  <div className="text-xs text-slate-600 font-semibold mt-0.5">Serving Prayagraj (Since 2015)</div>
                 </div>
                 <div>
-                  <div className="text-xl sm:text-2xl font-black text-emerald-600">550+</div>
-                  <div className="text-xs text-slate-600 font-semibold mt-0.5">Shops & Clients</div>
+                  <div className="text-xl sm:text-2xl font-black text-blue-700">5,000+</div>
+                  <div className="text-xs text-slate-600 font-semibold mt-0.5">Laptops & PCs Repaired</div>
                 </div>
                 <div>
-                  <div className="text-xl sm:text-2xl font-black text-blue-600">99.9%</div>
-                  <div className="text-xs text-slate-600 font-semibold mt-0.5">Cloud SaaS Uptime</div>
+                  <div className="text-xl sm:text-2xl font-black text-emerald-700">100+</div>
+                  <div className="text-xs text-slate-600 font-semibold mt-0.5">Cyber Cafe & Online Services</div>
                 </div>
                 <div>
-                  <div className="text-xl sm:text-2xl font-black text-slate-900">Prayagraj</div>
-                  <div className="text-xs text-slate-600 font-semibold mt-0.5">Flagship Studio</div>
+                  <div className="text-xl sm:text-2xl font-black text-amber-700">100%</div>
+                  <div className="text-xs text-slate-600 font-semibold mt-0.5">Genuine Parts & Warranty</div>
                 </div>
               </div>
             </div>
 
-            {/* Right Column: Interactive UI Mockup Preview Card */}
+            {/* Right Column: Detailed National Computer Allahabad Hub & Services Overview Card */}
             <div className="lg:col-span-5 relative">
               
               {/* Outer Glow Halo */}
-              <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-400/30 via-indigo-400/20 to-emerald-400/20 rounded-[2.5rem] blur-xl opacity-75 group-hover:opacity-100 transition duration-1000 -z-10" />
+              <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-400/20 via-indigo-400/20 to-emerald-400/20 rounded-[2.5rem] blur-xl opacity-75 -z-10" />
 
-              {/* Dashboard Preview Window */}
-              <div className="bg-white border border-slate-200 shadow-2xl shadow-slate-200/80 rounded-[2.2rem] p-5 sm:p-6 space-y-4">
+              {/* Service Matrix Card */}
+              <div className="bg-white border border-slate-200 shadow-xl rounded-[2.2rem] p-5 sm:p-6 space-y-4">
                 
-                {/* Simulated Window Frame Header */}
+                {/* Header Strip with Address & Status */}
                 <div className="flex items-center justify-between pb-3 border-b border-slate-200">
                   <div className="flex items-center gap-2">
                     <span className="w-3 h-3 rounded-full bg-red-400" />
                     <span className="w-3 h-3 rounded-full bg-amber-400" />
                     <span className="w-3 h-3 rounded-full bg-emerald-400" />
-                    <span className="ml-2 text-[11px] font-mono text-slate-500">cloud.nationalcomputerallahabad.com</span>
+                    <span className="ml-1 text-xs font-black text-slate-900">National Computer • Hub Overview</span>
                   </div>
-                  <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-300 rounded-md text-[10px] font-extrabold uppercase tracking-wider">
-                    Live SaaS Demo
+                  <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-md text-[10px] font-extrabold uppercase tracking-wider flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>Open Everyday</span>
                   </span>
                 </div>
 
-                {/* Metric Counters Banner */}
-                <div className="grid grid-cols-3 gap-2 text-center">
-                  <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
-                    <div className="text-xs font-semibold text-slate-600">Active Jobs</div>
-                    <div className="text-base font-black text-slate-900 mt-0.5">24</div>
-                  </div>
-                  <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
-                    <div className="text-xs font-semibold text-slate-600">Today Sales</div>
-                    <div className="text-base font-black text-emerald-600 mt-0.5">₹18,600</div>
-                  </div>
-                  <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
-                    <div className="text-xs font-semibold text-slate-600">Parts Low</div>
-                    <div className="text-base font-black text-amber-600 mt-0.5">3 Items</div>
-                  </div>
-                </div>
-
-                {/* Low-Stock Warning Alert Badge (< 5 units) */}
-                <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl flex items-center justify-between gap-3 text-xs text-amber-800">
-                  <div className="flex items-center gap-2 font-medium">
-                    <AlertTriangle size={15} className="text-amber-600 shrink-0" />
-                    <span>Low Stock Alert: NVMe 512GB SSD (<strong className="font-bold text-slate-900">&lt; 5 units</strong> left)</span>
-                  </div>
-                  <span className="px-2 py-0.5 bg-amber-100 text-amber-800 font-extrabold rounded text-[10px] uppercase shrink-0">
-                    Reorder
-                  </span>
-                </div>
-
-                {/* Interactive Inner Filter Tabs */}
-                <div className="flex items-center justify-between gap-1 p-1 bg-slate-100 rounded-xl border border-slate-200">
-                  <button
-                    onClick={() => setHeroTab("tickets")}
-                    className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-bold transition-all ${
-                      heroTab === "tickets" ? "bg-blue-600 text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
-                    }`}
+                {/* 4 Core Divisions Grid inside the Card */}
+                <div className="space-y-3">
+                  
+                  {/* Division 1: Chip-Level Repair Lab */}
+                  <a
+                    href="#hardware-it"
+                    className="p-3.5 rounded-2xl bg-slate-50 hover:bg-blue-50/60 border border-slate-200 hover:border-blue-300 transition-all flex items-start gap-3.5 group block text-left"
                   >
-                    Repairs (3)
-                  </button>
-                  <button
-                    onClick={() => setHeroTab("inventory")}
-                    className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-bold transition-all ${
-                      heroTab === "inventory" ? "bg-blue-600 text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
-                    }`}
-                  >
-                    Parts Stock
-                  </button>
-                  <button
-                    onClick={() => setHeroTab("sales")}
-                    className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-bold transition-all ${
-                      heroTab === "sales" ? "bg-blue-600 text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
-                    }`}
-                  >
-                    Counter Sales
-                  </button>
-                </div>
-
-                {/* Tab Dynamic Body */}
-                <div className="space-y-2 min-h-[175px]">
-                  {heroTab === "tickets" && (
-                    <div className="space-y-2 animate-in fade-in duration-200">
-                      {HERO_TICKETS.map(t => (
-                        <div key={t.id} className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between hover:border-slate-300 transition-colors">
-                          <div className="space-y-0.5">
-                            <div className="flex items-center gap-2">
-                              <span className="font-mono text-xs font-bold text-blue-600">{t.id}</span>
-                              <span className="text-xs font-bold text-slate-900">{t.customer}</span>
-                            </div>
-                            <div className="text-[11px] text-slate-600 font-medium">{t.device} • {t.issue}</div>
-                          </div>
-                          <div className="text-right">
-                            <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-extrabold uppercase ${
-                              t.statusColor === "emerald" 
-                                ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-                                : t.statusColor === "blue"
-                                ? "bg-blue-50 text-blue-700 border border-blue-200"
-                                : "bg-amber-50 text-amber-800 border border-amber-200"
-                            }`}>
-                              {t.status}
-                            </span>
-                            <div className="text-xs font-extrabold text-slate-900 mt-0.5">{t.amount}</div>
-                          </div>
-                        </div>
-                      ))}
+                    <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-sm">
+                      <Wrench size={18} />
                     </div>
-                  )}
-
-                  {heroTab === "inventory" && (
-                    <div className="space-y-2 animate-in fade-in duration-200">
-                      {HERO_PARTS.map(p => (
-                        <div key={p.name} className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between">
-                          <div>
-                            <div className="text-xs font-bold text-slate-900">{p.name}</div>
-                            <div className="text-[11px] text-slate-600">{p.category} • Cost Price: {p.price}</div>
-                          </div>
-                          <div className="text-right">
-                            <span className={`px-2 py-0.5 rounded text-[10px] font-black ${
-                              p.alert ? "bg-red-50 text-red-700 border border-red-200" : "bg-emerald-50 text-emerald-700"
-                            }`}>
-                              {p.stock} In Stock
-                            </span>
-                          </div>
-                        </div>
-                      ))}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2">
+                        <h4 className="text-xs font-black text-slate-950 group-hover:text-blue-700 transition-colors">
+                          Chip-Level Laptop & PC Repair Lab
+                        </h4>
+                        <span className="text-[10px] font-extrabold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200 shrink-0">
+                          Same Day
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-600 font-medium mt-0.5 line-clamp-2">
+                        Motherboard circuit repair, screen & hinge replacement, Arctic MX-4 thermal cooling, and power IC troubleshooting.
+                      </p>
+                      <div className="text-[10px] text-slate-500 font-bold mt-1">
+                        HP • Dell • Lenovo • Asus • Acer • Apple • All Brands
+                      </div>
                     </div>
-                  )}
+                  </a>
 
-                  {heroTab === "sales" && (
-                    <div className="space-y-2 animate-in fade-in duration-200">
-                      {HERO_SALES.map(s => (
-                        <div key={s.id} className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between">
-                          <div>
-                            <div className="flex items-center gap-2">
-                              <span className="font-mono text-[11px] text-emerald-700 font-bold">{s.id}</span>
-                              <span className="text-xs font-bold text-slate-900">{s.client}</span>
-                            </div>
-                            <div className="text-[11px] text-slate-600">{s.item}</div>
-                          </div>
-                          <div className="text-right">
-                            <div className="text-xs font-black text-emerald-700">{s.amount}</div>
-                            <div className="text-[10px] text-slate-500">{s.date}</div>
-                          </div>
-                        </div>
-                      ))}
+                  {/* Division 2: Business Websites & Software */}
+                  <a
+                    href="#business-web"
+                    className="p-3.5 rounded-2xl bg-slate-50 hover:bg-indigo-50/60 border border-slate-200 hover:border-indigo-300 transition-all flex items-start gap-3.5 group block text-left"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-indigo-600 group-hover:text-white transition-all shadow-sm">
+                      <Globe size={18} />
                     </div>
-                  )}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2">
+                        <h4 className="text-xs font-black text-slate-950 group-hover:text-indigo-700 transition-colors">
+                          Websites & Software for Indian Businesses
+                        </h4>
+                        <span className="text-[10px] font-extrabold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200 shrink-0">
+                          Google SEO
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-600 font-medium mt-0.5 line-clamp-2">
+                        Websites for shopkeepers (Google Maps ranking), schools, clinics, real estate, advocates & custom POS billing software.
+                      </p>
+                    </div>
+                  </a>
+
+                  {/* Division 3: Cyber Cafe & Jan Seva Kendra */}
+                  <a
+                    href="#cyber-cafe"
+                    className="p-3.5 rounded-2xl bg-slate-50 hover:bg-emerald-50/60 border border-slate-200 hover:border-emerald-300 transition-all flex items-start gap-3.5 group block text-left"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-emerald-600 group-hover:text-white transition-all shadow-sm">
+                      <Landmark size={18} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2">
+                        <h4 className="text-xs font-black text-slate-950 group-hover:text-emerald-700 transition-colors">
+                          Cyber Cafe & Online Services (100+)
+                        </h4>
+                        <span className="text-[10px] font-extrabold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 shrink-0">
+                          11 Categories
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-600 font-medium mt-0.5 line-clamp-2">
+                        Sarkari job forms, Admit Cards, Aadhaar PVC, PAN Card, आय/जाति/निवास प्रमाणपत्र, AEPS Cash, Railway & air tickets.
+                      </p>
+                    </div>
+                  </a>
+
+                  {/* Division 4: Refurhub Hardware Store */}
+                  <a
+                    href="https://refurhub.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3.5 rounded-2xl bg-slate-50 hover:bg-amber-50/60 border border-slate-200 hover:border-amber-300 transition-all flex items-start gap-3.5 group block text-left"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-amber-600 group-hover:text-white transition-all shadow-sm">
+                      <ShieldCheck size={18} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2">
+                        <h4 className="text-xs font-black text-slate-950 group-hover:text-amber-800 transition-colors">
+                          Certified Refurbished Laptops & Hardware
+                        </h4>
+                        <span className="text-[10px] font-extrabold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 shrink-0 flex items-center gap-1">
+                          <span>Refurhub.com</span>
+                          <ExternalLink size={10} />
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-600 font-medium mt-0.5 line-clamp-2">
+                        Tested business laptops with 6-month warranty, CCTV camera installation, printers, networking, SSD & RAM upgrades.
+                      </p>
+                    </div>
+                  </a>
+
                 </div>
 
-                {/* Mockup Action Footer Bar */}
-                <div className="pt-2 flex items-center justify-between gap-3 border-t border-slate-200">
-                  <button
-                    onClick={triggerExportMock}
-                    className="inline-flex items-center gap-1.5 px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-all border border-slate-300 active:scale-95"
-                    title="Export active registry records"
-                  >
-                    <Download size={13} className="text-emerald-600" />
-                    <span>Export .XLSX</span>
-                  </button>
-
-                  <button
-                    onClick={() => setIsModalOpen(true)}
-                    className="inline-flex items-center gap-1.5 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-extrabold rounded-xl transition-all shadow-md shadow-blue-600/25 active:scale-95"
-                  >
-                    <PlusCircle size={13} />
-                    <span>Launch Full App</span>
-                  </button>
-                </div>
-
-                {/* Export Toast Notification */}
-                {exportNotice && (
-                  <div className="p-2.5 bg-emerald-50 border border-emerald-300 text-emerald-800 rounded-xl text-xs font-bold text-center animate-in fade-in slide-in-from-bottom-2">
-                    {exportNotice}
+                {/* Shop Location & Working Hours Box */}
+                <div className="pt-3 border-t border-slate-200 text-xs text-slate-700 space-y-1.5 font-medium">
+                  <div className="flex items-start gap-2">
+                    <MapPin size={14} className="text-blue-600 shrink-0 mt-0.5" />
+                    <span><strong>Shop Address:</strong> Rashoolabad Chauraha, Teliarganj, Prayagraj, UP – 211004</span>
                   </div>
-                )}
+                  <div className="flex items-center gap-2">
+                    <Clock size={14} className="text-emerald-600 shrink-0" />
+                    <span><strong>Hours:</strong> 10:00 AM – 10:00 PM Open Everyday (Mon – Sun)</span>
+                  </div>
+                </div>
+
+                {/* Direct Action Bottom Strip */}
+                <div className="pt-2 flex items-center gap-2">
+                  <a
+                    href="tel:7786961902"
+                    className="flex-1 py-2.5 px-3 rounded-xl bg-blue-50 hover:bg-blue-600 text-blue-700 hover:text-white text-xs font-bold border border-blue-200 transition-all flex items-center justify-center gap-1.5"
+                  >
+                    <Phone size={13} />
+                    <span>Call Hotline</span>
+                  </a>
+                  <a
+                    href="https://wa.me/917860130721?text=Hello%20National%20Computer,%20I%20need%20assistance."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 py-2.5 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-600 text-emerald-800 hover:text-white text-xs font-bold border border-emerald-200 transition-all flex items-center justify-center gap-1.5"
+                  >
+                    <MessageSquare size={13} />
+                    <span>WhatsApp Chat</span>
+                  </a>
+                </div>
+
               </div>
+
             </div>
 
           </div>
