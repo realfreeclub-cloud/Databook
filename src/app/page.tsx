@@ -788,9 +788,9 @@ export default function Home() {
 
   if (isLoading) {
     return (
-      <main className="flex flex-col items-center justify-center min-h-screen p-6 bg-slate-900 text-white">
-        <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-        <p className="text-slate-400 font-semibold text-sm animate-pulse">Initializing National Computer Portal...</p>
+      <main className="flex flex-col items-center justify-center min-h-screen p-6 bg-slate-50 text-slate-900">
+        <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+        <p className="text-slate-600 font-semibold text-sm animate-pulse">Initializing National Computer Portal...</p>
       </main>
     );
   }
@@ -800,11 +800,11 @@ export default function Home() {
   // =========================================================================
   if (!user) {
     return (
-      <main id="home" className="flex flex-col min-h-screen bg-[#0b1120] text-slate-100 overflow-x-hidden w-full selection:bg-blue-600 selection:text-white">
+      <main id="home" className="flex flex-col min-h-screen bg-slate-50 text-slate-900 overflow-x-hidden w-full selection:bg-blue-600 selection:text-white">
         
-        {/* Ambient Tech Lighting Gradients */}
-        <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[550px] bg-gradient-to-b from-blue-600/15 via-indigo-600/5 to-transparent blur-[140px] pointer-events-none -z-10" />
-        <div className="fixed top-[45%] right-[-10%] w-[550px] h-[550px] bg-emerald-500/[0.04] rounded-full blur-[160px] pointer-events-none -z-10" />
+        {/* Ambient Subtle Tech Lighting Gradients */}
+        <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[550px] bg-gradient-to-b from-blue-100/70 via-indigo-50/40 to-transparent blur-[120px] pointer-events-none -z-10" />
+        <div className="fixed top-[45%] right-[-10%] w-[550px] h-[550px] bg-emerald-100/40 rounded-full blur-[140px] pointer-events-none -z-10" />
 
         {/* ===================================================================
             SECTION B: HERO SECTION
@@ -816,25 +816,25 @@ export default function Home() {
             <div className="lg:col-span-7 space-y-6 text-left">
               
               {/* Pillar Badges Pill */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/80 text-xs font-bold text-slate-300 shadow-sm backdrop-blur-md">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 text-xs font-bold text-slate-700 shadow-sm backdrop-blur-md">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
                 </span>
                 <span>Web • Custom Software • Public SaaS • IT Solutions</span>
               </div>
 
               {/* Main Headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.08] text-white">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.08] text-slate-950">
                 Web Development,{" "}
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-300 to-emerald-400">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-600">
                   Custom Software
                 </span>{" "}
                 & Complete IT Solutions.
               </h1>
 
               {/* Sub-headline */}
-              <p className="text-slate-300 text-base sm:text-lg font-medium leading-relaxed max-w-2xl">
+              <p className="text-slate-700 text-base sm:text-lg font-medium leading-relaxed max-w-2xl">
                 At National Computer Allahabad, we build modern websites, engineer custom business software, offer public-use SaaS tools for repair & retail shops, and deliver expert IT support in Prayagraj.
               </p>
 
@@ -842,7 +842,7 @@ export default function Home() {
               <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                 <a
                   href="#software"
-                  className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl text-sm font-black uppercase tracking-wider text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 hover:from-blue-500 hover:to-indigo-500 shadow-xl shadow-blue-600/30 hover:shadow-2xl hover:shadow-blue-600/50 hover:-translate-y-0.5 active:translate-y-0 transition-all text-center"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl text-sm font-black uppercase tracking-wider text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-700 hover:to-indigo-700 shadow-xl shadow-blue-600/25 hover:shadow-2xl hover:shadow-blue-600/35 hover:-translate-y-0.5 active:translate-y-0 transition-all text-center"
                 >
                   <Sparkles size={16} />
                   <span>Explore Public Software</span>
@@ -850,30 +850,30 @@ export default function Home() {
 
                 <a
                   href="#contact"
-                  className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl text-sm font-bold uppercase tracking-wider text-slate-200 hover:text-white bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-slate-600 shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all text-center"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl text-sm font-bold uppercase tracking-wider text-slate-800 hover:text-slate-950 bg-white hover:bg-slate-50 border border-slate-300 shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all text-center"
                 >
-                  <Send size={15} className="text-blue-400" />
+                  <Send size={15} className="text-blue-600" />
                   <span>Get a Web / Software Quote</span>
                 </a>
               </div>
 
               {/* Trust Metric Strip */}
-              <div className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-slate-800/80">
+              <div className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-slate-200">
                 <div>
-                  <div className="text-xl sm:text-2xl font-black text-white">12+ Years</div>
-                  <div className="text-xs text-slate-400 font-semibold mt-0.5">Engineering Lab</div>
+                  <div className="text-xl sm:text-2xl font-black text-slate-900">12+ Years</div>
+                  <div className="text-xs text-slate-600 font-semibold mt-0.5">Engineering Lab</div>
                 </div>
                 <div>
-                  <div className="text-xl sm:text-2xl font-black text-emerald-400">550+</div>
-                  <div className="text-xs text-slate-400 font-semibold mt-0.5">Shops & Clients</div>
+                  <div className="text-xl sm:text-2xl font-black text-emerald-600">550+</div>
+                  <div className="text-xs text-slate-600 font-semibold mt-0.5">Shops & Clients</div>
                 </div>
                 <div>
-                  <div className="text-xl sm:text-2xl font-black text-blue-400">99.9%</div>
-                  <div className="text-xs text-slate-400 font-semibold mt-0.5">Cloud SaaS Uptime</div>
+                  <div className="text-xl sm:text-2xl font-black text-blue-600">99.9%</div>
+                  <div className="text-xs text-slate-600 font-semibold mt-0.5">Cloud SaaS Uptime</div>
                 </div>
                 <div>
-                  <div className="text-xl sm:text-2xl font-black text-white">Prayagraj</div>
-                  <div className="text-xs text-slate-400 font-semibold mt-0.5">Flagship Studio</div>
+                  <div className="text-xl sm:text-2xl font-black text-slate-900">Prayagraj</div>
+                  <div className="text-xs text-slate-600 font-semibold mt-0.5">Flagship Studio</div>
                 </div>
               </div>
             </div>
@@ -882,57 +882,57 @@ export default function Home() {
             <div className="lg:col-span-5 relative">
               
               {/* Outer Glow Halo */}
-              <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-600/40 via-indigo-600/30 to-emerald-500/30 rounded-[2.5rem] blur-xl opacity-75 group-hover:opacity-100 transition duration-1000 -z-10" />
+              <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-400/30 via-indigo-400/20 to-emerald-400/20 rounded-[2.5rem] blur-xl opacity-75 group-hover:opacity-100 transition duration-1000 -z-10" />
 
               {/* Dashboard Preview Window */}
-              <div className="bg-slate-900/90 border border-slate-700/80 rounded-[2.2rem] p-5 sm:p-6 shadow-2xl backdrop-blur-xl space-y-4">
+              <div className="bg-white border border-slate-200 shadow-2xl shadow-slate-200/80 rounded-[2.2rem] p-5 sm:p-6 space-y-4">
                 
                 {/* Simulated Window Frame Header */}
-                <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-200">
                   <div className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full bg-red-500/80" />
-                    <span className="w-3 h-3 rounded-full bg-amber-500/80" />
-                    <span className="w-3 h-3 rounded-full bg-emerald-500/80" />
-                    <span className="ml-2 text-[11px] font-mono text-slate-400">cloud.nationalcomputerallahabad.com</span>
+                    <span className="w-3 h-3 rounded-full bg-red-400" />
+                    <span className="w-3 h-3 rounded-full bg-amber-400" />
+                    <span className="w-3 h-3 rounded-full bg-emerald-400" />
+                    <span className="ml-2 text-[11px] font-mono text-slate-500">cloud.nationalcomputerallahabad.com</span>
                   </div>
-                  <span className="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-md text-[10px] font-extrabold uppercase tracking-wider">
+                  <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-300 rounded-md text-[10px] font-extrabold uppercase tracking-wider">
                     Live SaaS Demo
                   </span>
                 </div>
 
                 {/* Metric Counters Banner */}
                 <div className="grid grid-cols-3 gap-2 text-center">
-                  <div className="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800">
-                    <div className="text-xs font-semibold text-slate-400">Active Jobs</div>
-                    <div className="text-base font-black text-white mt-0.5">24</div>
+                  <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                    <div className="text-xs font-semibold text-slate-600">Active Jobs</div>
+                    <div className="text-base font-black text-slate-900 mt-0.5">24</div>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800">
-                    <div className="text-xs font-semibold text-slate-400">Today Sales</div>
-                    <div className="text-base font-black text-emerald-400 mt-0.5">₹18,600</div>
+                  <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                    <div className="text-xs font-semibold text-slate-600">Today Sales</div>
+                    <div className="text-base font-black text-emerald-600 mt-0.5">₹18,600</div>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800">
-                    <div className="text-xs font-semibold text-slate-400">Parts Low</div>
-                    <div className="text-base font-black text-amber-400 mt-0.5">3 Items</div>
+                  <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                    <div className="text-xs font-semibold text-slate-600">Parts Low</div>
+                    <div className="text-base font-black text-amber-600 mt-0.5">3 Items</div>
                   </div>
                 </div>
 
                 {/* Low-Stock Warning Alert Badge (< 5 units) */}
-                <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl flex items-center justify-between gap-3 text-xs text-amber-300">
+                <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl flex items-center justify-between gap-3 text-xs text-amber-800">
                   <div className="flex items-center gap-2 font-medium">
-                    <AlertTriangle size={15} className="text-amber-400 shrink-0" />
-                    <span>Low Stock Alert: NVMe 512GB SSD (<strong className="font-bold text-white">&lt; 5 units</strong> left)</span>
+                    <AlertTriangle size={15} className="text-amber-600 shrink-0" />
+                    <span>Low Stock Alert: NVMe 512GB SSD (<strong className="font-bold text-slate-900">&lt; 5 units</strong> left)</span>
                   </div>
-                  <span className="px-2 py-0.5 bg-amber-500/20 text-amber-300 font-extrabold rounded text-[10px] uppercase shrink-0">
+                  <span className="px-2 py-0.5 bg-amber-100 text-amber-800 font-extrabold rounded text-[10px] uppercase shrink-0">
                     Reorder
                   </span>
                 </div>
 
                 {/* Interactive Inner Filter Tabs */}
-                <div className="flex items-center justify-between gap-1 p-1 bg-slate-950 rounded-xl border border-slate-800">
+                <div className="flex items-center justify-between gap-1 p-1 bg-slate-100 rounded-xl border border-slate-200">
                   <button
                     onClick={() => setHeroTab("tickets")}
                     className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-bold transition-all ${
-                      heroTab === "tickets" ? "bg-blue-600 text-white shadow-sm" : "text-slate-400 hover:text-slate-200"
+                      heroTab === "tickets" ? "bg-blue-600 text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
                     }`}
                   >
                     Repairs (3)
@@ -940,7 +940,7 @@ export default function Home() {
                   <button
                     onClick={() => setHeroTab("inventory")}
                     className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-bold transition-all ${
-                      heroTab === "inventory" ? "bg-blue-600 text-white shadow-sm" : "text-slate-400 hover:text-slate-200"
+                      heroTab === "inventory" ? "bg-blue-600 text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
                     }`}
                   >
                     Parts Stock
@@ -948,7 +948,7 @@ export default function Home() {
                   <button
                     onClick={() => setHeroTab("sales")}
                     className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-bold transition-all ${
-                      heroTab === "sales" ? "bg-blue-600 text-white shadow-sm" : "text-slate-400 hover:text-slate-200"
+                      heroTab === "sales" ? "bg-blue-600 text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
                     }`}
                   >
                     Counter Sales
@@ -960,25 +960,25 @@ export default function Home() {
                   {heroTab === "tickets" && (
                     <div className="space-y-2 animate-in fade-in duration-200">
                       {HERO_TICKETS.map(t => (
-                        <div key={t.id} className="p-3 bg-slate-950/60 border border-slate-800/90 rounded-xl flex items-center justify-between hover:border-slate-700 transition-colors">
+                        <div key={t.id} className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between hover:border-slate-300 transition-colors">
                           <div className="space-y-0.5">
                             <div className="flex items-center gap-2">
-                              <span className="font-mono text-xs font-bold text-blue-400">{t.id}</span>
-                              <span className="text-xs font-bold text-white">{t.customer}</span>
+                              <span className="font-mono text-xs font-bold text-blue-600">{t.id}</span>
+                              <span className="text-xs font-bold text-slate-900">{t.customer}</span>
                             </div>
-                            <div className="text-[11px] text-slate-400 font-medium">{t.device} • {t.issue}</div>
+                            <div className="text-[11px] text-slate-600 font-medium">{t.device} • {t.issue}</div>
                           </div>
                           <div className="text-right">
                             <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-extrabold uppercase ${
                               t.statusColor === "emerald" 
-                                ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                                ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
                                 : t.statusColor === "blue"
-                                ? "bg-blue-500/20 text-blue-400 border border-blue-500/30"
-                                : "bg-amber-500/20 text-amber-400 border border-amber-500/30"
+                                ? "bg-blue-50 text-blue-700 border border-blue-200"
+                                : "bg-amber-50 text-amber-800 border border-amber-200"
                             }`}>
                               {t.status}
                             </span>
-                            <div className="text-xs font-extrabold text-white mt-0.5">{t.amount}</div>
+                            <div className="text-xs font-extrabold text-slate-900 mt-0.5">{t.amount}</div>
                           </div>
                         </div>
                       ))}
@@ -988,14 +988,14 @@ export default function Home() {
                   {heroTab === "inventory" && (
                     <div className="space-y-2 animate-in fade-in duration-200">
                       {HERO_PARTS.map(p => (
-                        <div key={p.name} className="p-3 bg-slate-950/60 border border-slate-800/90 rounded-xl flex items-center justify-between">
+                        <div key={p.name} className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between">
                           <div>
-                            <div className="text-xs font-bold text-white">{p.name}</div>
-                            <div className="text-[11px] text-slate-400">{p.category} • Cost Price: {p.price}</div>
+                            <div className="text-xs font-bold text-slate-900">{p.name}</div>
+                            <div className="text-[11px] text-slate-600">{p.category} • Cost Price: {p.price}</div>
                           </div>
                           <div className="text-right">
                             <span className={`px-2 py-0.5 rounded text-[10px] font-black ${
-                              p.alert ? "bg-red-500/20 text-red-400 border border-red-500/30" : "bg-emerald-500/20 text-emerald-400"
+                              p.alert ? "bg-red-50 text-red-700 border border-red-200" : "bg-emerald-50 text-emerald-700"
                             }`}>
                               {p.stock} In Stock
                             </span>
@@ -1008,16 +1008,16 @@ export default function Home() {
                   {heroTab === "sales" && (
                     <div className="space-y-2 animate-in fade-in duration-200">
                       {HERO_SALES.map(s => (
-                        <div key={s.id} className="p-3 bg-slate-950/60 border border-slate-800/90 rounded-xl flex items-center justify-between">
+                        <div key={s.id} className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between">
                           <div>
                             <div className="flex items-center gap-2">
-                              <span className="font-mono text-[11px] text-emerald-400 font-bold">{s.id}</span>
-                              <span className="text-xs font-bold text-white">{s.client}</span>
+                              <span className="font-mono text-[11px] text-emerald-700 font-bold">{s.id}</span>
+                              <span className="text-xs font-bold text-slate-900">{s.client}</span>
                             </div>
-                            <div className="text-[11px] text-slate-400">{s.item}</div>
+                            <div className="text-[11px] text-slate-600">{s.item}</div>
                           </div>
                           <div className="text-right">
-                            <div className="text-xs font-black text-emerald-400">{s.amount}</div>
+                            <div className="text-xs font-black text-emerald-700">{s.amount}</div>
                             <div className="text-[10px] text-slate-500">{s.date}</div>
                           </div>
                         </div>
@@ -1027,19 +1027,19 @@ export default function Home() {
                 </div>
 
                 {/* Mockup Action Footer Bar */}
-                <div className="pt-2 flex items-center justify-between gap-3 border-t border-slate-800/80">
+                <div className="pt-2 flex items-center justify-between gap-3 border-t border-slate-200">
                   <button
                     onClick={triggerExportMock}
-                    className="inline-flex items-center gap-1.5 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-xl transition-all border border-slate-700 active:scale-95"
+                    className="inline-flex items-center gap-1.5 px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-all border border-slate-300 active:scale-95"
                     title="Export active registry records"
                   >
-                    <Download size={13} className="text-emerald-400" />
+                    <Download size={13} className="text-emerald-600" />
                     <span>Export .XLSX</span>
                   </button>
 
                   <button
                     onClick={() => setIsModalOpen(true)}
-                    className="inline-flex items-center gap-1.5 px-3 py-2 bg-blue-600/90 hover:bg-blue-600 text-white text-xs font-extrabold rounded-xl transition-all shadow-md shadow-blue-600/30 active:scale-95"
+                    className="inline-flex items-center gap-1.5 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-extrabold rounded-xl transition-all shadow-md shadow-blue-600/25 active:scale-95"
                   >
                     <PlusCircle size={13} />
                     <span>Launch Full App</span>
@@ -1048,7 +1048,7 @@ export default function Home() {
 
                 {/* Export Toast Notification */}
                 {exportNotice && (
-                  <div className="p-2.5 bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 rounded-xl text-xs font-bold text-center animate-in fade-in slide-in-from-bottom-2">
+                  <div className="p-2.5 bg-emerald-50 border border-emerald-300 text-emerald-800 rounded-xl text-xs font-bold text-center animate-in fade-in slide-in-from-bottom-2">
                     {exportNotice}
                   </div>
                 )}
@@ -1061,16 +1061,16 @@ export default function Home() {
         {/* ===================================================================
             SECTION C: 4 CORE BUSINESS PILLARS GRID ("WHAT WE DO")
         =================================================================== */}
-        <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full border-t border-slate-800/80">
+        <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full border-t border-slate-200">
           
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 text-xs font-bold text-blue-400 uppercase tracking-widest">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-blue-700 uppercase tracking-widest">
               Comprehensive Technology Offerings
             </div>
-            <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white">
+            <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-950">
               Four Core Pillars of Our IT Studio
             </h2>
-            <p className="text-slate-400 text-sm sm:text-base font-medium">
+            <p className="text-slate-600 text-sm sm:text-base font-medium">
               From crafting digital presences to architecting custom business software and delivering precision chip-level hardware repair in Prayagraj.
             </p>
           </div>
@@ -1078,33 +1078,33 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             
             {/* Pillar 1: Web Development */}
-            <div className="group p-8 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-blue-500/50 hover:bg-slate-900/90 transition-all duration-300 space-y-5 relative shadow-lg">
-              <div className="w-14 h-14 bg-blue-600/20 text-blue-400 border border-blue-500/30 rounded-2xl flex items-center justify-center shadow-inner group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all">
+            <div className="group p-8 rounded-3xl bg-white border border-slate-200 hover:border-blue-500/60 hover:shadow-xl shadow-sm transition-all duration-300 space-y-5 relative">
+              <div className="w-14 h-14 bg-blue-50 text-blue-600 border border-blue-200 rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all">
                 <Globe size={26} />
               </div>
               <div className="space-y-2">
-                <h3 className="text-xl font-black text-white group-hover:text-blue-400 transition-colors">
+                <h3 className="text-xl font-black text-slate-900 group-hover:text-blue-600 transition-colors">
                   1. Web Development
                 </h3>
-                <p className="text-slate-400 text-sm leading-relaxed">
+                <p className="text-slate-600 text-sm leading-relaxed font-medium">
                   Custom corporate websites, high-converting e-commerce stores, full-stack web applications, and cloud server deployment.
                 </p>
               </div>
-              <ul className="space-y-2.5 text-xs text-slate-300 font-semibold pt-1">
+              <ul className="space-y-2.5 text-xs text-slate-700 font-semibold pt-1">
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 size={15} className="text-blue-400 shrink-0" />
+                  <CheckCircle2 size={15} className="text-blue-600 shrink-0" />
                   <span>Next.js 16, React, Node.js & High-Speed Tailwind CSS</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 size={15} className="text-blue-400 shrink-0" />
+                  <CheckCircle2 size={15} className="text-blue-600 shrink-0" />
                   <span>Technical SEO optimization & Core Web Vitals under 1.0s</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 size={15} className="text-blue-400 shrink-0" />
+                  <CheckCircle2 size={15} className="text-blue-600 shrink-0" />
                   <span>Integrated Indian payment gateways (UPI, Cards, NetBanking)</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 size={15} className="text-blue-400 shrink-0" />
+                  <CheckCircle2 size={15} className="text-blue-600 shrink-0" />
                   <span>AWS & Vercel automated CI/CD cloud deployment</span>
                 </li>
               </ul>
@@ -1112,7 +1112,7 @@ export default function Home() {
                 <a 
                   href="#contact" 
                   onClick={() => setSelectedServices(["Web Development"])}
-                  className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400 hover:text-blue-300 group-hover:translate-x-1 transition-all"
+                  className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-600 hover:text-blue-700 group-hover:translate-x-1 transition-all"
                 >
                   <span>Request Web Development Quote</span>
                   <ArrowRight size={14} />
@@ -1121,33 +1121,33 @@ export default function Home() {
             </div>
 
             {/* Pillar 2: Custom Software Development */}
-            <div className="group p-8 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-indigo-500/50 hover:bg-slate-900/90 transition-all duration-300 space-y-5 relative shadow-lg">
-              <div className="w-14 h-14 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-2xl flex items-center justify-center shadow-inner group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+            <div className="group p-8 rounded-3xl bg-white border border-slate-200 hover:border-indigo-500/60 hover:shadow-xl shadow-sm transition-all duration-300 space-y-5 relative">
+              <div className="w-14 h-14 bg-indigo-50 text-indigo-600 border border-indigo-200 rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white transition-all">
                 <Code2 size={26} />
               </div>
               <div className="space-y-2">
-                <h3 className="text-xl font-black text-white group-hover:text-indigo-400 transition-colors">
+                <h3 className="text-xl font-black text-slate-900 group-hover:text-indigo-600 transition-colors">
                   2. Custom Software Development
                 </h3>
-                <p className="text-slate-400 text-sm leading-relaxed">
+                <p className="text-slate-600 text-sm leading-relaxed font-medium">
                   Tailor-made ERP, CRM, POS billing systems, and business workflow automation built around your exact operations.
                 </p>
               </div>
-              <ul className="space-y-2.5 text-xs text-slate-300 font-semibold pt-1">
+              <ul className="space-y-2.5 text-xs text-slate-700 font-semibold pt-1">
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 size={15} className="text-indigo-400 shrink-0" />
+                  <CheckCircle2 size={15} className="text-indigo-600 shrink-0" />
                   <span>Tailored relational database modeling (PostgreSQL / Prisma)</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 size={15} className="text-indigo-400 shrink-0" />
+                  <CheckCircle2 size={15} className="text-indigo-600 shrink-0" />
                   <span>Granular role-based staff permissions (Admin, Cashier, Technician)</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 size={15} className="text-indigo-400 shrink-0" />
+                  <CheckCircle2 size={15} className="text-indigo-600 shrink-0" />
                   <span>Real-time WhatsApp & SMS API business triggers</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 size={15} className="text-indigo-400 shrink-0" />
+                  <CheckCircle2 size={15} className="text-indigo-600 shrink-0" />
                   <span>Automated GST billing, inventory reduction & audit logs</span>
                 </li>
               </ul>
@@ -1155,7 +1155,7 @@ export default function Home() {
                 <a 
                   href="#contact" 
                   onClick={() => setSelectedServices(["Custom Software / ERP"])}
-                  className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-indigo-400 hover:text-indigo-300 group-hover:translate-x-1 transition-all"
+                  className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-indigo-600 hover:text-indigo-700 group-hover:translate-x-1 transition-all"
                 >
                   <span>Discuss Custom Software Specs</span>
                   <ArrowRight size={14} />
@@ -1164,52 +1164,52 @@ export default function Home() {
             </div>
 
             {/* Pillar 3: Public-Use SaaS Software (Flagship Product) */}
-            <div className="group p-8 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-900 to-blue-950/40 border border-blue-500/40 hover:border-blue-400 transition-all duration-300 space-y-5 relative shadow-xl">
+            <div className="group p-8 rounded-3xl bg-gradient-to-br from-blue-50 via-white to-indigo-50/50 border-2 border-blue-500/40 hover:border-blue-500 hover:shadow-xl shadow-md transition-all duration-300 space-y-5 relative">
               <div className="absolute top-6 right-6">
-                <span className="px-3 py-1 bg-gradient-to-r from-blue-500 to-emerald-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-md">
+                <span className="px-3 py-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-md">
                   Flagship Cloud Product
                 </span>
               </div>
-              <div className="w-14 h-14 bg-blue-500/20 text-blue-400 border border-blue-400/30 rounded-2xl flex items-center justify-center shadow-inner group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all">
+              <div className="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center shadow-md shadow-blue-500/25 group-hover:scale-110 transition-all">
                 <Database size={26} />
               </div>
               <div className="space-y-2">
-                <h3 className="text-xl font-black text-white group-hover:text-blue-400 transition-colors">
+                <h3 className="text-xl font-black text-slate-900 group-hover:text-blue-600 transition-colors">
                   3. Public-Use SaaS Software
                 </h3>
-                <p className="text-slate-400 text-sm leading-relaxed">
+                <p className="text-slate-600 text-sm leading-relaxed font-medium">
                   Ready-to-use cloud software for computer & mobile repair shops to manage tickets, parts stock, sales, and Excel backups—open for anyone to sign up and use.
                 </p>
               </div>
-              <ul className="space-y-2.5 text-xs text-slate-300 font-semibold pt-1">
+              <ul className="space-y-2.5 text-xs text-slate-700 font-semibold pt-1">
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 size={15} className="text-emerald-400 shrink-0" />
+                  <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
                   <span>Instant cloud access with zero software installation needed</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 size={15} className="text-emerald-400 shrink-0" />
+                  <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
                   <span>4 core modules: Registry, Inventory, Direct Sales & Excel Sync</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 size={15} className="text-emerald-400 shrink-0" />
+                  <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
                   <span>Automated WhatsApp customer reminder notifications</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 size={15} className="text-emerald-400 shrink-0" />
+                  <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
                   <span>Multi-device compatibility: Desktop, Tablet & Smartphone</span>
                 </li>
               </ul>
               <div className="pt-2 flex items-center gap-4">
                 <a 
                   href="#software" 
-                  className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400 hover:text-blue-300 group-hover:translate-x-1 transition-all"
+                  className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-600 hover:text-blue-700 group-hover:translate-x-1 transition-all"
                 >
                   <span>Explore SaaS Spotlight</span>
                   <ArrowRight size={14} />
                 </a>
                 <button
                   onClick={() => setIsModalOpen(true)}
-                  className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-lg transition-colors"
+                  className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg shadow-sm transition-colors"
                 >
                   Launch App
                 </button>
@@ -1217,44 +1217,44 @@ export default function Home() {
             </div>
 
             {/* Pillar 4: IT Hardware Repair & Corporate AMC */}
-            <div className="group p-8 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-emerald-500/50 hover:bg-slate-900/90 transition-all duration-300 space-y-5 relative shadow-lg">
-              <div className="w-14 h-14 bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 rounded-2xl flex items-center justify-center shadow-inner group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+            <div className="group p-8 rounded-3xl bg-white border border-slate-200 hover:border-emerald-500/60 hover:shadow-xl shadow-sm transition-all duration-300 space-y-5 relative">
+              <div className="w-14 h-14 bg-emerald-50 text-emerald-600 border border-emerald-200 rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all">
                 <Wrench size={26} />
               </div>
               <div className="space-y-2">
-                <h3 className="text-xl font-black text-white group-hover:text-emerald-400 transition-colors">
+                <h3 className="text-xl font-black text-slate-900 group-hover:text-emerald-600 transition-colors">
                   4. Chip-Level Repair & Corporate AMC
                 </h3>
-                <p className="text-slate-400 text-sm leading-relaxed">
+                <p className="text-slate-600 text-sm leading-relaxed font-medium">
                   Trusted hardware diagnostics, motherboard repair, and office AMC in Prayagraj. Equipped with advanced BGA rework stations and precision micro-soldering labs.
                 </p>
               </div>
-              <ul className="space-y-2.5 text-xs text-slate-300 font-semibold pt-1">
+              <ul className="space-y-2.5 text-xs text-slate-700 font-semibold pt-1">
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 size={15} className="text-emerald-400 shrink-0" />
+                  <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
                   <span>Laptop motherboard chip-level repair (Power IC, IO Controller, PCH)</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 size={15} className="text-emerald-400 shrink-0" />
+                  <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
                   <span>Comprehensive Annual Maintenance Contracts (AMC) for corporate offices</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 size={15} className="text-emerald-400 shrink-0" />
+                  <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
                   <span>Fast turnaround with genuine OEM replacement components</span>
                 </li>
               </ul>
               
               {/* Prominent Refurhub Sister Brand Link */}
-              <div className="p-4 rounded-2xl bg-slate-950 border border-emerald-500/30 flex items-center justify-between gap-3">
+              <div className="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200 flex items-center justify-between gap-3">
                 <div className="space-y-0.5">
-                  <div className="text-[11px] font-extrabold text-emerald-400 uppercase tracking-wider">Sister Hardware Division</div>
-                  <div className="text-xs text-slate-200 font-medium">Looking to buy refurbished laptops or spare parts?</div>
+                  <div className="text-[11px] font-extrabold text-emerald-800 uppercase tracking-wider">Sister Hardware Division</div>
+                  <div className="text-xs text-slate-800 font-semibold">Looking to buy refurbished laptops or spare parts?</div>
                 </div>
                 <a
                   href="https://refurhub.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold inline-flex items-center gap-1.5 shrink-0 shadow-md shadow-emerald-600/20 transition-all hover:scale-105"
+                  className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold inline-flex items-center gap-1.5 shrink-0 shadow-md shadow-emerald-600/20 transition-all hover:scale-105"
                 >
                   <span>Visit Refurhub.com</span>
                   <ExternalLink size={12} />
@@ -1263,26 +1263,26 @@ export default function Home() {
             </div>
 
             {/* Cyber Cafe & Citizen Services Quick Callout Banner */}
-            <div className="md:col-span-2 p-6 rounded-3xl bg-gradient-to-r from-blue-950/60 via-slate-900 to-indigo-950/60 border border-blue-500/30 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-lg">
+            <div className="md:col-span-2 p-6 rounded-3xl bg-gradient-to-r from-blue-50/90 via-white to-indigo-50/90 border border-blue-200/90 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-sm">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center shrink-0">
+                <div className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-blue-500/20">
                   <Landmark size={24} />
                 </div>
                 <div className="space-y-1 text-center sm:text-left">
-                  <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-[10px] font-black uppercase tracking-wider">
+                  <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 text-[10px] font-black uppercase tracking-wider">
                     Also Available In-Store
                   </div>
-                  <h4 className="text-base sm:text-lg font-black text-white">
+                  <h4 className="text-base sm:text-lg font-black text-slate-950">
                     National Computer Cyber Cafe & Online Citizen Service Centre
                   </h4>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs text-slate-600 font-medium">
                     Sarkari Job Forms, Admit Cards, Aadhaar/PAN, e-District Certificates, Banking AEPS, Ticket Booking & High-Speed Xerox.
                   </p>
                 </div>
               </div>
               <a
                 href="#cyber-cafe"
-                className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-black uppercase tracking-wider inline-flex items-center gap-1.5 shrink-0 shadow-md shadow-blue-600/30 transition-all hover:scale-105"
+                className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-black uppercase tracking-wider inline-flex items-center gap-1.5 shrink-0 shadow-md shadow-blue-600/25 transition-all hover:scale-105"
               >
                 <span>Explore 100+ Services (11 Categories)</span>
                 <ArrowRight size={14} />
@@ -1295,17 +1295,17 @@ export default function Home() {
         {/* ===================================================================
             SECTION C2: WEBSITES BUILT FOR INDIAN BUSINESSES & PROFESSIONALS
         =================================================================== */}
-        <section id="business-web" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full border-t border-slate-800/80">
+        <section id="business-web" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full border-t border-slate-200">
           
           <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 text-xs font-bold text-blue-400 uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-blue-700 uppercase tracking-widest">
               <Globe size={13} />
               <span>Tailored Digital Growth for India</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-white">
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-950">
               Websites Built for Indian Businesses & Professionals
             </h2>
-            <p className="text-slate-300 text-sm sm:text-base font-medium leading-relaxed">
+            <p className="text-slate-600 text-sm sm:text-base font-medium leading-relaxed">
               Aapki local dukaan ya profession ko Google par laayein — zyada customers, direct WhatsApp calls aur 100% bharosa paayein.
             </p>
           </div>
@@ -1321,14 +1321,14 @@ export default function Home() {
                   onClick={() => setActiveIndustryTab(sol.id)}
                   className={`p-3.5 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between ${
                     isSelected
-                      ? "bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-600/30 scale-[1.02]"
-                      : "bg-slate-900/70 border-slate-800 text-slate-300 hover:bg-slate-800 hover:text-white"
+                      ? "bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-600/25 scale-[1.02]"
+                      : "bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-slate-950 shadow-sm"
                   }`}
                 >
-                  <IconComp size={22} className={isSelected ? "text-white mb-2" : "text-blue-400 mb-2"} />
+                  <IconComp size={22} className={isSelected ? "text-white mb-2" : "text-blue-600 mb-2"} />
                   <div>
                     <div className="font-black text-xs leading-tight">{sol.title}</div>
-                    <div className={`text-[10px] mt-1 font-semibold ${isSelected ? "text-blue-100" : "text-slate-400"}`}>
+                    <div className={`text-[10px] mt-1 font-semibold ${isSelected ? "text-blue-100" : "text-slate-500"}`}>
                       {sol.hindiTag}
                     </div>
                   </div>
@@ -1342,29 +1342,29 @@ export default function Home() {
             const currentSol = BUSINESS_WEBSITE_SOLUTIONS[activeIndustryTab];
             const CurrentIcon = currentSol.icon;
             return (
-              <div className="bg-slate-900/90 border border-slate-700/80 rounded-[2.5rem] p-6 sm:p-10 shadow-2xl relative overflow-hidden space-y-8 animate-in fade-in zoom-in-95 duration-200">
+              <div className="bg-white border border-slate-200 rounded-[2.5rem] p-6 sm:p-10 shadow-xl relative overflow-hidden space-y-8 animate-in fade-in zoom-in-95 duration-200">
                 
                 {/* Header Strip */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200">
                   <div className="space-y-1.5">
                     <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/30 text-[10px] font-extrabold uppercase tracking-wider">
+                      <span className="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-[10px] font-extrabold uppercase tracking-wider">
                         {currentSol.badge}
                       </span>
-                      <span className="text-xs text-slate-400 font-bold">• {currentSol.hindiTag}</span>
+                      <span className="text-xs text-slate-500 font-bold">• {currentSol.hindiTag}</span>
                     </div>
-                    <h3 className="text-2xl sm:text-3xl font-black text-white">
+                    <h3 className="text-2xl sm:text-3xl font-black text-slate-950">
                       {currentSol.title}
                     </h3>
-                    <p className="text-blue-400 text-sm font-bold">
+                    <p className="text-blue-600 text-sm font-bold">
                       {currentSol.tagline}
                     </p>
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <div className="px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-right">
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Timeline:</span>
-                      <span className="text-xs font-black text-emerald-400">{currentSol.timeline}</span>
+                    <div className="px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-right">
+                      <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Timeline:</span>
+                      <span className="text-xs font-black text-emerald-700">{currentSol.timeline}</span>
                     </div>
                   </div>
                 </div>
@@ -1373,32 +1373,32 @@ export default function Home() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                   
                   {/* Left Column: Indian Business Challenge */}
-                  <div className="lg:col-span-5 p-6 rounded-2xl bg-slate-950/80 border border-slate-800/80 space-y-4">
-                    <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-amber-400">
-                      <AlertTriangle size={15} />
+                  <div className="lg:col-span-5 p-6 rounded-2xl bg-amber-50/90 border border-amber-200 space-y-4">
+                    <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-amber-900">
+                      <AlertTriangle size={15} className="text-amber-700" />
                       <span>Kyun Zaroori Hai Website? (The Challenge)</span>
                     </div>
-                    <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed">
+                    <p className="text-xs sm:text-sm text-amber-950 font-medium leading-relaxed">
                       &ldquo;{currentSol.problem}&rdquo;
                     </p>
-                    <div className="pt-2 border-t border-slate-800">
-                      <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Kiske Liye Best Hai (Ideal For):</span>
-                      <p className="text-xs text-slate-300 font-semibold">{currentSol.idealFor}</p>
+                    <div className="pt-2 border-t border-amber-200/80">
+                      <span className="text-[11px] font-bold text-amber-900 uppercase tracking-wider block mb-1">Kiske Liye Best Hai (Ideal For):</span>
+                      <p className="text-xs text-amber-950 font-semibold">{currentSol.idealFor}</p>
                     </div>
                   </div>
 
                   {/* Right Column: Exact What We Build */}
                   <div className="lg:col-span-7 space-y-4">
-                    <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-emerald-400">
-                      <CheckCircle2 size={15} />
+                    <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-emerald-800">
+                      <CheckCircle2 size={15} className="text-emerald-600" />
                       <span>National Computer Kya Banakar Deta Hai (Features Included):</span>
                     </div>
 
                     <div className="space-y-3">
                       {currentSol.solutions.map((feat, idx) => (
-                        <div key={idx} className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 flex items-start gap-3 hover:border-blue-500/40 transition-colors">
-                          <CheckCircle2 size={16} className="text-blue-400 shrink-0 mt-0.5" />
-                          <span className="text-xs sm:text-sm text-slate-200 font-medium leading-snug">
+                        <div key={idx} className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-3 hover:border-blue-400 hover:bg-blue-50/40 transition-colors">
+                          <CheckCircle2 size={16} className="text-blue-600 shrink-0 mt-0.5" />
+                          <span className="text-xs sm:text-sm text-slate-800 font-semibold leading-snug">
                             {feat}
                           </span>
                         </div>
@@ -1413,7 +1413,7 @@ export default function Home() {
                         )}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full sm:w-auto px-6 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/30 transition-all"
+                        className="w-full sm:w-auto px-6 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition-all"
                       >
                         <MessageSquare size={16} />
                         <span>Discuss {currentSol.title} on WhatsApp</span>
@@ -1422,7 +1422,7 @@ export default function Home() {
                       <a
                         href="#contact"
                         onClick={() => setSelectedServices([currentSol.title])}
-                        className="w-full sm:w-auto px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-all"
+                        className="w-full sm:w-auto px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-all"
                       >
                         <span>Request Official Project Quote</span>
                         <ArrowRight size={14} />
@@ -1441,17 +1441,17 @@ export default function Home() {
         {/* ===================================================================
             SECTION D: FLAGSHIP PUBLIC SOFTWARE SPOTLIGHT SECTION
         =================================================================== */}
-        <section id="software" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full border-t border-slate-800/80">
+        <section id="software" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full border-t border-slate-200">
           
           <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 text-xs font-bold text-blue-400 uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-blue-700 uppercase tracking-widest">
               <Sparkles size={13} />
               <span>Flagship SaaS Platform</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-white">
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-950">
               Built by Technicians, Open for Everyone.
             </h2>
-            <p className="text-slate-400 text-sm sm:text-base font-medium">
+            <p className="text-slate-600 text-sm sm:text-base font-medium">
               Running a repair shop shouldn&apos;t mean losing track of job numbers or inventory. Our cloud platform gives any service center the tools to operate like a tier-1 service company.
             </p>
           </div>
@@ -1469,14 +1469,14 @@ export default function Home() {
                 onClick={() => setActiveModuleTab(tab.id)}
                 className={`p-4 rounded-2xl text-left border transition-all duration-200 flex flex-col justify-between ${
                   activeModuleTab === tab.id
-                    ? "bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-600/30 scale-[1.02]"
-                    : "bg-slate-900/70 border-slate-800 text-slate-300 hover:bg-slate-800 hover:text-white"
+                    ? "bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-600/25 scale-[1.02]"
+                    : "bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-slate-950 shadow-sm"
                 }`}
               >
-                <tab.icon size={22} className={activeModuleTab === tab.id ? "text-white mb-2" : "text-blue-400 mb-2"} />
+                <tab.icon size={22} className={activeModuleTab === tab.id ? "text-white mb-2" : "text-blue-600 mb-2"} />
                 <div>
                   <div className="font-black text-sm">{tab.title}</div>
-                  <div className={`text-xs mt-0.5 ${activeModuleTab === tab.id ? "text-blue-100" : "text-slate-400"}`}>
+                  <div className={`text-xs mt-0.5 ${activeModuleTab === tab.id ? "text-blue-100" : "text-slate-500"}`}>
                     {tab.subtitle}
                   </div>
                 </div>
@@ -1485,42 +1485,42 @@ export default function Home() {
           </div>
 
           {/* Active Module Detailed Card */}
-          <div className="bg-slate-900/90 border border-slate-700/80 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden mb-16">
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-10 shadow-xl relative overflow-hidden mb-16 text-slate-900">
             
             {activeModuleTab === 0 && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center animate-in fade-in duration-300">
                 <div className="lg:col-span-6 space-y-5">
-                  <span className="px-3 py-1 rounded-md bg-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider">
+                  <span className="px-3 py-1 rounded-md bg-blue-50 text-blue-700 border border-blue-200 text-xs font-bold uppercase tracking-wider">
                     Core Module 1: Comprehensive Intake
                   </span>
-                  <h3 className="text-2xl sm:text-3xl font-black text-white">
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-950">
                     Digital Repair Registry & Job Tracking
                   </h3>
-                  <p className="text-slate-300 text-sm leading-relaxed">
+                  <p className="text-slate-600 text-sm leading-relaxed font-medium">
                     Log laptop brands, main issues, customer configurations, device passwords/patterns, digital signature status, and expected delivery countdown timers. Say goodbye to forgotten notes on customer paper slips.
                   </p>
-                  <div className="grid grid-cols-2 gap-3 text-xs text-slate-300 font-semibold pt-2">
-                    <div className="p-3 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                  <div className="grid grid-cols-2 gap-3 text-xs text-slate-700 font-semibold pt-2">
+                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
                       <span>Device Passcode / Pattern Save</span>
                     </div>
-                    <div className="p-3 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
                       <span>Charger Collected Checkbox</span>
                     </div>
-                    <div className="p-3 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
                       <span>Digital Customer Signature</span>
                     </div>
-                    <div className="p-3 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
                       <span>Expected Delivery Deadline</span>
                     </div>
                   </div>
                   <div className="pt-2">
                     <button
                       onClick={() => setIsModalOpen(true)}
-                      className="px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-blue-600/30 transition-all flex items-center gap-2"
+                      className="px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-blue-600/25 transition-all flex items-center gap-2"
                     >
                       <span>Try Registry In Live Demo</span>
                       <ArrowRight size={14} />
@@ -1528,40 +1528,40 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="lg:col-span-6 bg-slate-950 border border-slate-800 rounded-2xl p-5 sm:p-6 space-y-4">
-                  <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div className="lg:col-span-6 bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-6 space-y-4">
+                  <div className="flex items-center justify-between border-b border-slate-200 pb-3">
                     <div className="flex items-center gap-2">
-                      <Laptop size={18} className="text-blue-400" />
-                      <span className="font-bold text-sm text-white">Sample Job Record: JOB-1285</span>
+                      <Laptop size={18} className="text-blue-600" />
+                      <span className="font-bold text-sm text-slate-900">Sample Job Record: JOB-1285</span>
                     </div>
-                    <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 text-[10px] font-black rounded uppercase">
+                    <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-black rounded uppercase">
                       Active Ticket
                     </span>
                   </div>
                   <div className="space-y-3 text-xs">
-                    <div className="flex justify-between py-1.5 border-b border-slate-800/60">
-                      <span className="text-slate-400">Customer Name:</span>
-                      <span className="font-bold text-white">Ved Prakash (+91 98390 XXXXX)</span>
+                    <div className="flex justify-between py-1.5 border-b border-slate-200">
+                      <span className="text-slate-500">Customer Name:</span>
+                      <span className="font-bold text-slate-900">Ved Prakash (+91 98390 XXXXX)</span>
                     </div>
-                    <div className="flex justify-between py-1.5 border-b border-slate-800/60">
-                      <span className="text-slate-400">Laptop Brand & Model:</span>
-                      <span className="font-bold text-white">Dell Vostro 3568 (Core i3)</span>
+                    <div className="flex justify-between py-1.5 border-b border-slate-200">
+                      <span className="text-slate-500">Laptop Brand & Model:</span>
+                      <span className="font-bold text-slate-900">Dell Vostro 3568 (Core i3)</span>
                     </div>
-                    <div className="flex justify-between py-1.5 border-b border-slate-800/60">
-                      <span className="text-slate-400">Reported Problem:</span>
-                      <span className="font-bold text-amber-300">Charging Jack Broken & Power Pin Loose</span>
+                    <div className="flex justify-between py-1.5 border-b border-slate-200">
+                      <span className="text-slate-500">Reported Problem:</span>
+                      <span className="font-bold text-amber-800">Charging Jack Broken & Power Pin Loose</span>
                     </div>
-                    <div className="flex justify-between py-1.5 border-b border-slate-800/60">
-                      <span className="text-slate-400">Charger Collected:</span>
-                      <span className="font-bold text-emerald-400">Yes (With Power Cord)</span>
+                    <div className="flex justify-between py-1.5 border-b border-slate-200">
+                      <span className="text-slate-500">Charger Collected:</span>
+                      <span className="font-bold text-emerald-700">Yes (With Power Cord)</span>
                     </div>
-                    <div className="flex justify-between py-1.5 border-b border-slate-800/60">
-                      <span className="text-slate-400">Customer Signature:</span>
-                      <span className="font-bold text-blue-400">Digitally Verified on Intake</span>
+                    <div className="flex justify-between py-1.5 border-b border-slate-200">
+                      <span className="text-slate-500">Customer Signature:</span>
+                      <span className="font-bold text-blue-600">Digitally Verified on Intake</span>
                     </div>
                     <div className="flex justify-between py-1.5">
-                      <span className="text-slate-400">Estimated Cost:</span>
-                      <span className="font-black text-sm text-white">₹650.00 (Unpaid)</span>
+                      <span className="text-slate-500">Estimated Cost:</span>
+                      <span className="font-black text-sm text-slate-950">₹650.00 (Unpaid)</span>
                     </div>
                   </div>
                 </div>
@@ -1571,37 +1571,37 @@ export default function Home() {
             {activeModuleTab === 1 && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center animate-in fade-in duration-300">
                 <div className="lg:col-span-6 space-y-5">
-                  <span className="px-3 py-1 rounded-md bg-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider">
+                  <span className="px-3 py-1 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold uppercase tracking-wider">
                     Core Module 2: Warehouse Control
                   </span>
-                  <h3 className="text-2xl sm:text-3xl font-black text-white">
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-950">
                     Parts Inventory with Auto Low-Stock Alarms
                   </h3>
-                  <p className="text-slate-300 text-sm leading-relaxed">
+                  <p className="text-slate-600 text-sm leading-relaxed font-medium">
                     Add screens, SSDs, keyboards, RAM sticks, and chargers. Monitor live stock levels with auto-triggered low-stock warnings when inventory drops below 5 units so your workshop never halts mid-repair.
                   </p>
-                  <div className="grid grid-cols-2 gap-3 text-xs text-slate-300 font-semibold pt-2">
-                    <div className="p-3 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                  <div className="grid grid-cols-2 gap-3 text-xs text-slate-700 font-semibold pt-2">
+                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
                       <span>&lt; 5 Units Low-Stock Alarm</span>
                     </div>
-                    <div className="p-3 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
                       <span>Part SKU / Serial Barcode</span>
                     </div>
-                    <div className="p-3 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
                       <span>Cost vs Sale Price Margin</span>
                     </div>
-                    <div className="p-3 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
                       <span>1-Click Stock Adjustment</span>
                     </div>
                   </div>
                   <div className="pt-2">
                     <button
                       onClick={() => setIsModalOpen(true)}
-                      className="px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-blue-600/30 transition-all flex items-center gap-2"
+                      className="px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-blue-600/25 transition-all flex items-center gap-2"
                     >
                       <span>Explore Inventory Module</span>
                       <ArrowRight size={14} />
@@ -1609,41 +1609,41 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="lg:col-span-6 bg-slate-950 border border-slate-800 rounded-2xl p-5 sm:p-6 space-y-3">
-                  <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                <div className="lg:col-span-6 bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-6 space-y-3">
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-200">
                     <div className="flex items-center gap-2">
-                      <Package size={18} className="text-emerald-400" />
-                      <span className="font-bold text-sm text-white">Live Spare Parts Roster</span>
+                      <Package size={18} className="text-emerald-600" />
+                      <span className="font-bold text-sm text-slate-900">Live Spare Parts Roster</span>
                     </div>
-                    <span className="text-[11px] text-slate-400">Showing 3 of 84 items</span>
+                    <span className="text-[11px] text-slate-500">Showing 3 of 84 items</span>
                   </div>
                   <div className="space-y-2.5">
-                    <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-xl flex items-center justify-between">
+                    <div className="p-3 bg-red-50 border border-red-200 rounded-xl flex items-center justify-between">
                       <div>
-                        <div className="text-xs font-bold text-white">Western Digital 500GB NVMe SSD</div>
-                        <div className="text-[10px] text-red-400 font-extrabold">⚠️ Warning: Only 2 units remaining (&lt; 5 threshold)</div>
+                        <div className="text-xs font-bold text-slate-900">Western Digital 500GB NVMe SSD</div>
+                        <div className="text-[10px] text-red-600 font-extrabold">⚠️ Warning: Only 2 units remaining (&lt; 5 threshold)</div>
                       </div>
-                      <span className="px-2 py-1 bg-red-500/20 text-red-300 font-black text-xs rounded">
+                      <span className="px-2 py-1 bg-red-100 text-red-700 font-black text-xs rounded">
                         2 Left
                       </span>
                     </div>
 
-                    <div className="p-3 bg-slate-900 border border-slate-800 rounded-xl flex items-center justify-between">
+                    <div className="p-3 bg-white border border-slate-200 rounded-xl flex items-center justify-between">
                       <div>
-                        <div className="text-xs font-bold text-white">14.0&quot; LED Slim 40-Pin HD Display</div>
-                        <div className="text-[10px] text-slate-400">Stock Status: Healthy</div>
+                        <div className="text-xs font-bold text-slate-900">14.0&quot; LED Slim 40-Pin HD Display</div>
+                        <div className="text-[10px] text-slate-500">Stock Status: Healthy</div>
                       </div>
-                      <span className="px-2 py-1 bg-emerald-500/20 text-emerald-400 font-black text-xs rounded">
+                      <span className="px-2 py-1 bg-emerald-50 text-emerald-700 font-black text-xs rounded">
                         11 Left
                       </span>
                     </div>
 
-                    <div className="p-3 bg-slate-900 border border-slate-800 rounded-xl flex items-center justify-between">
+                    <div className="p-3 bg-white border border-slate-200 rounded-xl flex items-center justify-between">
                       <div>
-                        <div className="text-xs font-bold text-white">Universal 65W Laptop Charger (19.5V)</div>
-                        <div className="text-[10px] text-slate-400">Stock Status: Healthy</div>
+                        <div className="text-xs font-bold text-slate-900">Universal 65W Laptop Charger (19.5V)</div>
+                        <div className="text-[10px] text-slate-500">Stock Status: Healthy</div>
                       </div>
-                      <span className="px-2 py-1 bg-emerald-500/20 text-emerald-400 font-black text-xs rounded">
+                      <span className="px-2 py-1 bg-emerald-50 text-emerald-700 font-black text-xs rounded">
                         22 Left
                       </span>
                     </div>
@@ -1655,37 +1655,37 @@ export default function Home() {
             {activeModuleTab === 2 && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center animate-in fade-in duration-300">
                 <div className="lg:col-span-6 space-y-5">
-                  <span className="px-3 py-1 rounded-md bg-indigo-500/20 text-indigo-400 text-xs font-bold uppercase tracking-wider">
+                  <span className="px-3 py-1 rounded-md bg-indigo-50 text-indigo-700 border border-indigo-200 text-xs font-bold uppercase tracking-wider">
                     Core Module 3: Retail Sales
                   </span>
-                  <h3 className="text-2xl sm:text-3xl font-black text-white">
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-950">
                     Counter Spare Part Sales & Auto Stock Deduction
                   </h3>
-                  <p className="text-slate-300 text-sm leading-relaxed">
+                  <p className="text-slate-600 text-sm leading-relaxed font-medium">
                     Make direct sales entries of spare parts to clients. Automatically deducts stock levels from your warehouse in real time and records daily transaction logs with profit metrics.
                   </p>
-                  <div className="grid grid-cols-2 gap-3 text-xs text-slate-300 font-semibold pt-2">
-                    <div className="p-3 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                  <div className="grid grid-cols-2 gap-3 text-xs text-slate-700 font-semibold pt-2">
+                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
                       <span>Instant Inventory Deduction</span>
                     </div>
-                    <div className="p-3 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
                       <span>Cash / Online / UPI Tracking</span>
                     </div>
-                    <div className="p-3 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
                       <span>Daily Revenue Analytics</span>
                     </div>
-                    <div className="p-3 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
                       <span>Print Thermal Bill Slips</span>
                     </div>
                   </div>
                   <div className="pt-2">
                     <button
                       onClick={() => setIsModalOpen(true)}
-                      className="px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-blue-600/30 transition-all flex items-center gap-2"
+                      className="px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-blue-600/25 transition-all flex items-center gap-2"
                     >
                       <span>Test Counter Sales Entry</span>
                       <ArrowRight size={14} />
@@ -1693,32 +1693,32 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="lg:col-span-6 bg-slate-950 border border-slate-800 rounded-2xl p-5 sm:p-6 space-y-4">
-                  <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                <div className="lg:col-span-6 bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-6 space-y-4">
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-200">
                     <div className="flex items-center gap-2">
-                      <ShoppingCart size={18} className="text-indigo-400" />
-                      <span className="font-bold text-sm text-white">Direct Counter Checkout</span>
+                      <ShoppingCart size={18} className="text-indigo-600" />
+                      <span className="font-bold text-sm text-slate-900">Direct Counter Checkout</span>
                     </div>
-                    <span className="text-[10px] font-mono bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded font-bold">
+                    <span className="text-[10px] font-mono bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded font-bold">
                       Invoice #NC-9821
                     </span>
                   </div>
-                  <div className="p-4 bg-slate-900 rounded-xl border border-slate-800 space-y-3 text-xs">
-                    <div className="flex justify-between text-slate-300">
+                  <div className="p-4 bg-white rounded-xl border border-slate-200 space-y-3 text-xs">
+                    <div className="flex justify-between text-slate-700">
                       <span>1x Crucial BX500 480GB SATA SSD</span>
-                      <span className="font-bold text-white">₹2,450.00</span>
+                      <span className="font-bold text-slate-900">₹2,450.00</span>
                     </div>
-                    <div className="flex justify-between text-slate-300">
+                    <div className="flex justify-between text-slate-700">
                       <span>1x 2.5&quot; USB 3.0 External Caddy</span>
-                      <span className="font-bold text-white">₹450.00</span>
+                      <span className="font-bold text-slate-900">₹450.00</span>
                     </div>
-                    <div className="flex justify-between text-slate-300 border-t border-slate-800 pt-2 font-bold">
-                      <span className="text-emerald-400">Total Billed:</span>
-                      <span className="text-emerald-400 text-sm font-black">₹2,900.00</span>
+                    <div className="flex justify-between text-slate-700 border-t border-slate-200 pt-2 font-bold">
+                      <span className="text-emerald-700">Total Billed:</span>
+                      <span className="text-emerald-700 text-sm font-black">₹2,900.00</span>
                     </div>
                   </div>
-                  <div className="p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400 text-xs font-semibold flex items-center gap-2">
-                    <CheckCircle2 size={16} />
+                  <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-xs font-semibold flex items-center gap-2">
+                    <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
                     <span>Inventory stock deducted automatically: Crucial SSD (9 → 8 units)</span>
                   </div>
                 </div>
@@ -1728,37 +1728,37 @@ export default function Home() {
             {activeModuleTab === 3 && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center animate-in fade-in duration-300">
                 <div className="lg:col-span-6 space-y-5">
-                  <span className="px-3 py-1 rounded-md bg-purple-500/20 text-purple-400 text-xs font-bold uppercase tracking-wider">
+                  <span className="px-3 py-1 rounded-md bg-purple-50 text-purple-700 border border-purple-200 text-xs font-bold uppercase tracking-wider">
                     Core Module 4: Offline Security
                   </span>
-                  <h3 className="text-2xl sm:text-3xl font-black text-white">
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-950">
                     Excel Sync & 1-Click Backup Export
                   </h3>
-                  <p className="text-slate-300 text-sm leading-relaxed">
+                  <p className="text-slate-600 text-sm leading-relaxed font-medium">
                     Bulk import existing Excel worksheets or download active register lists in one click for offline accounting, CA audits, or safe local backups. You own 100% of your business records.
                   </p>
-                  <div className="grid grid-cols-2 gap-3 text-xs text-slate-300 font-semibold pt-2">
-                    <div className="p-3 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                  <div className="grid grid-cols-2 gap-3 text-xs text-slate-700 font-semibold pt-2">
+                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
                       <span>1-Click .XLSX Export</span>
                     </div>
-                    <div className="p-3 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
                       <span>Bulk Excel File Uploader</span>
                     </div>
-                    <div className="p-3 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
                       <span>Offline Accounting Peace</span>
                     </div>
-                    <div className="p-3 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
                       <span>Encrypted Cloud Sync</span>
                     </div>
                   </div>
                   <div className="pt-2">
                     <button
                       onClick={triggerExportMock}
-                      className="px-6 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-emerald-600/30 transition-all flex items-center gap-2"
+                      className="px-6 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-emerald-600/25 transition-all flex items-center gap-2"
                     >
                       <Download size={14} />
                       <span>Simulate Excel Export Now</span>
@@ -1766,15 +1766,15 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="lg:col-span-6 bg-slate-950 border border-slate-800 rounded-2xl p-5 sm:p-6 space-y-4 text-center">
-                  <div className="w-16 h-16 bg-emerald-500/10 text-emerald-400 rounded-2xl flex items-center justify-center mx-auto border border-emerald-500/20">
+                <div className="lg:col-span-6 bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-6 space-y-4 text-center">
+                  <div className="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto border border-emerald-200">
                     <Download size={28} />
                   </div>
-                  <h4 className="font-bold text-white text-base">Bulk Spreadsheet Engine</h4>
-                  <p className="text-xs text-slate-400 max-w-sm mx-auto">
+                  <h4 className="font-bold text-slate-900 text-base">Bulk Spreadsheet Engine</h4>
+                  <p className="text-xs text-slate-600 max-w-sm mx-auto font-medium">
                     Already have hundreds of jobs recorded in Microsoft Excel or Google Sheets? Upload your spreadsheet to automatically migrate all historical records into your cloud register.
                   </p>
-                  <div className="p-3 bg-slate-900 border border-slate-800 rounded-xl text-xs font-mono text-slate-300">
+                  <div className="p-3 bg-white border border-slate-200 rounded-xl text-xs font-mono text-slate-700">
                     File: NCA_Repair_Registry_2026.xlsx • Verified 556 Records
                   </div>
                 </div>
@@ -1786,32 +1786,32 @@ export default function Home() {
           {/* Smart Add-on Highlights (3 Cards) */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
             
-            <div className="p-6 rounded-3xl bg-slate-900/60 border border-slate-800 space-y-3">
-              <div className="w-10 h-10 bg-blue-500/20 text-blue-400 rounded-xl flex items-center justify-center">
+            <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3">
+              <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
                 <QrCode size={20} />
               </div>
-              <h4 className="font-black text-white text-base">QR Code Receipt Tracking</h4>
-              <p className="text-xs text-slate-400 leading-relaxed font-medium">
+              <h4 className="font-black text-slate-900 text-base">QR Code Receipt Tracking</h4>
+              <p className="text-xs text-slate-600 leading-relaxed font-medium">
                 Every repair intake receipt generates a unique QR code. Customers simply scan it with their phone camera to view live diagnostic and component status without disturbing your counter technicians.
               </p>
             </div>
 
-            <div className="p-6 rounded-3xl bg-slate-900/60 border border-slate-800 space-y-3">
-              <div className="w-10 h-10 bg-emerald-500/20 text-emerald-400 rounded-xl flex items-center justify-center">
+            <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3">
+              <div className="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center">
                 <MessageSquare size={20} />
               </div>
-              <h4 className="font-black text-white text-base">Automated WhatsApp Alerts</h4>
-              <p className="text-xs text-slate-400 leading-relaxed font-medium">
+              <h4 className="font-black text-slate-900 text-base">Automated WhatsApp Alerts</h4>
+              <p className="text-xs text-slate-600 leading-relaxed font-medium">
                 Dispatches pre-formatted WhatsApp notifications on intake (&ldquo;Dear Customer, we received Job #1285...&rdquo;) and completion (&ldquo;Job #1285 is Ready! Amount: ₹280...&rdquo;) directly to customer numbers.
               </p>
             </div>
 
-            <div className="p-6 rounded-3xl bg-slate-900/60 border border-slate-800 space-y-3">
-              <div className="w-10 h-10 bg-indigo-500/20 text-indigo-400 rounded-xl flex items-center justify-center">
+            <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3">
+              <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center">
                 <FileText size={20} />
               </div>
-              <h4 className="font-black text-white text-base">GST Invoice & Thermal Bills</h4>
-              <p className="text-xs text-slate-400 leading-relaxed font-medium">
+              <h4 className="font-black text-slate-900 text-base">GST Invoice & Thermal Bills</h4>
+              <p className="text-xs text-slate-600 leading-relaxed font-medium">
                 Produce professional 80mm thermal POS counter slips or formal A4 GST tax invoices featuring your shop name, logo, GSTIN, HSN codes, and legal terms in 1-click.
               </p>
             </div>
@@ -1821,20 +1821,20 @@ export default function Home() {
           {/* =================================================================
               SaaS Free vs Pro Quick Comparison Toggle
           ================================================================== */}
-          <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-xl max-w-4xl mx-auto">
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-10 shadow-xl max-w-4xl mx-auto">
             
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
               <div>
-                <h3 className="text-2xl font-black text-white tracking-tight">SaaS Subscription Plans</h3>
-                <p className="text-xs text-slate-400 mt-1 font-medium">Transparent, technician-friendly pricing for single stores & multi-branch hubs.</p>
+                <h3 className="text-2xl font-black text-slate-950 tracking-tight">SaaS Subscription Plans</h3>
+                <p className="text-xs text-slate-600 mt-1 font-medium">Transparent, technician-friendly pricing for single stores & multi-branch hubs.</p>
               </div>
 
               {/* Billing Cycle Toggle */}
-              <div className="flex items-center gap-2 p-1 bg-slate-950 rounded-xl border border-slate-800 text-xs font-bold">
+              <div className="flex items-center gap-2 p-1 bg-slate-100 rounded-xl border border-slate-200 text-xs font-bold">
                 <button
                   onClick={() => setIsAnnualPricing(false)}
                   className={`py-1.5 px-3 rounded-lg transition-all ${
-                    !isAnnualPricing ? "bg-blue-600 text-white" : "text-slate-400 hover:text-white"
+                    !isAnnualPricing ? "bg-blue-600 text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
                   Monthly
@@ -1842,11 +1842,11 @@ export default function Home() {
                 <button
                   onClick={() => setIsAnnualPricing(true)}
                   className={`py-1.5 px-3 rounded-lg transition-all flex items-center gap-1.5 ${
-                    isAnnualPricing ? "bg-blue-600 text-white" : "text-slate-400 hover:text-white"
+                    isAnnualPricing ? "bg-blue-600 text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
                   <span>Annual</span>
-                  <span className="px-1.5 py-0.2 bg-emerald-500 text-slate-950 font-black text-[9px] rounded uppercase">
+                  <span className="px-1.5 py-0.2 bg-emerald-500 text-white font-black text-[9px] rounded uppercase">
                     Save 25%
                   </span>
                 </button>
@@ -1856,85 +1856,85 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               
               {/* Plan 1: Free Forever */}
-              <div className="p-6 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-4">
+              <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
                 <div className="flex items-center justify-between">
-                  <h4 className="font-black text-lg text-white">Community Free Tier</h4>
-                  <span className="px-2 py-0.5 bg-slate-800 text-slate-300 text-[10px] font-bold rounded uppercase">
+                  <h4 className="font-black text-lg text-slate-950">Community Free Tier</h4>
+                  <span className="px-2 py-0.5 bg-slate-200 text-slate-700 text-[10px] font-bold rounded uppercase">
                     Zero Cost
                   </span>
                 </div>
-                <div className="text-3xl font-black text-white">
-                  ₹0 <span className="text-xs text-slate-400 font-semibold">/ Free Forever</span>
+                <div className="text-3xl font-black text-slate-950">
+                  ₹0 <span className="text-xs text-slate-500 font-semibold">/ Free Forever</span>
                 </div>
-                <p className="text-xs text-slate-400 font-medium">Ideal for small repair shops or technicians getting started with digital registers.</p>
-                <ul className="space-y-2 text-xs text-slate-300 font-medium">
+                <p className="text-xs text-slate-600 font-medium">Ideal for small repair shops or technicians getting started with digital registers.</p>
+                <ul className="space-y-2 text-xs text-slate-700 font-medium">
                   <li className="flex items-center gap-2">
-                    <Check size={14} className="text-emerald-400" />
+                    <Check size={14} className="text-emerald-600" />
                     <span>Up to 50 active repair tickets</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check size={14} className="text-emerald-400" />
+                    <Check size={14} className="text-emerald-600" />
                     <span>Basic parts inventory (up to 25 items)</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check size={14} className="text-emerald-400" />
+                    <Check size={14} className="text-emerald-600" />
                     <span>Manual WhatsApp alerts via web chat</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check size={14} className="text-emerald-400" />
+                    <Check size={14} className="text-emerald-600" />
                     <span>Single store manager login</span>
                   </li>
                 </ul>
                 <Link
                   href="/register"
-                  className="w-full py-3 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-xl block text-center transition-colors"
+                  className="w-full py-3 bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold rounded-xl block text-center transition-colors"
                 >
                   Get Started Free
                 </Link>
               </div>
 
               {/* Plan 2: Pro Storekeeper */}
-              <div className="p-6 rounded-2xl bg-gradient-to-b from-blue-950/40 to-slate-950 border border-blue-500/60 space-y-4 relative shadow-lg">
+              <div className="p-6 rounded-2xl bg-gradient-to-b from-blue-50/70 via-white to-blue-50/30 border-2 border-blue-500 space-y-4 relative shadow-lg">
                 <div className="absolute top-4 right-4">
-                  <span className="px-2.5 py-0.5 bg-blue-600 text-white text-[10px] font-black rounded uppercase tracking-wider">
+                  <span className="px-2.5 py-0.5 bg-blue-600 text-white text-[10px] font-black rounded uppercase tracking-wider shadow-sm">
                     Most Popular
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <h4 className="font-black text-lg text-white">Pro Storekeeper Plan</h4>
+                  <h4 className="font-black text-lg text-slate-950">Pro Storekeeper Plan</h4>
                 </div>
-                <div className="text-3xl font-black text-white">
+                <div className="text-3xl font-black text-slate-950">
                   {isAnnualPricing ? "₹375" : "₹499"}{" "}
-                  <span className="text-xs text-slate-400 font-semibold">
+                  <span className="text-xs text-slate-500 font-semibold">
                     / month {isAnnualPricing && "(Billed ₹4,499 annually)"}
                   </span>
                 </div>
-                <p className="text-xs text-slate-400 font-medium">For busy repair centers handling daily customer volume and spare parts sales.</p>
-                <ul className="space-y-2 text-xs text-slate-200 font-semibold">
+                <p className="text-xs text-slate-600 font-medium">For busy repair centers handling daily customer volume and spare parts sales.</p>
+                <ul className="space-y-2 text-xs text-slate-800 font-semibold">
                   <li className="flex items-center gap-2">
-                    <Check size={14} className="text-emerald-400" />
+                    <Check size={14} className="text-emerald-600" />
                     <span>Unlimited repair jobs & complete history</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check size={14} className="text-emerald-400" />
+                    <Check size={14} className="text-emerald-600" />
                     <span>Unlimited parts inventory with &lt; 5 stock alarms</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check size={14} className="text-emerald-400" />
+                    <Check size={14} className="text-emerald-600" />
                     <span>Automated WhatsApp customer reminder dispatch</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check size={14} className="text-emerald-400" />
+                    <Check size={14} className="text-emerald-600" />
                     <span>1-Click Excel backup export & bulk sheet import</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check size={14} className="text-emerald-400" />
+                    <Check size={14} className="text-emerald-600" />
                     <span>GST tax invoices & 80mm thermal slip printing</span>
                   </li>
                 </ul>
                 <button
                   onClick={() => setIsModalOpen(true)}
-                  className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-black uppercase tracking-wider rounded-xl block text-center shadow-lg shadow-blue-600/30 transition-all hover:-translate-y-0.5"
+                  className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-black uppercase tracking-wider rounded-xl block text-center shadow-lg shadow-blue-600/25 transition-all hover:-translate-y-0.5"
                 >
                   Create Free Account / Try Live Demo
                 </button>
@@ -1950,41 +1950,41 @@ export default function Home() {
             SECTION D2: EXPERT LAPTOP REPAIR, IT SOLUTIONS & HARDWARE HUB
             (From Official Shop Poster & Service Banner)
         =================================================================== */}
-        <section id="hardware-it" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full border-t border-slate-800/80">
+        <section id="hardware-it" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full border-t border-slate-200">
           
           <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-400/20 text-xs font-black text-emerald-400 uppercase tracking-widest">
-              <Award size={13} />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-black text-emerald-800 uppercase tracking-widest">
+              <Award size={13} className="text-emerald-600" />
               <span>YOUR ONE-STOP SOLUTION FOR ALL LAPTOP PROBLEMS • TRUSTED SINCE 2015</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-white">
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-950">
               Expert Laptop Repair & Complete IT Solutions
             </h2>
-            <p className="text-slate-300 text-sm sm:text-base font-medium leading-relaxed">
+            <p className="text-slate-600 text-sm sm:text-base font-medium leading-relaxed">
               Chip-level motherboard repair, same-day cracked screen replacement, virus removal, CCTV cameras, and office networking. Serving Prayagraj at Rashoolabad Chauraha, Teliarganj.
             </p>
           </div>
 
           {/* We Repair All Brands Strip */}
-          <div className="mb-12 p-6 rounded-3xl bg-slate-900/60 border border-slate-800 text-center space-y-4">
-            <div className="text-xs font-black uppercase tracking-widest text-slate-400">
+          <div className="mb-12 p-6 rounded-3xl bg-white border border-slate-200 shadow-sm text-center space-y-4">
+            <div className="text-xs font-black uppercase tracking-widest text-slate-500">
               We Repair & Service All Major Laptop & Desktop Brands:
             </div>
             <div className="flex flex-wrap items-center justify-center gap-3">
               {REPAIRED_BRANDS.map(brand => (
                 <div 
                   key={brand.name}
-                  className="px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 transition-colors flex items-center gap-2 shadow-sm"
+                  className="px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 hover:border-slate-300 transition-colors flex items-center gap-2 shadow-sm"
                 >
                   <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${brand.color}`} />
-                  <span className="font-black text-sm text-white tracking-wide">{brand.name}</span>
+                  <span className="font-black text-sm text-slate-900 tracking-wide">{brand.name}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* 3 Interactive View Switcher Tabs */}
-          <div className="flex bg-slate-900 border border-slate-800 p-1.5 rounded-2xl max-w-2xl mx-auto mb-10 shadow-lg">
+          <div className="flex bg-slate-100 border border-slate-200 p-1.5 rounded-2xl max-w-2xl mx-auto mb-10 shadow-sm">
             {[
               { id: "solutions", label: "1. Diagnosis & Solutions", icon: Wrench, count: "8 Services" },
               { id: "products", label: "2. We Also Deal In", icon: Package, count: "7 Categories" },
@@ -1998,8 +1998,8 @@ export default function Home() {
                   onClick={() => setActiveHardwareTab(tab.id as any)}
                   className={`flex-1 py-3 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
                     isActive
-                      ? "bg-blue-600 text-white shadow-md shadow-blue-600/30 font-black"
-                      : "text-slate-400 hover:text-white"
+                      ? "bg-blue-600 text-white shadow-md shadow-blue-600/25 font-black"
+                      : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
                   <TabIcon size={15} />
@@ -2018,31 +2018,31 @@ export default function Home() {
                   return (
                     <div 
                       key={idx}
-                      className="p-6 rounded-3xl bg-slate-900/70 border border-slate-800 hover:border-blue-500/50 hover:bg-slate-900 transition-all space-y-3 shadow-lg group flex flex-col justify-between"
+                      className="p-6 rounded-3xl bg-white border border-slate-200 hover:border-blue-500/60 hover:shadow-xl shadow-sm transition-all space-y-3 group flex flex-col justify-between"
                     >
                       <div className="space-y-3">
-                        <div className="w-11 h-11 bg-blue-600/20 text-blue-400 border border-blue-500/30 rounded-xl flex items-center justify-center group-hover:scale-105 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                        <div className="w-11 h-11 bg-blue-50 text-blue-600 border border-blue-200 rounded-xl flex items-center justify-center group-hover:scale-105 group-hover:bg-blue-600 group-hover:text-white transition-all">
                           <IconC size={20} />
                         </div>
                         <div>
-                          <h4 className="text-base font-black text-white group-hover:text-blue-400 transition-colors">
+                          <h4 className="text-base font-black text-slate-900 group-hover:text-blue-600 transition-colors">
                             {item.title}
                           </h4>
-                          <span className="text-[11px] font-bold text-slate-400 block mt-0.5">{item.hindi}</span>
+                          <span className="text-[11px] font-bold text-blue-600 block mt-0.5">{item.hindi}</span>
                         </div>
-                        <p className="text-xs text-slate-300 leading-relaxed font-medium">
+                        <p className="text-xs text-slate-600 leading-relaxed font-medium">
                           {item.desc}
                         </p>
                       </div>
 
-                      <div className="pt-3 border-t border-slate-800/80">
+                      <div className="pt-3 border-t border-slate-100">
                         <a
                           href={`https://wa.me/917860130721?text=${encodeURIComponent(
                             `Hello National Computer, my laptop has an issue with: ${item.title}. Can I bring it to your Teliarganj center?`
                           )}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-[11px] font-bold text-blue-400 hover:text-blue-300 inline-flex items-center gap-1 group-hover:translate-x-0.5 transition-transform"
+                          className="text-[11px] font-bold text-blue-600 hover:text-blue-700 inline-flex items-center gap-1 group-hover:translate-x-0.5 transition-transform"
                         >
                           <span>Book Repair on WhatsApp</span>
                           <ArrowRight size={12} />
@@ -2064,31 +2064,31 @@ export default function Home() {
                   return (
                     <div
                       key={idx}
-                      className="p-6 rounded-3xl bg-slate-900/70 border border-slate-800 hover:border-emerald-500/50 hover:bg-slate-900 transition-all space-y-3 shadow-lg group flex flex-col justify-between"
+                      className="p-6 rounded-3xl bg-white border border-slate-200 hover:border-emerald-500/60 hover:shadow-xl shadow-sm transition-all space-y-3 group flex flex-col justify-between"
                     >
                       <div className="space-y-3">
-                        <div className="w-12 h-12 bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 rounded-2xl flex items-center justify-center group-hover:scale-105 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                        <div className="w-12 h-12 bg-emerald-50 text-emerald-600 border border-emerald-200 rounded-2xl flex items-center justify-center group-hover:scale-105 group-hover:bg-emerald-600 group-hover:text-white transition-all">
                           <IconP size={22} />
                         </div>
                         <div>
-                          <h4 className="text-base font-black text-white group-hover:text-emerald-400 transition-colors">
+                          <h4 className="text-base font-black text-slate-900 group-hover:text-emerald-600 transition-colors">
                             {prod.title}
                           </h4>
-                          <span className="text-[11px] font-bold text-emerald-400/80 block mt-0.5">{prod.hindi}</span>
+                          <span className="text-[11px] font-bold text-emerald-700 block mt-0.5">{prod.hindi}</span>
                         </div>
-                        <p className="text-xs text-slate-300 leading-relaxed font-medium">
+                        <p className="text-xs text-slate-600 leading-relaxed font-medium">
                           {prod.desc}
                         </p>
                       </div>
 
-                      <div className="pt-3 border-t border-slate-800/80">
+                      <div className="pt-3 border-t border-slate-100">
                         <a
                           href={`https://wa.me/917860130721?text=${encodeURIComponent(
                             `Hello National Computer, I am inquiring about pricing and availability for: ${prod.title}.`
                           )}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-[11px] font-bold text-emerald-400 hover:text-emerald-300 inline-flex items-center gap-1 group-hover:translate-x-0.5 transition-transform"
+                          className="text-[11px] font-bold text-emerald-700 hover:text-emerald-800 inline-flex items-center gap-1 group-hover:translate-x-0.5 transition-transform"
                         >
                           <span>Inquire Price on WhatsApp</span>
                           <ArrowRight size={12} />
@@ -2104,8 +2104,8 @@ export default function Home() {
           {/* TAB 3: LAPTOP CARE TIPS (Directly from Poster Image 1) */}
           {activeHardwareTab === "tips" && (
             <div className="space-y-6 animate-in fade-in duration-200 max-w-4xl mx-auto">
-              <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-2xl text-center">
-                <span className="text-xs font-bold text-blue-300">
+              <div className="p-4 bg-blue-50 border border-blue-200 rounded-2xl text-center">
+                <span className="text-xs font-bold text-blue-900">
                   National Computer Allahabad Golden Care Guide: Follow these 5 proven maintenance rules to keep your laptop fast and prevent sudden failures.
                 </span>
               </div>
@@ -2114,14 +2114,14 @@ export default function Home() {
                 {LAPTOP_CARE_TIPS.map((tip, idx) => (
                   <div 
                     key={idx}
-                    className="p-6 rounded-3xl bg-slate-900 border border-slate-800 hover:border-slate-700 transition-all flex items-start gap-4 shadow-md"
+                    className="p-6 rounded-3xl bg-white border border-slate-200 hover:border-slate-300 shadow-sm transition-all flex items-start gap-4"
                   >
-                    <span className="text-3xl shrink-0 p-2 rounded-2xl bg-slate-950 border border-slate-800">
+                    <span className="text-3xl shrink-0 p-2 rounded-2xl bg-slate-50 border border-slate-200">
                       {tip.icon}
                     </span>
                     <div className="space-y-1">
-                      <h4 className="text-sm font-black text-white">{tip.title}</h4>
-                      <p className="text-xs text-slate-300 leading-relaxed font-medium">
+                      <h4 className="text-sm font-black text-slate-900">{tip.title}</h4>
+                      <p className="text-xs text-slate-600 leading-relaxed font-medium">
                         {tip.tip}
                       </p>
                     </div>
@@ -2132,10 +2132,10 @@ export default function Home() {
           )}
 
           {/* Our Promise & Trust Badges (From Poster Image 1 & 2) */}
-          <div className="mt-14 p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-slate-800 shadow-xl space-y-6">
+          <div className="mt-14 p-8 rounded-3xl bg-gradient-to-r from-blue-50 via-indigo-50/60 to-blue-50 border border-blue-200 shadow-sm space-y-6">
             <div className="text-center space-y-1">
-              <span className="text-[11px] font-extrabold uppercase tracking-widest text-emerald-400">Our Service Guarantee</span>
-              <h3 className="text-2xl font-black text-white">Why Customers Trust National Computer Since 2015</h3>
+              <span className="text-[11px] font-extrabold uppercase tracking-widest text-emerald-700">Our Service Guarantee</span>
+              <h3 className="text-2xl font-black text-slate-950">Why Customers Trust National Computer Since 2015</h3>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-center">
@@ -2147,37 +2147,37 @@ export default function Home() {
                 { title: "Same Day Service", desc: "Fast turnaround on intake" },
                 { title: "Customer Satisfaction", desc: "5,000+ happy clients in UP" },
               ].map((prom, idx) => (
-                <div key={idx} className="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800/80 space-y-1">
-                  <CheckCircle2 size={16} className="text-emerald-400 mx-auto mb-1" />
-                  <div className="text-xs font-black text-white">{prom.title}</div>
-                  <div className="text-[10px] text-slate-400 font-medium">{prom.desc}</div>
+                <div key={idx} className="p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-1">
+                  <CheckCircle2 size={16} className="text-emerald-600 mx-auto mb-1" />
+                  <div className="text-xs font-black text-slate-900">{prom.title}</div>
+                  <div className="text-[10px] text-slate-500 font-medium">{prom.desc}</div>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Shop Location, Timings & Payment Strip (From Poster Image 1 & 2) */}
-          <div className="mt-8 p-6 rounded-3xl bg-slate-900 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+          <div className="mt-8 p-6 rounded-3xl bg-white border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6 shadow-md">
             <div className="space-y-1 text-center md:text-left">
               <div className="flex items-center justify-center md:justify-start gap-2">
-                <MapPin size={16} className="text-blue-400" />
-                <span className="text-xs font-black text-white uppercase tracking-wider">
+                <MapPin size={16} className="text-blue-600" />
+                <span className="text-xs font-black text-slate-900 uppercase tracking-wider">
                   Rashoolabad Chauraha, Teliarganj, Prayagraj
                 </span>
               </div>
-              <div className="flex items-center justify-center md:justify-start gap-2 text-xs text-slate-400 font-medium">
-                <Clock size={14} className="text-emerald-400" />
-                <span>Open Everyday: <strong className="text-white">10:00 AM – 10:00 PM</strong> (10 AM - 2 PM & 5 PM - 10 PM)</span>
+              <div className="flex items-center justify-center md:justify-start gap-2 text-xs text-slate-600 font-medium">
+                <Clock size={14} className="text-emerald-600" />
+                <span>Open Everyday: <strong className="text-slate-900 font-bold">10:00 AM – 10:00 PM</strong> (10 AM - 2 PM & 5 PM - 10 PM)</span>
               </div>
-              <div className="text-xs text-slate-400">
-                Payment Options: <strong className="text-slate-200">Cash • UPI (GPay, PhonePe, Paytm, BHIM) • Debit/Credit Card • Wallet</strong>
+              <div className="text-xs text-slate-600">
+                Payment Options: <strong className="text-slate-900 font-semibold">Cash • UPI (GPay, PhonePe, Paytm, BHIM) • Debit/Credit Card • Wallet</strong>
               </div>
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-3 shrink-0">
               <a
                 href="tel:7786961902"
-                className="px-5 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 shadow-md transition-all"
+                className="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 shadow-md shadow-blue-600/25 transition-all"
               >
                 <Phone size={14} />
                 <span>Call 7786961902</span>
@@ -2187,7 +2187,7 @@ export default function Home() {
                 href="https://wa.me/917860130721?text=Hello%20National%20Computer,%20I%20want%20to%20visit%20your%20Teliarganj%20center%20for%20laptop%20service."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 shadow-md shadow-emerald-600/20 transition-all"
+                className="px-5 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 shadow-md shadow-emerald-600/20 transition-all"
               >
                 <MessageSquare size={14} />
                 <span>WhatsApp 7860130721</span>
@@ -2200,55 +2200,55 @@ export default function Home() {
         {/* ===================================================================
             SECTION D3: CYBER CAFE & ONLINE / OFFLINE SERVICE CENTRE
         =================================================================== */}
-        <section id="cyber-cafe" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full border-t border-slate-800/80">
+        <section id="cyber-cafe" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full border-t border-slate-200">
           
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 text-xs font-bold text-blue-400 uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-blue-700 uppercase tracking-widest">
               <Landmark size={13} />
               <span>National Computer • Teliarganj Prayagraj</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-950">
               Cyber Cafe & Online / Offline Services
             </h2>
-            <div className="text-blue-400 text-base sm:text-lg font-bold">
+            <div className="text-blue-700 text-base sm:text-lg font-bold">
               नेशनल कम्प्यूटर: साइबर कैफे एवं जन सेवा केंद्र • All Types of Online & Offline Services
             </div>
-            <p className="text-slate-400 text-sm sm:text-base font-medium leading-relaxed">
+            <p className="text-slate-600 text-sm sm:text-base font-medium leading-relaxed">
               Prayagraj&apos;s trusted single-window digital service hub at Rashoolabad Chauraha, Teliarganj. From Sarkari job application forms, scholarships, and e-District certificates (Income/Caste/Niwas) to Aadhaar, PAN, banking AEPS, fast ticket bookings, and crystal-clear laser printing—all under one roof.
             </p>
           </div>
 
           {/* Quick Hub Stats & Live Shop Info Bar */}
-          <div className="mb-12 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-blue-950/40 to-slate-900 border border-blue-500/30 shadow-xl space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-slate-800">
+          <div className="mb-12 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-blue-50/80 via-white to-indigo-50/80 border border-blue-200 shadow-sm space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-slate-200">
               <div className="space-y-1 md:pr-4">
-                <div className="text-xs font-extrabold uppercase tracking-wider text-blue-400">Total Digital Services</div>
-                <div className="text-2xl sm:text-3xl font-black text-white">100+ Services</div>
-                <div className="text-xs text-slate-400">11 comprehensive categories</div>
+                <div className="text-xs font-extrabold uppercase tracking-wider text-blue-700">Total Digital Services</div>
+                <div className="text-2xl sm:text-3xl font-black text-slate-950">100+ Services</div>
+                <div className="text-xs text-slate-600 font-medium">11 comprehensive categories</div>
               </div>
 
               <div className="space-y-1 pt-4 md:pt-0 md:px-4">
-                <div className="text-xs font-extrabold uppercase tracking-wider text-emerald-400">Shop Location</div>
-                <div className="text-base font-bold text-white">Rashoolabad Chauraha</div>
-                <div className="text-xs text-slate-400">Teliarganj, Prayagraj, UP</div>
+                <div className="text-xs font-extrabold uppercase tracking-wider text-emerald-700">Shop Location</div>
+                <div className="text-base font-bold text-slate-950">Rashoolabad Chauraha</div>
+                <div className="text-xs text-slate-600 font-medium">Teliarganj, Prayagraj, UP</div>
               </div>
 
               <div className="space-y-1 pt-4 md:pt-0 md:px-4">
-                <div className="text-xs font-extrabold uppercase tracking-wider text-amber-400">Opening Hours</div>
-                <div className="text-base font-bold text-white">10:00 AM – 10:00 PM</div>
-                <div className="text-xs text-slate-400">Open Everyday (Mon – Sun)</div>
+                <div className="text-xs font-extrabold uppercase tracking-wider text-amber-700">Opening Hours</div>
+                <div className="text-base font-bold text-slate-950">10:00 AM – 10:00 PM</div>
+                <div className="text-xs text-slate-600 font-medium">Open Everyday (Mon – Sun)</div>
               </div>
 
               <div className="space-y-1 pt-4 md:pt-0 md:pl-4">
-                <div className="text-xs font-extrabold uppercase tracking-wider text-indigo-400">Instant Assistance</div>
+                <div className="text-xs font-extrabold uppercase tracking-wider text-indigo-700">Instant Assistance</div>
                 <div className="flex flex-col gap-1 pt-0.5">
-                  <a href="tel:7786961902" className="text-xs font-bold text-white hover:text-blue-400 flex items-center gap-1.5 justify-center md:justify-start">
-                    <Phone size={13} className="text-blue-400" />
+                  <a href="tel:7786961902" className="text-xs font-bold text-slate-900 hover:text-blue-600 flex items-center gap-1.5 justify-center md:justify-start">
+                    <Phone size={13} className="text-blue-600" />
                     <span>Call: 7786961902</span>
                   </a>
-                  <a href="https://wa.me/917860130721?text=Hello%20National%20Computer,%20I%20need%20assistance%20with%20cyber%20cafe%20online%20services." target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-emerald-400 hover:text-emerald-300 flex items-center gap-1.5 justify-center md:justify-start">
-                    <MessageSquare size={13} className="text-emerald-400" />
+                  <a href="https://wa.me/917860130721?text=Hello%20National%20Computer,%20I%20need%20assistance%20with%20cyber%20cafe%20online%20services." target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1.5 justify-center md:justify-start">
+                    <MessageSquare size={13} className="text-emerald-600" />
                     <span>WhatsApp: 7860130721</span>
                   </a>
                 </div>
@@ -2256,21 +2256,21 @@ export default function Home() {
             </div>
 
             {/* 4 Trust Highlights */}
-            <div className="pt-4 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-semibold text-slate-300">
+            <div className="pt-4 border-t border-slate-200 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-bold text-slate-700">
               <div className="flex items-center gap-2">
-                <CheckCircle2 size={16} className="text-blue-400 shrink-0" />
+                <CheckCircle2 size={16} className="text-blue-600 shrink-0" />
                 <span>100% Error-Free Form Filling</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
                 <span>Strict Document Confidentiality</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 size={16} className="text-amber-400 shrink-0" />
+                <CheckCircle2 size={16} className="text-amber-600 shrink-0" />
                 <span>Government Authorized Rates</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 size={16} className="text-sky-400 shrink-0" />
+                <CheckCircle2 size={16} className="text-sky-600 shrink-0" />
                 <span>Instant Slip & WhatsApp PDF</span>
               </div>
             </div>
@@ -2288,12 +2288,12 @@ export default function Home() {
                 value={cyberSearchQuery}
                 onChange={e => setCyberSearchQuery(e.target.value)}
                 placeholder="Search any service (e.g. Aadhaar, PAN, Railway Ticket, आय प्रमाण पत्र, Scholarship, Resume, Bill)..."
-                className="w-full pl-11 pr-10 py-3.5 bg-slate-900 border border-slate-700/80 rounded-2xl text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all shadow-lg"
+                className="w-full pl-11 pr-10 py-3.5 bg-white border border-slate-300 rounded-2xl text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 transition-all shadow-sm"
               />
               {cyberSearchQuery && (
                 <button
                   onClick={() => setCyberSearchQuery("")}
-                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-white"
+                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-slate-700"
                 >
                   <X size={16} />
                 </button>
@@ -2301,13 +2301,13 @@ export default function Home() {
             </div>
 
             {/* Category Filter Pills */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-2 justify-start lg:justify-center scrollbar-thin scrollbar-thumb-slate-800">
+            <div className="flex items-center gap-2 overflow-x-auto pb-2 justify-start lg:justify-center scrollbar-thin scrollbar-thumb-slate-200">
               <button
                 onClick={() => setSelectedCyberCategory(null)}
                 className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
                   selectedCyberCategory === null
                     ? "bg-blue-600 text-white shadow-md shadow-blue-600/30"
-                    : "bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
+                    : "bg-white text-slate-700 hover:text-slate-950 border border-slate-200 shadow-sm"
                 }`}
               >
                 All 11 Categories (100+)
@@ -2321,7 +2321,7 @@ export default function Home() {
                     className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 ${
                       isSelected
                         ? "bg-blue-600 text-white shadow-md shadow-blue-600/30"
-                        : "bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
+                        : "bg-white text-slate-700 hover:text-slate-950 border border-slate-200 shadow-sm"
                     }`}
                   >
                     <span>{cat.id}. {cat.title.replace(/^\d+\.\s*/, '')}</span>
@@ -2350,38 +2350,38 @@ export default function Home() {
               return (
                 <div
                   key={cat.id}
-                  className="p-6 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-blue-500/50 hover:bg-slate-900 transition-all duration-300 flex flex-col justify-between space-y-5 shadow-lg group"
+                  className="p-6 rounded-3xl bg-white border border-slate-200 hover:border-blue-500/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-5 shadow-sm group"
                 >
                   <div className="space-y-4">
                     {/* Header with Icon + Badge */}
                     <div className="flex items-start justify-between gap-3">
-                      <div className="w-12 h-12 rounded-2xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                      <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-blue-600 group-hover:text-white transition-all">
                         <IconComponent size={22} />
                       </div>
-                      <span className="px-2.5 py-1 text-[10px] font-black uppercase tracking-wider rounded-lg bg-slate-800 text-slate-300 border border-slate-700/60">
+                      <span className="px-2.5 py-1 text-[10px] font-black uppercase tracking-wider rounded-lg bg-slate-100 text-slate-700 border border-slate-200">
                         {cat.badge}
                       </span>
                     </div>
 
                     {/* Title & Hindi Title */}
                     <div className="space-y-1">
-                      <h3 className="text-lg font-black text-white group-hover:text-blue-400 transition-colors">
+                      <h3 className="text-lg font-black text-slate-950 group-hover:text-blue-600 transition-colors">
                         {cat.title}
                       </h3>
-                      <div className="text-xs font-bold text-blue-400/90">
+                      <div className="text-xs font-bold text-blue-700">
                         {cat.hindi}
                       </div>
                     </div>
 
-                    <p className="text-xs text-slate-400 leading-relaxed font-medium">
+                    <p className="text-xs text-slate-600 leading-relaxed font-medium">
                       {cat.desc}
                     </p>
 
                     {/* Sub-Services Checklist */}
-                    <div className="pt-2 border-t border-slate-800/80">
-                      <div className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 mb-2.5 flex items-center justify-between">
+                    <div className="pt-2 border-t border-slate-100">
+                      <div className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-2.5 flex items-center justify-between">
                         <span>Available Services</span>
-                        <span className="text-emerald-400">{cat.services.length} items</span>
+                        <span className="text-emerald-700 font-bold">{cat.services.length} items</span>
                       </div>
                       <ul className="space-y-2">
                         {cat.services.map((item, idx) => {
@@ -2390,10 +2390,10 @@ export default function Home() {
                             <li
                               key={idx}
                               className={`flex items-start gap-2 text-xs font-semibold leading-tight ${
-                                isMatch ? "text-amber-300 bg-amber-500/10 px-1 py-0.5 rounded" : "text-slate-300"
+                                isMatch ? "text-amber-950 bg-amber-100 px-1 py-0.5 rounded font-bold" : "text-slate-800"
                               }`}
                             >
-                              <CheckCircle2 size={13} className="text-emerald-400 shrink-0 mt-0.5" />
+                              <CheckCircle2 size={13} className="text-emerald-600 shrink-0 mt-0.5" />
                               <span>{item}</span>
                             </li>
                           );
@@ -2403,14 +2403,14 @@ export default function Home() {
                   </div>
 
                   {/* Card Bottom WhatsApp Action */}
-                  <div className="pt-4 border-t border-slate-800/60 space-y-2">
+                  <div className="pt-4 border-t border-slate-100 space-y-2">
                     <a
                       href={`https://wa.me/917860130721?text=${encodeURIComponent(`Hello National Computer, I need assistance regarding ${cat.title} (${cat.hindi}) at your Teliarganj cyber cafe.`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full py-2.5 px-3 rounded-xl bg-slate-800/80 hover:bg-emerald-600 text-slate-300 hover:text-white text-xs font-bold transition-all flex items-center justify-center gap-1.5 border border-slate-700/60 hover:border-emerald-500"
+                      className="w-full py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-emerald-600 text-slate-800 hover:text-white text-xs font-bold transition-all flex items-center justify-center gap-1.5 border border-slate-200 hover:border-emerald-500"
                     >
-                      <MessageSquare size={13} className="text-emerald-400 group-hover:text-white" />
+                      <MessageSquare size={13} className="text-emerald-600 group-hover:text-white" />
                       <span>WhatsApp Inquiry / Apply</span>
                     </a>
                   </div>
@@ -2420,21 +2420,21 @@ export default function Home() {
           </div>
 
           {/* Quick Help Footer Callout */}
-          <div className="mt-12 p-6 rounded-2xl bg-slate-900/60 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <div className="mt-12 p-6 rounded-2xl bg-white border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left shadow-sm">
             <div className="space-y-1">
-              <div className="text-sm font-black text-white">
+              <div className="text-sm font-black text-slate-950">
                 Need Urgent Assistance with Any Form, Admit Card or Certificate?
               </div>
-              <div className="text-xs text-slate-400 font-medium">
+              <div className="text-xs text-slate-600 font-medium">
                 Visit directly at Rashoolabad Chauraha, Teliarganj or send documents directly on WhatsApp for quick processing.
               </div>
             </div>
             <div className="flex items-center gap-3 shrink-0">
               <a
                 href="tel:7786961902"
-                className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition-all inline-flex items-center gap-1.5"
+                className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-900 border border-slate-200 text-xs font-bold transition-all inline-flex items-center gap-1.5"
               >
-                <Phone size={13} className="text-blue-400" />
+                <Phone size={13} className="text-blue-600" />
                 <span>Call 7786961902</span>
               </a>
               <a
@@ -2454,35 +2454,35 @@ export default function Home() {
         {/* ===================================================================
             SECTION E: PRIVACY-PROTECTED "TRACK YOUR REPAIR" UTILITY WIDGET
         =================================================================== */}
-        <section id="track-repair" className="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full border-t border-slate-800/80">
+        <section id="track-repair" className="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full border-t border-slate-200">
           
           <div className="text-center max-w-2xl mx-auto mb-8 space-y-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-400/20 text-xs font-bold text-emerald-400 uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-800 uppercase tracking-widest">
               <ShieldCheck size={13} />
               <span>Privacy-Protected Customer Tracker</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white">
+            <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-950">
               Track Your Repair in Real Time
             </h2>
-            <p className="text-slate-400 text-sm font-medium">
+            <p className="text-slate-600 text-sm font-medium">
               Had your laptop, desktop, or gadget submitted at our Prayagraj service center? Enter your registered mobile number and Job ID below for verified live status.
             </p>
           </div>
 
           {/* Quick Access to Full Customer Portal Banner */}
-          <div className="mb-6 p-4 rounded-2xl bg-gradient-to-r from-blue-900/30 via-indigo-900/30 to-purple-900/30 border border-blue-500/30 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+          <div className="mb-6 p-4 rounded-2xl bg-gradient-to-r from-blue-50 via-indigo-50/60 to-purple-50 border border-blue-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-blue-600/30 text-blue-400 flex items-center justify-center shrink-0">
+              <div className="w-9 h-9 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
                 <Laptop size={18} />
               </div>
               <div>
-                <h4 className="text-xs font-bold text-white">Dedicated Customer Support Portal (CX Login)</h4>
-                <p className="text-[11px] text-slate-300">View complete repair history, print official job cards, and check pending bills.</p>
+                <h4 className="text-xs font-bold text-slate-950">Dedicated Customer Support Portal (CX Login)</h4>
+                <p className="text-[11px] text-slate-600 font-medium">View complete repair history, print official job cards, and check pending bills.</p>
               </div>
             </div>
             <Link
               href="/track"
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-blue-600/20 shrink-0 inline-flex items-center gap-1.5"
+              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-blue-600/20 shrink-0 inline-flex items-center gap-1.5"
             >
               <span>Open Customer Portal</span>
               <ArrowRight size={13} />
@@ -2490,17 +2490,17 @@ export default function Home() {
           </div>
 
           {/* Search Lookup Bar with Phone & Job ID Verification */}
-          <div className="bg-slate-900 border border-slate-800 p-4 sm:p-6 rounded-3xl shadow-xl max-w-2xl mx-auto mb-8">
+          <div className="bg-white border border-slate-200 p-4 sm:p-6 rounded-3xl shadow-lg max-w-2xl mx-auto mb-8">
             <form onSubmit={handleTrackSubmit} className="space-y-4">
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {/* Registered Phone Field */}
                 <div className="space-y-1 text-left">
-                  <label className="text-[11px] font-bold text-slate-300 uppercase tracking-wider">
+                  <label className="text-[11px] font-bold text-slate-700 uppercase tracking-wider">
                     Registered Mobile Number *
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 font-mono">
+                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-500 font-mono">
                       +91
                     </span>
                     <input
@@ -2510,14 +2510,14 @@ export default function Home() {
                       onChange={(e) => setTrackPhone(e.target.value)}
                       maxLength={14}
                       required
-                      className="w-full pl-12 pr-4 py-3 bg-slate-950 border border-slate-700 rounded-2xl text-xs font-semibold text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+                      className="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-2xl text-xs font-semibold text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 transition-all"
                     />
                   </div>
                 </div>
 
                 {/* Job ID / Ticket Number Field */}
                 <div className="space-y-1 text-left">
-                  <label className="text-[11px] font-bold text-slate-300 uppercase tracking-wider">
+                  <label className="text-[11px] font-bold text-slate-700 uppercase tracking-wider">
                     Job / Ticket Number (Optional)
                   </label>
                   <div className="relative">
@@ -2527,7 +2527,7 @@ export default function Home() {
                       placeholder="e.g. 559, NCA-1042"
                       value={trackJobId}
                       onChange={(e) => setTrackJobId(e.target.value)}
-                      className="w-full pl-10 pr-4 py-3 bg-slate-950 border border-slate-700 rounded-2xl text-xs font-semibold text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+                      className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-2xl text-xs font-semibold text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 transition-all"
                     />
                   </div>
                 </div>
@@ -2536,7 +2536,7 @@ export default function Home() {
               <button
                 type="submit"
                 disabled={trackLoading}
-                className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 disabled:opacity-50 text-white text-xs font-black uppercase tracking-wider rounded-2xl transition-all shadow-md shadow-blue-600/30 flex items-center justify-center gap-2"
+                className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:opacity-50 text-white text-xs font-black uppercase tracking-wider rounded-2xl transition-all shadow-md shadow-blue-600/30 flex items-center justify-center gap-2"
               >
                 {trackLoading ? (
                   <>
@@ -2551,8 +2551,8 @@ export default function Home() {
                 )}
               </button>
 
-              <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-400 pt-1">
-                <Lock size={12} className="text-emerald-400" />
+              <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-500 font-medium pt-1">
+                <Lock size={12} className="text-emerald-600" />
                 <span>Protected by Customer Phone Authentication. Zero public data exposure.</span>
               </div>
             </form>
@@ -2560,19 +2560,19 @@ export default function Home() {
 
           {/* Error Notice */}
           {trackSearched && trackError && (
-            <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-2xl flex items-start gap-3 text-red-300 text-xs font-semibold max-w-2xl mx-auto mb-6 animate-in shake">
-              <AlertTriangle size={16} className="shrink-0 mt-0.5" />
+            <div className="p-4 bg-red-50 border border-red-200 rounded-2xl flex items-start gap-3 text-red-800 text-xs font-semibold max-w-2xl mx-auto mb-6 animate-in shake">
+              <AlertTriangle size={16} className="shrink-0 mt-0.5 text-red-600" />
               <div className="flex-1">
                 <p>{trackError}</p>
                 <div className="mt-2 flex items-center gap-3">
-                  <Link href="/track" className="text-blue-400 hover:underline font-bold">
+                  <Link href="/track" className="text-blue-700 hover:underline font-bold">
                     Go to Full Customer Portal →
                   </Link>
                   <a 
                     href="https://wa.me/917860130721?text=Hello%20National%20Computer,%20I%20need%20assistance%20tracking%20my%20device." 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="text-emerald-400 hover:underline font-bold"
+                    className="text-emerald-700 hover:underline font-bold"
                   >
                     Contact Support on WhatsApp
                   </a>
@@ -2585,34 +2585,34 @@ export default function Home() {
           {trackSearched && trackResult && (() => {
             const stageInfo = computeSafeRecordStage(trackResult);
             return (
-              <div className="bg-slate-900 border border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 animate-in fade-in zoom-in-95 duration-200">
+              <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6 animate-in fade-in zoom-in-95 duration-200">
                 
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-mono font-bold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">
+                      <span className="text-xs font-mono font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
                         Ticket #{trackResult.jobNumber}
                       </span>
-                      <span className="text-xs text-slate-400">• {trackResult.shopName}</span>
+                      <span className="text-xs text-slate-500 font-medium">• {trackResult.shopName}</span>
                     </div>
-                    <h3 className="text-xl font-black text-white">{trackResult.laptop}</h3>
-                    <p className="text-xs text-slate-400 font-medium">
-                      Customer: <strong className="text-slate-200">{trackResult.name}</strong> • Registered: +91 {trackResult.maskedPhone}
+                    <h3 className="text-xl font-black text-slate-950">{trackResult.laptop}</h3>
+                    <p className="text-xs text-slate-600 font-medium">
+                      Customer: <strong className="text-slate-900">{trackResult.name}</strong> • Registered: +91 {trackResult.maskedPhone}
                     </p>
                   </div>
 
                   <div className="sm:text-right">
-                    <div className="text-xs text-slate-400">Current Phase</div>
-                    <div className="text-sm font-black text-emerald-400 mt-0.5">{stageInfo.stageText}</div>
-                    <div className="text-xs text-slate-400 mt-1">
-                      Received: <strong className="text-white">{trackResult.receivedDate}</strong> • Expected: <strong className="text-white">{trackResult.expectedDeliveryDate || "In Inspection"}</strong>
+                    <div className="text-xs text-slate-500 font-semibold">Current Phase</div>
+                    <div className="text-sm font-black text-emerald-700 mt-0.5">{stageInfo.stageText}</div>
+                    <div className="text-xs text-slate-600 mt-1 font-medium">
+                      Received: <strong className="text-slate-900">{trackResult.receivedDate}</strong> • Expected: <strong className="text-slate-900">{trackResult.expectedDeliveryDate || "In Inspection"}</strong>
                     </div>
                   </div>
                 </div>
 
                 {/* 4-Stage Interactive Progress Stepper */}
                 <div className="space-y-3">
-                  <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">Diagnostic & Repair Milestones</div>
+                  <div className="text-xs font-bold text-slate-700 uppercase tracking-wider">Diagnostic & Repair Milestones</div>
                   
                   <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
                     {[
@@ -2628,21 +2628,21 @@ export default function Home() {
                           key={s.step} 
                           className={`p-3 rounded-2xl border transition-all ${
                             isCurrent
-                              ? "bg-blue-600/20 border-blue-500 text-white shadow-md shadow-blue-500/10"
+                              ? "bg-blue-50 border-2 border-blue-600 text-blue-950 shadow-sm"
                               : isDone
-                              ? "bg-emerald-500/10 border-emerald-500/30 text-slate-200"
-                              : "bg-slate-950/50 border-slate-800 text-slate-500"
+                              ? "bg-emerald-50 border-emerald-300 text-emerald-950"
+                              : "bg-slate-50 border-slate-200 text-slate-500"
                           }`}
                         >
                           <div className="flex items-center justify-between mb-1">
                             <span className="font-bold text-xs">{s.name}</span>
                             {isDone ? (
-                              <CheckCircle2 size={14} className={isCurrent ? "text-blue-400" : "text-emerald-400"} />
+                              <CheckCircle2 size={14} className={isCurrent ? "text-blue-600" : "text-emerald-600"} />
                             ) : (
-                              <Clock size={14} className="text-slate-600" />
+                              <Clock size={14} className="text-slate-400" />
                             )}
                           </div>
-                          <div className="text-[11px] text-slate-400">{s.desc}</div>
+                          <div className="text-[11px] text-slate-600 font-medium">{s.desc}</div>
                         </div>
                       );
                     })}
@@ -2650,19 +2650,19 @@ export default function Home() {
                 </div>
 
                 {/* Technician Notes Box */}
-                <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800/80 space-y-1.5">
-                  <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Bench Technician Observation:</div>
-                  <p className="text-xs text-slate-300 font-medium leading-relaxed">
+                <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+                  <div className="text-[11px] font-bold text-slate-600 uppercase tracking-wider">Bench Technician Observation:</div>
+                  <p className="text-xs text-slate-800 font-medium leading-relaxed">
                     &ldquo;{stageInfo.notes}&rdquo;
                   </p>
                 </div>
 
                 {/* Direct WhatsApp Contact & Full Portal CTA */}
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
-                  <div className="text-xs text-slate-400">
-                    Repair Amount: <strong className="text-white text-sm font-black">₹{trackResult.amount.toFixed(2)}</strong>{" "}
-                    <span className={`ml-2 px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
-                      trackResult.isPaid ? "bg-emerald-500/20 text-emerald-400" : "bg-amber-500/20 text-amber-400"
+                  <div className="text-xs text-slate-600 font-medium">
+                    Repair Amount: <strong className="text-slate-950 text-base font-black">₹{trackResult.amount.toFixed(2)}</strong>{" "}
+                    <span className={`ml-2 px-2.5 py-0.5 rounded text-[10px] font-bold uppercase ${
+                      trackResult.isPaid ? "bg-emerald-100 text-emerald-800 border border-emerald-200" : "bg-amber-100 text-amber-800 border border-amber-200"
                     }`}>
                       {trackResult.isPaid ? "Paid" : "Unpaid"}
                     </span>
@@ -2671,9 +2671,9 @@ export default function Home() {
                   <div className="flex items-center gap-2 w-full sm:w-auto">
                     <Link
                       href={`/track?job=${encodeURIComponent(trackResult.jobNumber)}&phone=${encodeURIComponent(trackPhone.replace(/\D/g, "").slice(-10))}`}
-                      className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-bold border border-slate-700 transition-all flex items-center justify-center gap-1.5"
+                      className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold border border-slate-300 transition-all flex items-center justify-center gap-1.5"
                     >
-                      <Laptop size={14} className="text-blue-400" />
+                      <Laptop size={14} className="text-blue-600" />
                       <span>Open in Customer Portal</span>
                     </Link>
 
@@ -2681,7 +2681,7 @@ export default function Home() {
                       href={`https://wa.me/917860130721?text=${encodeURIComponent(`Hello National Computer, I am checking status of my Ticket #${trackResult.jobNumber} for ${trackResult.laptop}. Customer: ${trackResult.name}.`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold inline-flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 transition-all"
+                      className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold inline-flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20 transition-all"
                     >
                       <MessageSquare size={14} />
                       <span>Chat on WhatsApp</span>
@@ -2699,36 +2699,36 @@ export default function Home() {
             SECTION F: REFURHUB.COM SISTER-BRAND CALLOUT BANNER
         =================================================================== */}
         <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-          <div className="p-8 sm:p-12 rounded-[2.5rem] bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-emerald-500/30 relative overflow-hidden shadow-2xl">
+          <div className="p-8 sm:p-12 rounded-[2.5rem] bg-gradient-to-r from-emerald-50 via-teal-50 to-cyan-50 border-2 border-emerald-300 relative overflow-hidden shadow-md">
             
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               
               <div className="lg:col-span-8 space-y-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-xs font-black text-emerald-300 uppercase tracking-widest">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 border border-emerald-300 text-xs font-black text-emerald-900 uppercase tracking-widest">
                   <ShieldCheck size={14} />
                   <span>Sister Hardware Division • Refurhub</span>
                 </div>
 
-                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-tight">
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-950 tracking-tight leading-tight">
                   Need Certified Refurbished Laptops, Desktops, or Genuine Spare Parts?
                 </h3>
 
-                <p className="text-slate-300 text-sm sm:text-base font-medium leading-relaxed max-w-2xl">
-                  Explore our dedicated hardware e-commerce platform <strong className="text-white font-bold">Refurhub.com</strong>—tested business laptops, SSD/RAM upgrades, and bulk B2B deals backed by National Computer Allahabad&apos;s technical quality check.
+                <p className="text-slate-700 text-sm sm:text-base font-medium leading-relaxed max-w-2xl">
+                  Explore our dedicated hardware e-commerce platform <strong className="text-slate-950 font-black">Refurhub.com</strong>—tested business laptops, SSD/RAM upgrades, and bulk B2B deals backed by National Computer Allahabad&apos;s technical quality check.
                 </p>
 
                 {/* Badges Row */}
-                <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-300 pt-2">
+                <div className="flex flex-wrap items-center gap-4 text-xs font-bold text-slate-800 pt-2">
                   <span className="flex items-center gap-1.5">
-                    <CheckCircle2 size={15} className="text-emerald-400" />
+                    <CheckCircle2 size={15} className="text-emerald-700" />
                     6-Month Hardware Warranty
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <CheckCircle2 size={15} className="text-emerald-400" />
+                    <CheckCircle2 size={15} className="text-emerald-700" />
                     40-Point Hardware Diagnostic
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <CheckCircle2 size={15} className="text-emerald-400" />
+                    <CheckCircle2 size={15} className="text-emerald-700" />
                     Pan-India Express Delivery
                   </span>
                 </div>
@@ -2739,12 +2739,12 @@ export default function Home() {
                   href="https://refurhub.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto px-8 py-5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm uppercase tracking-wider inline-flex items-center justify-center gap-2 shadow-xl shadow-emerald-500/30 hover:scale-105 active:scale-100 transition-all text-center"
+                  className="w-full sm:w-auto px-8 py-5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-sm uppercase tracking-wider inline-flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/30 hover:scale-105 active:scale-100 transition-all text-center"
                 >
                   <span>Shop on Refurhub.com</span>
                   <ExternalLink size={16} />
                 </a>
-                <span className="text-[11px] text-slate-400 mt-2 font-medium">Opens official e-commerce storefront in a new tab</span>
+                <span className="text-[11px] text-slate-600 mt-2 font-medium">Opens official e-commerce storefront in a new tab</span>
               </div>
 
             </div>
@@ -2755,16 +2755,16 @@ export default function Home() {
         {/* ===================================================================
             SECTION G: PROJECT INQUIRY & CONTACT SECTION
         =================================================================== */}
-        <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full border-t border-slate-800/80">
+        <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full border-t border-slate-200">
           
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 text-xs font-bold text-blue-400 uppercase tracking-widest">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-blue-700 uppercase tracking-widest">
               Direct Engagement
             </div>
-            <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white">
+            <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-950">
               Start a Project or Request a Service Quote
             </h2>
-            <p className="text-slate-400 text-sm sm:text-base font-medium">
+            <p className="text-slate-600 text-sm sm:text-base font-medium">
               Whether you need a custom corporate website, scalable ERP software, a public SaaS store setup, or corporate hardware AMC in Prayagraj, our engineering team is ready.
             </p>
           </div>
@@ -2772,30 +2772,30 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
             
             {/* Left: Interactive Project Inquiry Form */}
-            <div className="lg:col-span-7 bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+            <div className="lg:col-span-7 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xl">
               
               {contactSubmitted ? (
                 <div className="py-12 text-center space-y-4 animate-in fade-in">
-                  <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-500/30">
+                  <div className="w-16 h-16 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center mx-auto border border-emerald-300">
                     <CheckCircle2 size={32} />
                   </div>
-                  <h3 className="text-2xl font-black text-white">Inquiry Received Successfully!</h3>
-                  <p className="text-slate-300 text-sm max-w-md mx-auto">
-                    Thank you, <strong className="text-white">{contactName}</strong>. Your project brief has been recorded in our system. A senior engineer from National Computer Allahabad will contact you shortly.
+                  <h3 className="text-2xl font-black text-slate-950">Inquiry Received Successfully!</h3>
+                  <p className="text-slate-700 text-sm max-w-md mx-auto font-medium">
+                    Thank you, <strong className="text-slate-950">{contactName}</strong>. Your project brief has been recorded in our system. A senior engineer from National Computer Allahabad will contact you shortly.
                   </p>
                   <div className="pt-4 flex flex-col sm:flex-row justify-center gap-3">
                     <a
                       href={`https://wa.me/917860130721?text=${encodeURIComponent(`Hello National Computer, I just submitted an inquiry for ${selectedServices.join(", ")} on your website. My name is ${contactName}.`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl inline-flex items-center justify-center gap-2"
+                      className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl inline-flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20"
                     >
                       <MessageSquare size={14} />
                       <span>Continue Conversation on WhatsApp</span>
                     </a>
                     <button
                       onClick={() => setContactSubmitted(false)}
-                      className="px-6 py-3 bg-slate-800 text-slate-300 hover:text-white rounded-xl text-xs font-bold"
+                      className="px-6 py-3 bg-slate-100 text-slate-700 hover:text-slate-950 border border-slate-200 rounded-xl text-xs font-bold"
                     >
                       Submit Another Request
                     </button>
@@ -2806,7 +2806,7 @@ export default function Home() {
                   
                   {/* Service Multi-Select Checkboxes */}
                   <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-wider text-slate-300">
+                    <label className="text-xs font-bold uppercase tracking-wider text-slate-700">
                       Select Interested Services (Click to toggle)
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -2834,12 +2834,12 @@ export default function Home() {
                             onClick={() => handleServiceToggle(service)}
                             className={`p-3 rounded-xl border text-xs font-bold text-left transition-all flex items-center justify-between ${
                               isSelected
-                                ? "bg-blue-600/20 border-blue-500 text-white shadow-sm"
-                                : "bg-slate-950/60 border-slate-800 text-slate-400 hover:border-slate-700"
+                                ? "bg-blue-50 border-2 border-blue-600 text-blue-950 shadow-sm"
+                                : "bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300 hover:text-slate-950"
                             }`}
                           >
                             <span>{service}</span>
-                            {isSelected && <Check size={14} className="text-blue-400" />}
+                            {isSelected && <Check size={14} className="text-blue-600" />}
                           </button>
                         );
                       })}
@@ -2849,26 +2849,26 @@ export default function Home() {
                   {/* Name and Phone */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-300">Your Full Name *</label>
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700">Your Full Name *</label>
                       <input
                         type="text"
                         required
                         placeholder="e.g. Alok Sharma"
                         value={contactName}
                         onChange={e => setContactName(e.target.value)}
-                        className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 transition-all"
                       />
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-300">WhatsApp / Phone Number *</label>
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700">WhatsApp / Phone Number *</label>
                       <input
                         type="tel"
                         required
                         placeholder="e.g. +91 98390 12345"
                         value={contactPhone}
                         onChange={e => setContactPhone(e.target.value)}
-                        className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 transition-all"
                       />
                     </div>
                   </div>
@@ -2876,22 +2876,22 @@ export default function Home() {
                   {/* Business Name and Budget */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-300">Company / Shop Name</label>
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700">Company / Shop Name</label>
                       <input
                         type="text"
                         placeholder="e.g. Sharma Infotech / Retail Hub"
                         value={contactBusiness}
                         onChange={e => setContactBusiness(e.target.value)}
-                        className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 transition-all"
                       />
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-300">Estimated Budget / Scope</label>
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700">Estimated Budget / Scope</label>
                       <select
                         value={contactBudget}
                         onChange={e => setContactBudget(e.target.value)}
-                        className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500 transition-colors"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 transition-all"
                       >
                         <option value="Under ₹25,000">Under ₹25,000</option>
                         <option value="₹25k - ₹75k">₹25,000 – ₹75,000</option>
@@ -2903,21 +2903,21 @@ export default function Home() {
 
                   {/* Project Brief */}
                   <div className="space-y-1.5">
-                    <label className="text-xs font-bold uppercase tracking-wider text-slate-300">Project Brief / Service Requirements *</label>
+                    <label className="text-xs font-bold uppercase tracking-wider text-slate-700">Project Brief / Service Requirements *</label>
                     <textarea
                       required
                       rows={4}
                       placeholder="Tell us about your website, custom software, SaaS requirements, or hardware maintenance needs..."
                       value={contactMessage}
                       onChange={e => setContactMessage(e.target.value)}
-                      className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
+                      className="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 transition-all"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={contactSubmitting}
-                    className="w-full py-4 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:bg-blue-800 text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-blue-600/30 transition-all flex items-center justify-center gap-2"
+                    className="w-full py-4 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-blue-600/30 transition-all flex items-center justify-center gap-2"
                   >
                     {contactSubmitting ? (
                       <>
@@ -2940,18 +2940,18 @@ export default function Home() {
             {/* Right: Business Info Card */}
             <div className="lg:col-span-5 space-y-6">
               
-              <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6">
+              <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-6 shadow-sm">
                 <div>
-                  <h3 className="text-xl font-black text-white">National Computer Allahabad</h3>
-                  <p className="text-xs text-blue-400 font-bold uppercase tracking-wider mt-0.5">Technology Studio & Hardware Diagnostics Lab</p>
+                  <h3 className="text-xl font-black text-slate-950">National Computer Allahabad</h3>
+                  <p className="text-xs text-blue-700 font-bold uppercase tracking-wider mt-0.5">Technology Studio & Hardware Diagnostics Lab</p>
                 </div>
 
-                <div className="space-y-4 text-xs font-medium text-slate-300">
+                <div className="space-y-4 text-xs font-medium text-slate-700">
                   <div className="flex items-start gap-3">
-                    <MapPin size={18} className="text-blue-400 shrink-0 mt-0.5" />
+                    <MapPin size={18} className="text-blue-600 shrink-0 mt-0.5" />
                     <div>
-                      <div className="font-bold text-white">Physical Address (Service Center & Lab)</div>
-                      <div className="text-slate-300 mt-0.5 font-semibold">
+                      <div className="font-bold text-slate-950">Physical Address (Service Center & Lab)</div>
+                      <div className="text-slate-700 mt-0.5 font-semibold">
                         Rashoolabad Chauraha, Teliarganj,<br />
                         Prayagraj (Allahabad), Uttar Pradesh – 211004, India
                       </div>
@@ -2959,31 +2959,31 @@ export default function Home() {
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <Clock size={18} className="text-emerald-400 shrink-0 mt-0.5" />
+                    <Clock size={18} className="text-emerald-600 shrink-0 mt-0.5" />
                     <div>
-                      <div className="font-bold text-white">Operating Hours</div>
-                      <div className="text-slate-300 mt-0.5">
-                        <strong className="text-emerald-400">Open Everyday:</strong> 10:00 AM – 10:00 PM<br />
-                        <span className="text-slate-400 text-[11px]">(Morning Shift: 10 AM - 2 PM | Evening Shift: 5 PM - 10 PM)</span>
+                      <div className="font-bold text-slate-950">Operating Hours</div>
+                      <div className="text-slate-700 mt-0.5">
+                        <strong className="text-emerald-700">Open Everyday:</strong> 10:00 AM – 10:00 PM<br />
+                        <span className="text-slate-500 text-[11px] font-medium">(Morning Shift: 10 AM - 2 PM | Evening Shift: 5 PM - 10 PM)</span>
                       </div>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <Phone size={18} className="text-indigo-400 shrink-0 mt-0.5" />
+                    <Phone size={18} className="text-indigo-600 shrink-0 mt-0.5" />
                     <div>
-                      <div className="font-bold text-white">Call & WhatsApp Hotline</div>
-                      <div className="text-slate-300 mt-0.5 font-bold">
-                        Call: <a href="tel:7786961902" className="text-white hover:text-blue-400 underline">7786961902</a> • WhatsApp: <a href="https://wa.me/917860130721" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline">7860130721</a>
+                      <div className="font-bold text-slate-950">Call & WhatsApp Hotline</div>
+                      <div className="text-slate-800 mt-0.5 font-bold">
+                        Call: <a href="tel:7786961902" className="text-slate-950 hover:text-blue-600 underline">7786961902</a> • WhatsApp: <a href="https://wa.me/917860130721" target="_blank" rel="noopener noreferrer" className="text-emerald-700 hover:text-emerald-800 underline">7860130721</a>
                       </div>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <CreditCard size={18} className="text-amber-400 shrink-0 mt-0.5" />
+                    <CreditCard size={18} className="text-amber-600 shrink-0 mt-0.5" />
                     <div>
-                      <div className="font-bold text-white">Payment Modes Accepted</div>
-                      <div className="text-slate-400 mt-0.5">
+                      <div className="font-bold text-slate-950">Payment Modes Accepted</div>
+                      <div className="text-slate-600 mt-0.5">
                         Cash • UPI (GPay, PhonePe, Paytm, BHIM) • Debit / Credit Card • Mobile Wallets
                       </div>
                     </div>
@@ -2996,7 +2996,7 @@ export default function Home() {
                     href="https://wa.me/917860130721?text=Hello%20National%20Computer%20Allahabad,%20I%20want%20to%20discuss%20a%20project%20or%20software%20requirement"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/30 transition-all"
+                    className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20 transition-all"
                   >
                     <MessageSquare size={15} />
                     <span>Chat Directly on WhatsApp</span>
@@ -3005,12 +3005,12 @@ export default function Home() {
               </div>
 
               {/* Founder / Technical Direction Credit Card */}
-              <div className="p-6 rounded-3xl bg-slate-900/50 border border-slate-800 space-y-2">
-                <div className="text-[11px] font-bold uppercase tracking-widest text-slate-400">Engineering Direction</div>
-                <div className="text-sm font-bold text-white">
-                  Founded & Headed by <strong className="text-blue-400">Devraj Singh Tomar</strong>
+              <div className="p-6 rounded-3xl bg-slate-50 border border-slate-200 space-y-2 shadow-sm">
+                <div className="text-[11px] font-bold uppercase tracking-widest text-slate-500">Engineering Direction</div>
+                <div className="text-sm font-bold text-slate-950">
+                  Founded & Headed by <strong className="text-blue-700">Devraj Singh Tomar</strong>
                 </div>
-                <p className="text-xs text-slate-400 leading-relaxed font-medium">
+                <p className="text-xs text-slate-600 leading-relaxed font-medium">
                   Leading full-stack architect & hardware technician with over a decade of production experience across India.
                 </p>
                 <div className="pt-1">
@@ -3018,7 +3018,7 @@ export default function Home() {
                     href="https://devrajsinghtomar.com/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-400 hover:text-blue-300"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-700 hover:text-blue-800"
                   >
                     <span>View Developer Portfolio</span>
                     <ExternalLink size={12} />
@@ -3140,19 +3140,19 @@ export default function Home() {
   // =========================================================================
   if (user && !user.subscriptionActive) {
     return (
-      <main className="flex flex-col min-h-[85vh] justify-center p-6 bg-slate-900 text-white">
-        <div className="max-w-md mx-auto w-full text-center space-y-6 bg-slate-950 border border-slate-800 rounded-[2.5rem] p-8 shadow-xl">
-          <div className="w-16 h-16 bg-red-500/20 text-red-400 rounded-3xl flex items-center justify-center mx-auto mb-4 border border-red-500/30">
+      <main className="flex flex-col min-h-[85vh] justify-center p-6 bg-slate-50 text-slate-900">
+        <div className="max-w-md mx-auto w-full text-center space-y-6 bg-white border border-slate-200 rounded-[2.5rem] p-8 shadow-xl">
+          <div className="w-16 h-16 bg-red-50 text-red-600 rounded-3xl flex items-center justify-center mx-auto mb-4 border border-red-200">
             <AlertTriangle size={32} />
           </div>
-          <h2 className="text-2xl font-black tracking-tight text-white">Subscription Inactive</h2>
-          <p className="text-slate-400 text-sm font-medium">
+          <h2 className="text-2xl font-black tracking-tight text-slate-950">Subscription Inactive</h2>
+          <p className="text-slate-600 text-sm font-medium">
             Your store account subscription license is currently inactive or expired. Please contact the Super Admin or extend your subscription plan to regain access.
           </p>
           <div className="space-y-3 pt-2">
             <Link
               href="/subscription"
-              className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-2xl shadow-lg block text-sm transition-all"
+              className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-lg block text-sm transition-all"
             >
               Manage & Extend Subscription
             </Link>
@@ -3162,7 +3162,7 @@ export default function Home() {
                 localStorage.removeItem("user");
                 router.push("/login");
               }}
-              className="w-full py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-2xl text-xs transition-colors"
+              className="w-full py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-2xl text-xs transition-colors border border-slate-200"
             >
               Sign Out
             </button>

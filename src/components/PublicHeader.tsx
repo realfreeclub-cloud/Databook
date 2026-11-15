@@ -61,25 +61,25 @@ export default function PublicHeader() {
       <header 
         className={`sticky top-0 z-50 w-full transition-all duration-300 ${
           isScrolled 
-            ? "bg-slate-950/90 backdrop-blur-md border-b border-slate-800/80 shadow-lg shadow-black/20" 
-            : "bg-[#0b1120] border-b border-slate-800/60"
-        } text-slate-100`}
+            ? "bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-md shadow-slate-900/5" 
+            : "bg-white/90 backdrop-blur-sm border-b border-slate-200/70"
+        } text-slate-800`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
           
           {/* Logo with Circuit / Tech Icon */}
           <Link href="/" className="flex items-center gap-3 group shrink-0">
-            <div className="w-10 h-10 bg-gradient-to-tr from-blue-600 via-indigo-600 to-blue-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/30 ring-1 ring-white/20 group-hover:scale-105 transition-all">
+            <div className="w-10 h-10 bg-gradient-to-tr from-blue-600 via-indigo-600 to-blue-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/25 ring-1 ring-blue-500/20 group-hover:scale-105 transition-all">
               <Cpu size={22} className="animate-pulse" />
             </div>
             <div className="flex flex-col">
-              <span className="font-black text-base sm:text-lg text-white tracking-tight leading-tight group-hover:text-blue-400 transition-colors">
+              <span className="font-black text-base sm:text-lg text-slate-900 tracking-tight leading-tight group-hover:text-blue-600 transition-colors">
                 National Computer
               </span>
               <div className="flex items-center gap-1.5 leading-none">
-                <span className="text-[10px] text-blue-400 font-extrabold uppercase tracking-widest">Allahabad</span>
-                <span className="w-1 h-1 rounded-full bg-emerald-400" />
-                <span className="text-[10px] text-slate-400 font-medium">IT Studio & Lab</span>
+                <span className="text-[10px] text-blue-600 font-extrabold uppercase tracking-widest">Allahabad</span>
+                <span className="w-1 h-1 rounded-full bg-emerald-500" />
+                <span className="text-[10px] text-slate-500 font-semibold">IT Studio & Lab</span>
               </div>
             </div>
           </Link>
@@ -90,11 +90,11 @@ export default function PublicHeader() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors relative py-1 flex items-center gap-1.5 group"
+                className="text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-blue-600 transition-colors relative py-1 flex items-center gap-1.5 group"
               >
                 <span>{link.name}</span>
                 {link.badge && (
-                  <span className="px-1.5 py-0.5 text-[9px] font-black bg-blue-500/20 text-blue-400 border border-blue-400/30 rounded-md uppercase tracking-wider group-hover:bg-blue-500 group-hover:text-white transition-colors">
+                  <span className="px-1.5 py-0.5 text-[9px] font-black bg-blue-50 text-blue-700 border border-blue-200 rounded-md uppercase tracking-wider group-hover:bg-blue-600 group-hover:text-white transition-colors">
                     {link.badge}
                   </span>
                 )}
@@ -106,11 +106,11 @@ export default function PublicHeader() {
               href="https://refurhub.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-bold uppercase tracking-wider text-emerald-400 hover:text-emerald-300 transition-colors inline-flex items-center gap-1 px-3 py-1 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-full"
+              className="text-xs font-bold uppercase tracking-wider text-emerald-700 hover:text-emerald-800 transition-colors inline-flex items-center gap-1 px-3 py-1 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 rounded-full font-bold"
               title="Shop Refurbished Laptops & Hardware on Refurhub.com"
             >
               <span>Hardware Store</span>
-              <ExternalLink size={12} className="text-emerald-400" />
+              <ExternalLink size={12} className="text-emerald-600" />
             </a>
           </nav>
 
@@ -119,16 +119,16 @@ export default function PublicHeader() {
             {/* Secondary CTA: Launch Software */}
             <button
               onClick={() => setIsModalOpen(true)}
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-extrabold uppercase tracking-wider text-slate-200 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 transition-all hover:border-slate-600 shadow-sm active:scale-95"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-extrabold uppercase tracking-wider text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 border border-slate-200 transition-all shadow-sm active:scale-95"
             >
-              <Sparkles size={14} className="text-blue-400" />
+              <Sparkles size={14} className="text-blue-600" />
               <span>Launch Software</span>
             </button>
 
             {/* Primary CTA: Start a Project */}
             <Link
               href="/#contact"
-              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-md shadow-blue-600/30 hover:shadow-lg hover:shadow-blue-600/40 hover:-translate-y-0.5 active:translate-y-0 transition-all"
+              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-md shadow-blue-600/25 hover:shadow-lg hover:shadow-blue-600/35 hover:-translate-y-0.5 active:translate-y-0 transition-all"
             >
               <span>Start a Project</span>
               <ArrowRight size={14} />
@@ -138,7 +138,7 @@ export default function PublicHeader() {
           {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/80 border border-slate-800 transition-colors"
+            className="lg:hidden p-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 transition-colors"
             aria-label="Toggle navigation menu"
           >
             {isOpen ? <X size={22} /> : <Menu size={22} />}
@@ -147,18 +147,18 @@ export default function PublicHeader() {
 
         {/* Mobile Navigation Drawer */}
         {isOpen && (
-          <div className="lg:hidden border-t border-slate-800/80 bg-slate-950 px-6 py-6 space-y-6 animate-in slide-in-from-top-4 duration-200">
+          <div className="lg:hidden border-t border-slate-200 bg-white px-6 py-6 space-y-6 animate-in slide-in-from-top-4 duration-200 shadow-xl">
             <nav className="flex flex-col gap-3.5">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="text-sm font-bold text-slate-300 hover:text-white py-2 flex items-center justify-between border-b border-slate-800/50"
+                  className="text-sm font-bold text-slate-700 hover:text-blue-600 py-2 flex items-center justify-between border-b border-slate-100"
                 >
                   <span>{link.name}</span>
                   {link.badge && (
-                    <span className="px-2 py-0.5 text-[10px] font-black bg-blue-500/20 text-blue-400 rounded-md">
+                    <span className="px-2 py-0.5 text-[10px] font-black bg-blue-50 text-blue-700 border border-blue-200 rounded-md">
                       {link.badge}
                     </span>
                   )}
@@ -170,7 +170,7 @@ export default function PublicHeader() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsOpen(false)}
-                className="text-sm font-bold text-emerald-400 py-2 flex items-center justify-between border-b border-slate-800/50"
+                className="text-sm font-bold text-emerald-700 py-2 flex items-center justify-between border-b border-slate-100"
               >
                 <span className="flex items-center gap-2">
                   <span>Hardware Store (Refurhub.com)</span>
@@ -181,7 +181,7 @@ export default function PublicHeader() {
               <Link
                 href="/about"
                 onClick={() => setIsOpen(false)}
-                className="text-sm font-bold text-slate-300 hover:text-white py-2 flex items-center justify-between border-b border-slate-800/50"
+                className="text-sm font-bold text-slate-700 hover:text-blue-600 py-2 flex items-center justify-between border-b border-slate-100"
               >
                 <span>About National Computer</span>
               </Link>
@@ -194,16 +194,16 @@ export default function PublicHeader() {
                   setIsOpen(false);
                   setIsModalOpen(true);
                 }}
-                className="w-full py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider text-slate-200 bg-slate-900 border border-slate-700 flex items-center justify-center gap-2"
+                className="w-full py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider text-slate-700 bg-slate-100 border border-slate-200 flex items-center justify-center gap-2 hover:bg-slate-200"
               >
-                <Sparkles size={15} className="text-blue-400" />
+                <Sparkles size={15} className="text-blue-600" />
                 Launch Software (SaaS Demo & Login)
               </button>
 
               <Link
                 href="/#contact"
                 onClick={() => setIsOpen(false)}
-                className="w-full py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider text-white bg-blue-600 hover:bg-blue-500 text-center shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2"
+                className="w-full py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider text-white bg-blue-600 hover:bg-blue-700 text-center shadow-lg shadow-blue-600/25 flex items-center justify-center gap-2"
               >
                 <span>Start a Project / Request Quote</span>
                 <ArrowRight size={15} />
@@ -213,7 +213,7 @@ export default function PublicHeader() {
                 href="https://wa.me/917860130721?text=Hello%20National%20Computer%20Allahabad,%20I%20want%20to%20inquire%20about%20your%20services"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-center font-bold text-emerald-400 hover:text-emerald-300 py-2 inline-flex items-center justify-center gap-1.5"
+                className="text-xs text-center font-bold text-emerald-700 hover:text-emerald-800 py-2 inline-flex items-center justify-center gap-1.5"
               >
                 <PhoneCall size={14} />
                 <span>Chat on WhatsApp: +91 7860130721</span>
