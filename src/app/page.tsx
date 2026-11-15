@@ -43,7 +43,22 @@ import {
   RefreshCw,
   Headphones,
   Server,
-  Laptop
+  Laptop,
+  Store,
+  GraduationCap,
+  Stethoscope,
+  Building2,
+  Scale,
+  ShoppingBag,
+  Camera,
+  Wifi,
+  Printer,
+  BatteryCharging,
+  Flame,
+  HardDrive,
+  Monitor,
+  Shield,
+  Award
 } from "lucide-react";
 import { getRecordsFromDB, getCurrentUser } from "@/lib/actions";
 import { logoutUser } from "@/app/login/actions";
@@ -100,6 +115,259 @@ const HERO_SALES = [
   { id: "SALE-814", client: "Vikram Rajput", item: "Dell Inspiron Original Keyboard", amount: "₹1,250", date: "3 hrs ago" },
 ];
 
+// All Laptop Brands Repaired (From Banner / Poster)
+const REPAIRED_BRANDS = [
+  { name: "HP", color: "from-sky-500 to-blue-600" },
+  { name: "Dell", color: "from-blue-600 to-indigo-700" },
+  { name: "Lenovo", color: "from-red-500 to-rose-600" },
+  { name: "Asus", color: "from-cyan-500 to-blue-500" },
+  { name: "Acer", color: "from-emerald-500 to-teal-600" },
+  { name: "Apple", color: "from-slate-200 to-slate-400" },
+  { name: "MSI", color: "from-red-600 to-orange-600" },
+  { name: "Toshiba", color: "from-red-500 to-red-700" },
+  { name: "Sony", color: "from-purple-500 to-indigo-600" },
+  { name: "Samsung", color: "from-blue-500 to-blue-800" },
+];
+
+// Tailored Business Website Solutions for Indian Clients
+const BUSINESS_WEBSITE_SOLUTIONS = [
+  {
+    id: 0,
+    title: "Storekeepers & Local Retailers",
+    hindiTag: "दुकानदार एवं लोकल रिटेलर्स",
+    icon: Store,
+    badge: "Local SEO & Footfall",
+    tagline: "Get Found on Google Maps & Get Direct WhatsApp Customer Orders",
+    problem: "When customers in your city search 'laptop repair near me', 'best mobile store', or 'grocery shop nearby', they only visit shops that appear on top of Google Maps. Without a website, you lose customers to competitors every single day.",
+    solutions: [
+      "High-Ranking Google Local SEO: Rank on Page 1 for local searches in your city.",
+      "Google My Business (Google Maps) 5-Star Setup: Verified pin with reviews link.",
+      "1-Click 'WhatsApp Order / Call Now' Button: Direct connection to customer.",
+      "Digital Product Catalog & Price Showcase: Showcase your stock 24/7.",
+      "Offer & Sale Announcements: Run festive discount banners directly on your site."
+    ],
+    timeline: "Ready in 3 to 5 Days",
+    idealFor: "Computer & Mobile Shops, Kirana & Supermarkets, Garment Stores, Hardware Dealers, Electronics Showrooms"
+  },
+  {
+    id: 1,
+    title: "Schools, Colleges & Coaching",
+    hindiTag: "स्कूल, कॉलेज एवं कोचिंग संस्थान",
+    icon: GraduationCap,
+    badge: "Admissions & Trust",
+    tagline: "Attract 3X More Student Admissions & Simplify Parent Communication",
+    problem: "During admission season, parents search online first. An outdated or missing website makes parents doubt the institute's quality. You need a credible, modern portal that showcases your toppers, facilities, and fee structure clearly.",
+    solutions: [
+      "Online Admission Inquiry Form: Instant lead alerts delivered to the Principal/Admin WhatsApp.",
+      "Digital Notice Board: Publish exam schedules, holiday notices, and result circulars in seconds.",
+      "Toppers & Event Gallery: Photo/video galleries of sports day, science exhibitions, and board exam toppers.",
+      "Fee Structure & Bus Routes: Transparent info that saves your administrative staff hours on phone calls.",
+      "Mobile-Friendly Portal: 100% responsive design optimized for parents viewing on smartphones."
+    ],
+    timeline: "Ready in 5 to 7 Days",
+    idealFor: "CBSE/ICSE/State Board Schools, Degree Colleges, IIT-JEE/NEET Coaching, Computer Training Centers"
+  },
+  {
+    id: 2,
+    title: "Hospitals, Clinics & Doctors",
+    hindiTag: "डॉक्टर्स, क्लीनिक एवं अस्पताल",
+    icon: Stethoscope,
+    badge: "Appointments & OPD",
+    tagline: "Streamline Patient Appointments & Display OPD Timings 24/7",
+    problem: "Patients and families facing health issues need immediate, reliable information. If they cannot quickly find your doctor's degrees, visiting OPD hours, clinic location, or consultation fee, they call another clinic.",
+    solutions: [
+      "1-Click Online Appointment Booking: Patients choose date & time slot without waiting on phone holds.",
+      "Live OPD Timings & Specialist Profiles: Clearly list MBBS/MD qualifications and available days.",
+      "Emergency Ambulance & Call Hotline: Prominent red emergency dial button for urgent medical care.",
+      "1-Click Google Maps Clinic Navigation: Eliminates patients getting lost on the way.",
+      "Health Care Tips & Department Pages: Specialized pages for Dental, Ortho, Gynaec, Paediatrics, etc."
+    ],
+    timeline: "Ready in 4 to 6 Days",
+    idealFor: "Private Clinics, Multi-Speciality Hospitals, Dental Clinics, Diagnostic & Pathology Labs, Physiotherapy Centers"
+  },
+  {
+    id: 3,
+    title: "Real Estate, Builders & Colonizers",
+    hindiTag: "प्रॉपर्टी डीलर्स एवं बिल्डर्स",
+    icon: Building2,
+    badge: "Direct Buyer Leads",
+    tagline: "Showcase Plots, Flats & Commercial Spaces Directly to Serious Buyers",
+    problem: "Relying purely on third-party property classifieds costs thousands per listing and brings low-quality leads. Serious high-budget property buyers want verified property videos, layout maps, and direct developer contact without middleman broker fees.",
+    solutions: [
+      "Interactive Project Showcase: Dedicated sections for Residential Plots, 2/3 BHK Flats, and Commercial Hubs.",
+      "HD Video Walkthroughs & Layout Maps: High-res layout masterplans, RERA/PDA registration numbers.",
+      "Built-in EMI & Price Calculator: Allows buyers to check estimated monthly installments on the spot.",
+      "1-Click 'Book Free Site Visit on WhatsApp': Captures genuine buyer phone numbers instantly.",
+      "Location Advantage Map: Highlights nearby highways, metro stations, hospitals, and schools."
+    ],
+    timeline: "Ready in 5 to 7 Days",
+    idealFor: "Colonizers, Township Developers, Property Consultants, Commercial Complex Builders, Plotting Ventures"
+  },
+  {
+    id: 4,
+    title: "Advocates, Law Chambers & Firms",
+    hindiTag: "वकील साहब एवं लीगल फर्म",
+    icon: Scale,
+    badge: "Professional Authority",
+    tagline: "Establish Unmatched Legal Authority & Attract High-Value Clients",
+    problem: "Individuals and corporate businesses with serious legal battles (High Court, District Court, RERA, Corporate) look for established, trustworthy legal counsel. A dignified, professional website immediately establishes your seniority, practice areas, and track record.",
+    solutions: [
+      "Senior Advocate & Chamber Profile: Professional biography highlighting High Court & Supreme Court experience.",
+      "Detailed Practice Areas: Dedicated pages for Civil, Criminal, RERA, Bail, Matrimonial, Corporate & Land Revenue law.",
+      "Confidential Consultation Request Form: Secure inquiry intake without privacy leaks.",
+      "Chamber Office Address & High Court Location: Clear directions and appointment timings for clients.",
+      "Legal Insights & Case Articles: Educate clients and build authority on important legal topics."
+    ],
+    timeline: "Ready in 3 to 5 Days",
+    idealFor: "High Court Advocates, District Court Practitioners, Corporate Law Firms, RERA & Tax Consultants, Notaries"
+  },
+  {
+    id: 5,
+    title: "E-Commerce & Online Stores",
+    hindiTag: "ऑनलाइन स्टोर एवं ई-कॉमर्स",
+    icon: ShoppingBag,
+    badge: "100% Profit Retention",
+    tagline: "Sell Your Products Across All of India Without Marketplace Commissions",
+    problem: "Selling on big e-commerce portals eats away 15% to 30% of your margins in commissions, listing fees, and return penalties. With your own branded website, 100% of the customer payment comes directly to your bank account via instant UPI.",
+    solutions: [
+      "Instant UPI & Indian Payment Gateways: PhonePe, Google Pay, Paytm, Cards, NetBanking, and Cash on Delivery (COD).",
+      "Automated WhatsApp Order Alerts: Instant receipts and dispatch tracking sent straight to customer WhatsApp.",
+      "Mobile-First Superfast Catalog: Ultra-smooth shopping experience even on basic Jio/Airtel mobile connections.",
+      "Inventory & Order Management: Real-time stock deduction, discount coupons, and customer database ownership.",
+      "Pan-India Shipping Integration: Compatible with Shiprocket, Delhivery, BlueDart, and India Post."
+    ],
+    timeline: "Ready in 7 to 10 Days",
+    idealFor: "Clothing & Ethnic Wear, Handcrafted Goods, Electronics & Gadgets, Organic Food, Refurbished Tech Brands"
+  }
+];
+
+// Hardware Diagnoses & Solutions (From Poster Image 1 & 2)
+const HARDWARE_SOLUTIONS = [
+  {
+    title: "Slow Laptop / PC Performance",
+    hindi: "धीमा चलना या हैंग होना",
+    icon: Zap,
+    desc: "Speed up your system by up to 10X. HDD to high-speed NVMe SSD upgrade, RAM expansion, startup tuning & thermal refresh. Boot Windows in just 5 seconds."
+  },
+  {
+    title: "Overheating & Heavy Fan Noise",
+    hindi: "गर्म होना एवं पंखे की आवाज",
+    icon: Flame,
+    desc: "Deep internal heat sink dust cleaning, fan lubrication, and replacement of old dried thermal paste with premium Arctic MX-4 compound to prevent processor burnout."
+  },
+  {
+    title: "Cracked Screen & Display Faults",
+    hindi: "स्क्रीन टूटना या लाइनें आना",
+    icon: Monitor,
+    desc: "Same-day replacement of broken displays, horizontal/vertical lines, white screen, or flickering display with 100% genuine OEM panels with testing warranty."
+  },
+  {
+    title: "Virus, Malware & Ransomware",
+    hindi: "वायरस हटाना व डेटा सुरक्षा",
+    icon: Shield,
+    desc: "Deep system sterilization, Trojan and adware cleanup without losing your important files, photos, or Tally accounting data. Genuine Antivirus installation."
+  },
+  {
+    title: "Data Backup & Dead Drive Recovery",
+    hindi: "खराब डिस्क से डेटा रिकवरी",
+    icon: HardDrive,
+    desc: "Accidentally formatted drives, unreadable hard disks, dead SSDs, and clicking drives recovered in our clean lab. Safe backup migration to external storage."
+  },
+  {
+    title: "System Crash & Blue Screen (BSOD)",
+    hindi: "विंडोज क्रैश या बार-बार रीस्टार्ट",
+    icon: AlertTriangle,
+    desc: "Repairing Windows boot loops, registry corruption, BSOD errors, missing driver conflicts, and fresh installation of genuine Windows 10/11 OS."
+  },
+  {
+    title: "Motherboard Chip-Level Repair",
+    hindi: "मदरबोर्ड चिप-लेवल रिपेयरिंग (IC)",
+    icon: Cpu,
+    desc: "Advanced BGA rework station diagnostics for dead laptops, water-damaged motherboards, short power rails (19V), charging IC faults, and PCH controller repair."
+  },
+  {
+    title: "Software, Drivers & Office Setup",
+    hindi: "विंडोज व जरूरी सॉफ्टवेयर इंस्टालेशन",
+    icon: Wrench,
+    desc: "Complete operating system setup, official MS Office, graphic design software, Tally Prime, printer drivers, and essential utility installation."
+  }
+];
+
+// Hardware Deals & Products (From Poster Image 1 & 2)
+const WE_DEAL_IN_PRODUCTS = [
+  {
+    title: "New Laptops (On Order)",
+    hindi: "नए ब्रांडेड लैपटॉप्स",
+    desc: "Latest generation sealed-pack laptops from HP, Dell, Lenovo, Asus at discounted dealer rates with official manufacturer warranty.",
+    icon: Laptop
+  },
+  {
+    title: "Certified Refurbished Laptops",
+    hindi: "सर्टिफाइड पुराने लैपटॉप्स",
+    desc: "Rigidly tested corporate-grade laptops (Dell Latitude, ThinkPad, EliteBook) backed by warranty via our sister brand Refurhub.com.",
+    icon: CheckCircle2
+  },
+  {
+    title: "Desktop Computers & Custom PCs",
+    hindi: "ऑफिस व गेमिंग डेस्कटॉप",
+    desc: "Custom assembled desktop PCs for office work, cyber cafes, schools, video editing, CAD design, and high-performance gaming.",
+    icon: Monitor
+  },
+  {
+    title: "CCTV Camera & Security Systems",
+    hindi: "CCTV कैमरा व इंस्टालेशन",
+    desc: "Complete HD & IP CCTV setup with night vision, DVR/NVR configuration, and live mobile phone viewing for shops, godowns, schools & homes.",
+    icon: Camera
+  },
+  {
+    title: "Networking & Wi-Fi Solutions",
+    hindi: "ऑफिस नेटवर्किंग व वाई-फाई",
+    desc: "Commercial & residential Wi-Fi router installation, structured LAN cabling, gigabit switch setup, and high-speed office internet distribution.",
+    icon: Wifi
+  },
+  {
+    title: "Printers, Cartridges & Peripherals",
+    hindi: "प्रिंटर्स व कार्ट्रिज रिफिल",
+    desc: "Laserjet & inkjet printer repair, cartridge toner refilling, scanner setup, and genuine printer spare parts.",
+    icon: Printer
+  },
+  {
+    title: "Laptop & PC Accessories",
+    hindi: "ओरिजिनल चार्जर व एसेसरीज",
+    desc: "Original laptop chargers/adapters, replacement batteries, wireless keyboard/mouse combos, laptop bags, cooling pads, and cables.",
+    icon: BatteryCharging
+  }
+];
+
+// Laptop Care Tips (From Poster Image 1)
+const LAPTOP_CARE_TIPS = [
+  {
+    title: "Keep your laptop cool and clean",
+    tip: "Never use your laptop on a soft bed or pillow because it blocks the air intake vents underneath. Always place it on a flat desk or use a laptop cooling stand.",
+    icon: "❄️"
+  },
+  {
+    title: "Update your system regularly",
+    tip: "Install official Windows and driver security patches. Keeping your operating system updated protects against malware and unexpected system crashes.",
+    icon: "🔄"
+  },
+  {
+    title: "Use original charger and battery",
+    tip: "Cheap unbranded local duplicate chargers have unstable voltage that burns the motherboard power IC. Always use certified OEM power adapters.",
+    icon: "🔋"
+  },
+  {
+    title: "Don't ignore small warning signs",
+    tip: "A rattling fan sound, high heating, or a tight hinge should never be ignored. Getting it serviced early prevents expensive display cracks or motherboard failure.",
+    icon: "⚠️"
+  },
+  {
+    title: "Regular backup keeps your data safe",
+    tip: "Hard drives and SSDs can fail without advance notice. Always keep a secondary copy of your critical Tally data, photos, and documents on an external drive or cloud.",
+    icon: "💾"
+  }
+];
+
 // Helper to compute live stage for CustomerSafeRecord
 function computeSafeRecordStage(record: CustomerSafeRecord) {
   const status = (record.workStatus || "").toLowerCase();
@@ -149,6 +417,8 @@ export default function Home() {
   // Landing Page Interactive States
   const [heroTab, setHeroTab] = useState<"tickets" | "inventory" | "sales">("tickets");
   const [activeModuleTab, setActiveModuleTab] = useState<number>(0);
+  const [activeIndustryTab, setActiveIndustryTab] = useState<number>(0);
+  const [activeHardwareTab, setActiveHardwareTab] = useState<"solutions" | "products" | "tips">("solutions");
   const [isAnnualPricing, setIsAnnualPricing] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [exportNotice, setExportNotice] = useState<string | null>(null);
@@ -751,6 +1021,152 @@ export default function Home() {
         </section>
 
         {/* ===================================================================
+            SECTION C2: WEBSITES BUILT FOR INDIAN BUSINESSES & PROFESSIONALS
+        =================================================================== */}
+        <section id="business-web" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full border-t border-slate-800/80">
+          
+          <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 text-xs font-bold text-blue-400 uppercase tracking-widest">
+              <Globe size={13} />
+              <span>Tailored Digital Growth for India</span>
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-white">
+              Websites Built for Indian Businesses & Professionals
+            </h2>
+            <p className="text-slate-300 text-sm sm:text-base font-medium leading-relaxed">
+              Aapki local dukaan ya profession ko Google par laayein — zyada customers, direct WhatsApp calls aur 100% bharosa paayein.
+            </p>
+          </div>
+
+          {/* Industry Horizontal Selector Tabs */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 mb-8">
+            {BUSINESS_WEBSITE_SOLUTIONS.map(sol => {
+              const isSelected = activeIndustryTab === sol.id;
+              const IconComp = sol.icon;
+              return (
+                <button
+                  key={sol.id}
+                  onClick={() => setActiveIndustryTab(sol.id)}
+                  className={`p-3.5 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between ${
+                    isSelected
+                      ? "bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-600/30 scale-[1.02]"
+                      : "bg-slate-900/70 border-slate-800 text-slate-300 hover:bg-slate-800 hover:text-white"
+                  }`}
+                >
+                  <IconComp size={22} className={isSelected ? "text-white mb-2" : "text-blue-400 mb-2"} />
+                  <div>
+                    <div className="font-black text-xs leading-tight">{sol.title}</div>
+                    <div className={`text-[10px] mt-1 font-semibold ${isSelected ? "text-blue-100" : "text-slate-400"}`}>
+                      {sol.hindiTag}
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Selected Industry Deep Dive Feature Card */}
+          {(() => {
+            const currentSol = BUSINESS_WEBSITE_SOLUTIONS[activeIndustryTab];
+            const CurrentIcon = currentSol.icon;
+            return (
+              <div className="bg-slate-900/90 border border-slate-700/80 rounded-[2.5rem] p-6 sm:p-10 shadow-2xl relative overflow-hidden space-y-8 animate-in fade-in zoom-in-95 duration-200">
+                
+                {/* Header Strip */}
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+                  <div className="space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/30 text-[10px] font-extrabold uppercase tracking-wider">
+                        {currentSol.badge}
+                      </span>
+                      <span className="text-xs text-slate-400 font-bold">• {currentSol.hindiTag}</span>
+                    </div>
+                    <h3 className="text-2xl sm:text-3xl font-black text-white">
+                      {currentSol.title}
+                    </h3>
+                    <p className="text-blue-400 text-sm font-bold">
+                      {currentSol.tagline}
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <div className="px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-right">
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Timeline:</span>
+                      <span className="text-xs font-black text-emerald-400">{currentSol.timeline}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Problem vs Solution 2-Column Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                  
+                  {/* Left Column: Indian Business Challenge */}
+                  <div className="lg:col-span-5 p-6 rounded-2xl bg-slate-950/80 border border-slate-800/80 space-y-4">
+                    <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-amber-400">
+                      <AlertTriangle size={15} />
+                      <span>Kyun Zaroori Hai Website? (The Challenge)</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed">
+                      &ldquo;{currentSol.problem}&rdquo;
+                    </p>
+                    <div className="pt-2 border-t border-slate-800">
+                      <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Kiske Liye Best Hai (Ideal For):</span>
+                      <p className="text-xs text-slate-300 font-semibold">{currentSol.idealFor}</p>
+                    </div>
+                  </div>
+
+                  {/* Right Column: Exact What We Build */}
+                  <div className="lg:col-span-7 space-y-4">
+                    <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-emerald-400">
+                      <CheckCircle2 size={15} />
+                      <span>National Computer Kya Banakar Deta Hai (Features Included):</span>
+                    </div>
+
+                    <div className="space-y-3">
+                      {currentSol.solutions.map((feat, idx) => (
+                        <div key={idx} className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 flex items-start gap-3 hover:border-blue-500/40 transition-colors">
+                          <CheckCircle2 size={16} className="text-blue-400 shrink-0 mt-0.5" />
+                          <span className="text-xs sm:text-sm text-slate-200 font-medium leading-snug">
+                            {feat}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Action Bar */}
+                    <div className="pt-4 flex flex-col sm:flex-row items-center gap-3">
+                      <a
+                        href={`https://wa.me/917860130721?text=${encodeURIComponent(
+                          `Hello National Computer, I am interested in building a website for ${currentSol.title} (${currentSol.hindiTag}). Please share packages and demo.`
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full sm:w-auto px-6 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/30 transition-all"
+                      >
+                        <MessageSquare size={16} />
+                        <span>Discuss {currentSol.title} on WhatsApp</span>
+                      </a>
+
+                      <a
+                        href="#contact"
+                        onClick={() => setSelectedServices([currentSol.title])}
+                        className="w-full sm:w-auto px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-all"
+                      >
+                        <span>Request Official Project Quote</span>
+                        <ArrowRight size={14} />
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            );
+          })()}
+
+        </section>
+
+        {/* ===================================================================
             SECTION D: FLAGSHIP PUBLIC SOFTWARE SPOTLIGHT SECTION
         =================================================================== */}
         <section id="software" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full border-t border-slate-800/80">
@@ -1259,6 +1675,257 @@ export default function Home() {
         </section>
 
         {/* ===================================================================
+            SECTION D2: EXPERT LAPTOP REPAIR, IT SOLUTIONS & HARDWARE HUB
+            (From Official Shop Poster & Service Banner)
+        =================================================================== */}
+        <section id="hardware-it" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full border-t border-slate-800/80">
+          
+          <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-400/20 text-xs font-black text-emerald-400 uppercase tracking-widest">
+              <Award size={13} />
+              <span>YOUR ONE-STOP SOLUTION FOR ALL LAPTOP PROBLEMS • TRUSTED SINCE 2015</span>
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-white">
+              Expert Laptop Repair & Complete IT Solutions
+            </h2>
+            <p className="text-slate-300 text-sm sm:text-base font-medium leading-relaxed">
+              Chip-level motherboard repair, same-day cracked screen replacement, virus removal, CCTV cameras, and office networking. Serving Prayagraj at Rashoolabad Chauraha, Teliarganj.
+            </p>
+          </div>
+
+          {/* We Repair All Brands Strip */}
+          <div className="mb-12 p-6 rounded-3xl bg-slate-900/60 border border-slate-800 text-center space-y-4">
+            <div className="text-xs font-black uppercase tracking-widest text-slate-400">
+              We Repair & Service All Major Laptop & Desktop Brands:
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              {REPAIRED_BRANDS.map(brand => (
+                <div 
+                  key={brand.name}
+                  className="px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 transition-colors flex items-center gap-2 shadow-sm"
+                >
+                  <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${brand.color}`} />
+                  <span className="font-black text-sm text-white tracking-wide">{brand.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 3 Interactive View Switcher Tabs */}
+          <div className="flex bg-slate-900 border border-slate-800 p-1.5 rounded-2xl max-w-2xl mx-auto mb-10 shadow-lg">
+            {[
+              { id: "solutions", label: "1. Diagnosis & Solutions", icon: Wrench, count: "8 Services" },
+              { id: "products", label: "2. We Also Deal In", icon: Package, count: "7 Categories" },
+              { id: "tips", label: "3. Laptop Care Tips", icon: ShieldCheck, count: "5 Tips" },
+            ].map(tab => {
+              const isActive = activeHardwareTab === tab.id;
+              const TabIcon = tab.icon;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveHardwareTab(tab.id as any)}
+                  className={`flex-1 py-3 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
+                    isActive
+                      ? "bg-blue-600 text-white shadow-md shadow-blue-600/30 font-black"
+                      : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  <TabIcon size={15} />
+                  <span>{tab.label}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* TAB 1: DIAGNOSIS & SOLUTIONS GRID (8 Common Issues from Poster) */}
+          {activeHardwareTab === "solutions" && (
+            <div className="space-y-8 animate-in fade-in duration-200">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {HARDWARE_SOLUTIONS.map((item, idx) => {
+                  const IconC = item.icon;
+                  return (
+                    <div 
+                      key={idx}
+                      className="p-6 rounded-3xl bg-slate-900/70 border border-slate-800 hover:border-blue-500/50 hover:bg-slate-900 transition-all space-y-3 shadow-lg group flex flex-col justify-between"
+                    >
+                      <div className="space-y-3">
+                        <div className="w-11 h-11 bg-blue-600/20 text-blue-400 border border-blue-500/30 rounded-xl flex items-center justify-center group-hover:scale-105 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                          <IconC size={20} />
+                        </div>
+                        <div>
+                          <h4 className="text-base font-black text-white group-hover:text-blue-400 transition-colors">
+                            {item.title}
+                          </h4>
+                          <span className="text-[11px] font-bold text-slate-400 block mt-0.5">{item.hindi}</span>
+                        </div>
+                        <p className="text-xs text-slate-300 leading-relaxed font-medium">
+                          {item.desc}
+                        </p>
+                      </div>
+
+                      <div className="pt-3 border-t border-slate-800/80">
+                        <a
+                          href={`https://wa.me/917860130721?text=${encodeURIComponent(
+                            `Hello National Computer, my laptop has an issue with: ${item.title}. Can I bring it to your Teliarganj center?`
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[11px] font-bold text-blue-400 hover:text-blue-300 inline-flex items-center gap-1 group-hover:translate-x-0.5 transition-transform"
+                        >
+                          <span>Book Repair on WhatsApp</span>
+                          <ArrowRight size={12} />
+                        </a>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* TAB 2: WE ALSO DEAL IN (Products & IT Infrastructure from Poster) */}
+          {activeHardwareTab === "products" && (
+            <div className="space-y-8 animate-in fade-in duration-200">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {WE_DEAL_IN_PRODUCTS.map((prod, idx) => {
+                  const IconP = prod.icon;
+                  return (
+                    <div
+                      key={idx}
+                      className="p-6 rounded-3xl bg-slate-900/70 border border-slate-800 hover:border-emerald-500/50 hover:bg-slate-900 transition-all space-y-3 shadow-lg group flex flex-col justify-between"
+                    >
+                      <div className="space-y-3">
+                        <div className="w-12 h-12 bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 rounded-2xl flex items-center justify-center group-hover:scale-105 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                          <IconP size={22} />
+                        </div>
+                        <div>
+                          <h4 className="text-base font-black text-white group-hover:text-emerald-400 transition-colors">
+                            {prod.title}
+                          </h4>
+                          <span className="text-[11px] font-bold text-emerald-400/80 block mt-0.5">{prod.hindi}</span>
+                        </div>
+                        <p className="text-xs text-slate-300 leading-relaxed font-medium">
+                          {prod.desc}
+                        </p>
+                      </div>
+
+                      <div className="pt-3 border-t border-slate-800/80">
+                        <a
+                          href={`https://wa.me/917860130721?text=${encodeURIComponent(
+                            `Hello National Computer, I am inquiring about pricing and availability for: ${prod.title}.`
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[11px] font-bold text-emerald-400 hover:text-emerald-300 inline-flex items-center gap-1 group-hover:translate-x-0.5 transition-transform"
+                        >
+                          <span>Inquire Price on WhatsApp</span>
+                          <ArrowRight size={12} />
+                        </a>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* TAB 3: LAPTOP CARE TIPS (Directly from Poster Image 1) */}
+          {activeHardwareTab === "tips" && (
+            <div className="space-y-6 animate-in fade-in duration-200 max-w-4xl mx-auto">
+              <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-2xl text-center">
+                <span className="text-xs font-bold text-blue-300">
+                  National Computer Allahabad Golden Care Guide: Follow these 5 proven maintenance rules to keep your laptop fast and prevent sudden failures.
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {LAPTOP_CARE_TIPS.map((tip, idx) => (
+                  <div 
+                    key={idx}
+                    className="p-6 rounded-3xl bg-slate-900 border border-slate-800 hover:border-slate-700 transition-all flex items-start gap-4 shadow-md"
+                  >
+                    <span className="text-3xl shrink-0 p-2 rounded-2xl bg-slate-950 border border-slate-800">
+                      {tip.icon}
+                    </span>
+                    <div className="space-y-1">
+                      <h4 className="text-sm font-black text-white">{tip.title}</h4>
+                      <p className="text-xs text-slate-300 leading-relaxed font-medium">
+                        {tip.tip}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Our Promise & Trust Badges (From Poster Image 1 & 2) */}
+          <div className="mt-14 p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-slate-800 shadow-xl space-y-6">
+            <div className="text-center space-y-1">
+              <span className="text-[11px] font-extrabold uppercase tracking-widest text-emerald-400">Our Service Guarantee</span>
+              <h3 className="text-2xl font-black text-white">Why Customers Trust National Computer Since 2015</h3>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-center">
+              {[
+                { title: "Quality Service", desc: "Expert certified chip technicians" },
+                { title: "Affordable Price", desc: "Fair rates, no hidden fees" },
+                { title: "100% Genuine Parts", desc: "Original OEM screens & ICs" },
+                { title: "Warranty on Service", desc: "Warranty backed repairs" },
+                { title: "Same Day Service", desc: "Fast turnaround on intake" },
+                { title: "Customer Satisfaction", desc: "5,000+ happy clients in UP" },
+              ].map((prom, idx) => (
+                <div key={idx} className="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800/80 space-y-1">
+                  <CheckCircle2 size={16} className="text-emerald-400 mx-auto mb-1" />
+                  <div className="text-xs font-black text-white">{prom.title}</div>
+                  <div className="text-[10px] text-slate-400 font-medium">{prom.desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Shop Location, Timings & Payment Strip (From Poster Image 1 & 2) */}
+          <div className="mt-8 p-6 rounded-3xl bg-slate-900 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+            <div className="space-y-1 text-center md:text-left">
+              <div className="flex items-center justify-center md:justify-start gap-2">
+                <MapPin size={16} className="text-blue-400" />
+                <span className="text-xs font-black text-white uppercase tracking-wider">
+                  Rashoolabad Chauraha, Teliarganj, Prayagraj
+                </span>
+              </div>
+              <div className="flex items-center justify-center md:justify-start gap-2 text-xs text-slate-400 font-medium">
+                <Clock size={14} className="text-emerald-400" />
+                <span>Open Everyday: <strong className="text-white">10:00 AM – 10:00 PM</strong> (10 AM - 2 PM & 5 PM - 10 PM)</span>
+              </div>
+              <div className="text-xs text-slate-400">
+                Payment Options: <strong className="text-slate-200">Cash • UPI (GPay, PhonePe, Paytm, BHIM) • Debit/Credit Card • Wallet</strong>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-3 shrink-0">
+              <a
+                href="tel:7786961902"
+                className="px-5 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 shadow-md transition-all"
+              >
+                <Phone size={14} />
+                <span>Call 7786961902</span>
+              </a>
+
+              <a
+                href="https://wa.me/917860130721?text=Hello%20National%20Computer,%20I%20want%20to%20visit%20your%20Teliarganj%20center%20for%20laptop%20service."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 shadow-md shadow-emerald-600/20 transition-all"
+              >
+                <MessageSquare size={14} />
+                <span>WhatsApp 7860130721</span>
+              </a>
+            </div>
+          </div>
+
+        </section>
+
+        {/* ===================================================================
             SECTION E: PRIVACY-PROTECTED "TRACK YOUR REPAIR" UTILITY WIDGET
         =================================================================== */}
         <section id="track-repair" className="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full border-t border-slate-800/80">
@@ -1618,10 +2285,16 @@ export default function Home() {
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                       {[
-                        "Web Development",
+                        "Storekeeper / Retail Website",
+                        "School / College Website",
+                        "Clinic / Hospital Website",
+                        "Real Estate / Property Website",
+                        "Advocate / Legal Website",
+                        "E-Commerce Online Store",
+                        "Laptop / Chip-Level Repair",
+                        "CCTV Camera & Networking",
                         "Custom Software / ERP",
-                        "Public SaaS Store Demo",
-                        "Corporate AMC / Repair"
+                        "Public SaaS Store Demo"
                       ].map(service => {
                         const isSelected = selectedServices.includes(service);
                         return (
@@ -1747,10 +2420,10 @@ export default function Home() {
                   <div className="flex items-start gap-3">
                     <MapPin size={18} className="text-blue-400 shrink-0 mt-0.5" />
                     <div>
-                      <div className="font-bold text-white">Physical Address</div>
-                      <div className="text-slate-400 mt-0.5">
-                        Civil Lines / Katra Hub, Prayagraj (Allahabad),<br />
-                        Uttar Pradesh – 211002, India
+                      <div className="font-bold text-white">Physical Address (Service Center & Lab)</div>
+                      <div className="text-slate-300 mt-0.5 font-semibold">
+                        Rashoolabad Chauraha, Teliarganj,<br />
+                        Prayagraj (Allahabad), Uttar Pradesh – 211004, India
                       </div>
                     </div>
                   </div>
@@ -1759,9 +2432,9 @@ export default function Home() {
                     <Clock size={18} className="text-emerald-400 shrink-0 mt-0.5" />
                     <div>
                       <div className="font-bold text-white">Operating Hours</div>
-                      <div className="text-slate-400 mt-0.5">
-                        Mon – Sat: 10:00 AM – 8:30 PM<br />
-                        Sunday: Closed (Emergency AMC on call)
+                      <div className="text-slate-300 mt-0.5">
+                        <strong className="text-emerald-400">Open Everyday:</strong> 10:00 AM – 10:00 PM<br />
+                        <span className="text-slate-400 text-[11px]">(Morning Shift: 10 AM - 2 PM | Evening Shift: 5 PM - 10 PM)</span>
                       </div>
                     </div>
                   </div>
@@ -1769,20 +2442,19 @@ export default function Home() {
                   <div className="flex items-start gap-3">
                     <Phone size={18} className="text-indigo-400 shrink-0 mt-0.5" />
                     <div>
-                      <div className="font-bold text-white">Direct Phone Lines</div>
-                      <div className="text-slate-400 mt-0.5">
-                        +91 7786961902 / +91 7860130721
+                      <div className="font-bold text-white">Call & WhatsApp Hotline</div>
+                      <div className="text-slate-300 mt-0.5 font-bold">
+                        Call: <a href="tel:7786961902" className="text-white hover:text-blue-400 underline">7786961902</a> • WhatsApp: <a href="https://wa.me/917860130721" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline">7860130721</a>
                       </div>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <Mail size={18} className="text-amber-400 shrink-0 mt-0.5" />
+                    <CreditCard size={18} className="text-amber-400 shrink-0 mt-0.5" />
                     <div>
-                      <div className="font-bold text-white">Official Correspondence</div>
+                      <div className="font-bold text-white">Payment Modes Accepted</div>
                       <div className="text-slate-400 mt-0.5">
-                        info@nationalcomputerallahabad.com<br />
-                        support@refurhub.com
+                        Cash • UPI (GPay, PhonePe, Paytm, BHIM) • Debit / Credit Card • Mobile Wallets
                       </div>
                     </div>
                   </div>
@@ -1847,10 +2519,12 @@ export default function Home() {
                   <span className="font-black text-sm text-white">National Computer Allahabad</span>
                 </div>
                 <p className="text-slate-400 leading-relaxed font-medium">
-                  Prayagraj&apos;s premier IT studio & service hub. Crafting responsive web apps, custom business software, public-use repair shop SaaS, and precision chip-level hardware diagnostics since 2014.
+                  Prayagraj&apos;s trusted IT studio & hardware service lab since 2015. Located at Rashoolabad Chauraha, Teliarganj. Crafting high-converting business websites, custom software, and delivering precision chip-level laptop repair.
                 </p>
-                <div className="text-slate-500 font-semibold">
-                  Official Domain: <span className="text-slate-300">nationalcomputerallahabad.com</span>
+                <div className="text-slate-500 font-semibold text-[11px] space-y-1">
+                  <div>Rashoolabad Chauraha, Teliarganj, Prayagraj</div>
+                  <div>Open Everyday: 10:00 AM – 10:00 PM</div>
+                  <div>Call: 7786961902 • WhatsApp: 7860130721</div>
                 </div>
               </div>
 
@@ -1858,11 +2532,12 @@ export default function Home() {
               <div className="space-y-3">
                 <div className="font-bold text-xs uppercase tracking-wider text-white">Services</div>
                 <ul className="space-y-2 font-medium">
-                  <li><a href="#services" className="hover:text-white transition-colors">Custom Web Development</a></li>
-                  <li><a href="#services" className="hover:text-white transition-colors">Full-Stack Web Applications</a></li>
-                  <li><a href="#services" className="hover:text-white transition-colors">Custom ERP & CRM Engineering</a></li>
-                  <li><a href="#services" className="hover:text-white transition-colors">E-Commerce Web Platforms</a></li>
-                  <li><a href="#services" className="hover:text-white transition-colors">Chip-Level Laptop Repair & AMC</a></li>
+                  <li><a href="#business-web" className="hover:text-white transition-colors">Websites for Local Shopkeepers</a></li>
+                  <li><a href="#business-web" className="hover:text-white transition-colors">School & College Portals</a></li>
+                  <li><a href="#business-web" className="hover:text-white transition-colors">Doctor & Hospital Booking Sites</a></li>
+                  <li><a href="#business-web" className="hover:text-white transition-colors">Real Estate & Advocate Websites</a></li>
+                  <li><a href="#hardware-it" className="hover:text-white transition-colors">Chip-Level Laptop Repair & AMC</a></li>
+                  <li><a href="#hardware-it" className="hover:text-white transition-colors">CCTV Installation & Networking</a></li>
                 </ul>
               </div>
 

@@ -49,8 +49,9 @@ export default function PublicHeader() {
 
   const navLinks = [
     { name: "Home", href: "/#home" },
-    { name: "Services", href: "/#services" },
-    { name: "Our Software (SaaS)", href: "/#software", badge: "SaaS" },
+    { name: "Business Websites", href: "/#business-web" },
+    { name: "Repair & IT Hub", href: "/#hardware-it" },
+    { name: "SaaS Software", href: "/#software", badge: "SaaS" },
     { name: "Track Repair", href: "/track" },
   ];
 
