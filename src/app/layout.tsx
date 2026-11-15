@@ -17,12 +17,33 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Digital Register",
-  description: "Secure Digital Register for Laptop & PC Repair Centers",
+  title: "National Computer Allahabad | Web Development, Custom Software & Complete IT Solutions",
+  description: "National Computer Allahabad is a premier IT studio & service hub in Prayagraj offering custom web development, enterprise software engineering, public-use repair & inventory SaaS tools, and chip-level hardware diagnostics.",
+  keywords: [
+    "National Computer Allahabad",
+    "Web Development Prayagraj",
+    "Custom Software Development Allahabad",
+    "Repair Shop SaaS Software",
+    "Computer Repair Prayagraj",
+    "Refurhub",
+    "Laptop Motherboard Repair Allahabad"
+  ],
+  metadataBase: new URL("https://www.nationalcomputerallahabad.com"),
+  alternates: {
+    canonical: "https://www.nationalcomputerallahabad.com",
+  },
+  openGraph: {
+    title: "National Computer Allahabad | Web Development, Custom Software & Complete IT Solutions",
+    description: "Web development, custom software engineering, public-use repair SaaS tools, and chip-level hardware repair in Prayagraj.",
+    url: "https://www.nationalcomputerallahabad.com",
+    siteName: "National Computer Allahabad",
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0d18",
+  themeColor: "#0b1120",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
